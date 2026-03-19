@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servicii — Lup Vision | Sisteme Digitale</title>
+  <meta name="description" content="Descoperă serviciile Lup Vision: web design, magazine online, aplicații, branding, SEO și strategie digitală. Construim sisteme care cresc afaceri." />
+  <link rel="canonical" href="https://lupvision.ro/servicii.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lupvision.ro/servicii.html" />
+  <meta property="og:title" content="Servicii — Lup Vision | Sisteme Digitale" />
+  <meta property="og:description" content="Descoperă serviciile Lup Vision: web design, magazine online, aplicații, branding, SEO și strategie digitală." />
+  <style>html, body { background: #030812; }</style>
+
+  <!-- Fonturi -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Cascadia+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Design system global -->
+  <link rel="stylesheet" href="lupvision.ro-global.css">
+
+<style>
+/* ============================================================
+   SERVICII.HTML — CSS specific
+   ============================================================ */
+
+/* ── HERO ── */
+.srv-hero {
+  min-height: 70vh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 160px var(--container-pad) var(--space-10);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  position: relative; overflow: hidden;
+}
+.srv-hero-glow {
+  position: absolute; top: 40%; left: 30%;
+  transform: translate(-50%, -50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(20, 80, 200, 0.10) 0%, rgba(40, 212, 255, 0.03) 40%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+.srv-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 40% 50%, black, transparent);
+  pointer-events: none; z-index: 1;
+}
+.dv-container {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.dv-container canvas {
+  display: block; width: 100% !important; height: 100% !important;
+  mix-blend-mode: screen; opacity: 0.65;
+}
+.srv-hero-content {
+  position: relative; z-index: 10;
+  max-width: 780px;
+}
+.srv-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: var(--space-3);
+  animation: rise 0.5s ease 0.05s both;
+}
+.srv-hero-eyebrow::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--accent); opacity: 0.6;
+}
+.srv-hero h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: #fff; margin-bottom: var(--space-3);
+  animation: rise 0.7s ease 0.12s both;
+}
+.srv-hero-sub {
+  font-size: var(--text-md); color: rgba(232,237,245,0.58);
+  line-height: var(--leading-body);
+  max-width: 560px; margin-bottom: var(--space-5);
+  animation: rise 0.7s ease 0.22s both;
+}
+.srv-hero-actions {
+  display: flex; align-items: center; gap: 14px;
+  animation: rise 0.7s ease 0.32s both;
+}
+
+/* ── QUICK NAV PILLS ── */
+.srv-quicknav {
+  max-width: var(--container-max); margin: 0 auto;
+  padding: 0 var(--container-pad) var(--space-9);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.srv-qlink {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted); letter-spacing: 0.05em;
+  padding: 7px 16px; border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.025);
+  transition: color var(--transition-ui), border-color var(--transition-ui), background var(--transition-ui);
+}
+.srv-qlink::before {
+  content: '//'; opacity: 0.45; font-size: 0.6rem;
+}
+.srv-qlink:hover {
+  color: var(--accent); border-color: rgba(40,212,255,0.3);
+  background: rgba(40,212,255,0.05);
+}
+
+/* ── SERVICE DETAIL SECTIONS ── */
+.srv-section-sep {
+  max-width: var(--container-max); margin: 0 auto;
+  padding: 0 var(--container-pad);
+  border-top: 1px solid var(--border-soft);
+}
+.srv-detail {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--space-10); align-items: center;
+}
+.srv-detail--flip .srv-detail-content { order: 2; }
+.srv-detail--flip .srv-visual-panel   { order: 1; }
+
+/* Include list */
+.srv-includes {
+  list-style: none; padding: 0; margin-bottom: var(--space-5);
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--border-soft);
+}
+.srv-include-item {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: 11px 0; border-bottom: 1px solid var(--border-soft);
+  font-size: var(--text-sm); color: var(--muted);
+  line-height: var(--leading-normal);
+}
+.srv-include-item::before {
+  content: ''; display: block; flex-shrink: 0;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 6px rgba(40,212,255,0.45);
+  margin-top: 6px;
+}
+.srv-detail-desc {
+  font-size: var(--text-base); color: var(--muted);
+  line-height: var(--leading-body); margin-bottom: var(--space-5);
+  max-width: 480px;
+}
+
+/* Tech tags */
+.srv-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+.srv-tech-tag {
+  font-family: var(--font-mono); font-size: 0.6875rem;
+  color: var(--muted-2); background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-full); padding: 4px 13px;
+  letter-spacing: 0.04em;
+}
+
+/* ── VISUAL PANEL BASE ── */
+.srv-visual-panel {
+  border-radius: var(--radius-xl); border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: var(--space-5);
+  position: relative; overflow: hidden;
+  min-height: 360px;
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+.srv-visual-panel::before {
+  content: ''; position: absolute;
+  top: -100px; right: -100px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(40,212,255,0.055) 0%, transparent 70%);
+  pointer-events: none;
+}
+.srv-vis-tag {
+  font-family: var(--font-mono); font-size: 0.625rem;
+  color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* ── 1. BRANDING VISUAL ── */
+.srv-brand-display {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: var(--space-4);
+}
+.srv-brand-mark {
+  width: 108px; height: 108px; border-radius: 22px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  display: flex; align-items: center; justify-content: center;
+}
+.srv-brand-mark-text {
+  font-family: var(--font-logo); font-weight: 600;
+  font-size: 2rem; color: var(--accent); letter-spacing: 0.04em;
+}
+.srv-palette { display: flex; gap: 8px; justify-content: center; }
+.srv-swatch {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+.srv-swatch-1 { background: #28D4FF; }
+.srv-swatch-2 { background: #1a3a7a; }
+.srv-swatch-3 { background: rgba(232,237,245,0.85); }
+.srv-swatch-4 { background: #020818; }
+.srv-typo-sample {
+  display: flex; flex-direction: column; gap: 6px;
+  align-items: center; width: 100%;
+}
+.srv-typo-line {
+  border-radius: 2px; background: rgba(255,255,255,0.06);
+}
+.srv-typo-line--h { width: 150px; height: 4px; background: rgba(40,212,255,0.3); }
+.srv-typo-line--b { width: 110px; height: 3px; }
+.srv-typo-line--c { width: 130px; height: 3px; }
+.srv-brand-badge {
+  font-family: var(--font-mono); font-size: 0.625rem;
+  color: rgba(74,222,128,0.85); background: rgba(74,222,128,0.07);
+  border: 1px solid rgba(74,222,128,0.16);
+  border-radius: var(--radius-full); padding: 4px 14px;
+  letter-spacing: 0.08em;
+}
+
+/* ── 2. WEB DESIGN VISUAL ── */
+.srv-browser {
+  border-radius: 10px; border: 1px solid var(--border-soft);
+  overflow: hidden; background: rgba(2,6,16,0.85); flex: 1;
+}
+.srv-browser-bar {
+  height: 28px; background: rgba(255,255,255,0.03);
+  display: flex; align-items: center; padding: 0 12px;
+  gap: 5px; border-bottom: 1px solid var(--border-soft);
+}
+.srv-bdot { width: 6px; height: 6px; border-radius: 50%; opacity: 0.5; }
+.srv-bdot.r { background: #ff6b6b; }
+.srv-bdot.y { background: #ffd93d; }
+.srv-bdot.g { background: #6bcb77; }
+.srv-browser-url {
+  flex: 1; height: 13px; background: rgba(255,255,255,0.05);
+  border-radius: 4px; margin-left: 8px;
+}
+.srv-browser-body { padding: 12px; display: flex; flex-direction: column; gap: 7px; }
+.srv-browser-hero {
+  height: 60px; border-radius: 7px;
+  background: rgba(40,212,255,0.07); border: 1px solid rgba(40,212,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+}
+.srv-browser-hero-text {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: rgba(40,212,255,0.4); letter-spacing: 0.06em;
+}
+.srv-browser-row { display: flex; gap: 6px; }
+.srv-browser-blk { flex: 1; height: 10px; border-radius: 4px; background: rgba(255,255,255,0.05); }
+.srv-browser-blk.lit { background: rgba(40,212,255,0.1); flex: 0.7; }
+.srv-browser-cards { display: flex; gap: 6px; }
+.srv-browser-card {
+  flex: 1; height: 38px; border-radius: 6px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft);
+}
+.srv-scores {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+}
+.srv-score-cell {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md); padding: 10px 6px; text-align: center;
+}
+.srv-score-val {
+  font-weight: var(--weight-bold); font-size: var(--text-sm);
+  color: var(--accent); display: block; line-height: 1;
+}
+.srv-score-val.green { color: #4ade80; }
+.srv-score-lbl { font-size: 0.55rem; color: var(--muted-2); margin-top: 4px; }
+
+/* ── 3. APPS VISUAL ── */
+.srv-apps-display {
+  flex: 1; display: flex; align-items: center;
+  justify-content: center; gap: var(--space-5);
+}
+.srv-phone {
+  width: 86px; height: 156px; border-radius: 18px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(2,6,18,0.95);
+  display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
+}
+.srv-ph-notch {
+  width: 28px; height: 5px; border-radius: 3px;
+  background: rgba(255,255,255,0.1); margin: 9px auto 10px;
+}
+.srv-ph-screen { padding: 0 7px; display: flex; flex-direction: column; gap: 5px; }
+.srv-ph-bar {
+  height: 9px; border-radius: 4px;
+  background: rgba(40,212,255,0.2); margin-bottom: 3px;
+}
+.srv-ph-card {
+  height: 30px; border-radius: 7px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border-soft);
+  display: flex; align-items: center; gap: 6px; padding: 0 7px;
+}
+.srv-ph-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(40,212,255,0.35); flex-shrink: 0;
+}
+.srv-ph-dot--dim { background: rgba(255,255,255,0.14); }
+.srv-ph-lines { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.srv-ph-line { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.1); }
+.srv-ph-line.s { width: 62%; }
+.srv-platforms { display: flex; flex-direction: column; gap: 8px; }
+.srv-platform-badge {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 16px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm); font-weight: var(--weight-medium);
+  color: rgba(232,237,245,0.8); white-space: nowrap;
+}
+.srv-platform-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 5px rgba(40,212,255,0.55);
+  flex-shrink: 0;
+}
+
+/* ── 4. ECOMMERCE VISUAL ── */
+.srv-ecom-display { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); }
+.srv-ecom-header {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding-bottom: var(--space-2); border-bottom: 1px solid var(--border-soft);
+}
+.srv-ecom-title {
+  font-family: var(--font-mono); font-size: 0.625rem;
+  color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
+}
+.srv-live-badge { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; }
+.srv-live-text {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: rgba(74,222,128,0.9); letter-spacing: 0.06em;
+}
+.srv-live-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #4ade80; box-shadow: 0 0 5px rgba(74,222,128,0.6);
+  animation: ecom-pulse 2s ease infinite;
+}
+@keyframes ecom-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+.srv-ecom-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.srv-ecom-stat {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md); padding: 10px 12px;
+}
+.srv-ecom-stat .val {
+  font-weight: var(--weight-bold); font-size: var(--text-lg);
+  color: var(--accent); line-height: 1; display: block;
+}
+.srv-ecom-stat .val.green { color: #4ade80; }
+.srv-ecom-stat .lbl { font-size: 0.6875rem; color: var(--muted); margin-top: 4px; display: block; }
+.srv-ecom-products { display: flex; gap: 6px; }
+.srv-ecom-product {
+  flex: 1; background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: 8px;
+}
+.srv-ecom-product-img {
+  height: 36px; border-radius: 6px;
+  background: rgba(40,212,255,0.07); border: 1px solid rgba(40,212,255,0.1);
+  margin-bottom: 6px;
+}
+.srv-ecom-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.08); margin-bottom: 3px; }
+.srv-ecom-line.w7 { width: 70%; }
+.srv-ecom-price { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); }
+
+/* ── 5. SEO VISUAL ── */
+.srv-seo-display {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: var(--space-3);
+}
+.srv-seo-ring {
+  width: 112px; height: 112px; border-radius: 50%;
+  border: 2px solid rgba(40,212,255,0.25);
+  background: rgba(40,212,255,0.04);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  box-shadow: 0 0 50px rgba(40,212,255,0.09);
+  position: relative;
+}
+.srv-seo-ring::before {
+  content: ''; position: absolute;
+  inset: 6px; border-radius: 50%; border: 1px solid rgba(40,212,255,0.1);
+}
+.srv-seo-num {
+  font-weight: var(--weight-extrabold); font-size: 2.1rem;
+  color: var(--accent); line-height: 1;
+}
+.srv-seo-sublbl {
+  font-size: 0.5rem; color: var(--muted-2);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px;
+}
+.srv-seo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%; }
+.srv-seo-cell {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md); padding: 10px;
+}
+.srv-seo-cell .val {
+  font-weight: var(--weight-bold); font-size: var(--text-base);
+  color: var(--accent); line-height: 1; display: block;
+}
+.srv-seo-cell .lbl { font-size: 0.625rem; color: var(--muted); margin-top: 4px; display: block; }
+
+/* ── 6. STRATEGIE VISUAL ── */
+.srv-strat-display { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.srv-strat-step {
+  display: flex; gap: var(--space-2); align-items: flex-start;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md); border: 1px solid var(--border-soft);
+  background: rgba(255,255,255,0.025);
+  position: relative; overflow: hidden;
+}
+.srv-strat-step--active {
+  border-color: rgba(40,212,255,0.22); background: rgba(40,212,255,0.04);
+}
+.srv-strat-step--active::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent);
+}
+.srv-strat-nd {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(40,212,255,0.3); background: rgba(40,212,255,0.06);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 0.55rem; color: rgba(40,212,255,0.8);
+}
+.srv-strat-nd--active { background: rgba(40,212,255,0.12); border-color: rgba(40,212,255,0.5); }
+.srv-strat-label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--text); }
+.srv-strat-sub  { font-size: 0.6875rem; color: var(--muted-2); margin-top: 2px; }
+.srv-strat-prog { height: 2px; background: rgba(255,255,255,0.05); border-radius: 2px; margin-top: 6px; }
+.srv-strat-fill { height: 2px; border-radius: 2px; background: rgba(40,212,255,0.65); }
+
+/* ── FAQ ── */
+/* Copiat din index.html — candidat de promovare la sync point */
+.faq-body {
+  display: grid; grid-template-columns: 2fr 3fr;
+  gap: var(--space-10); align-items: start;
+}
+.faq-left { position: sticky; top: 110px; }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item { border-bottom: 1px solid var(--border-soft); }
+.faq-item:first-child { border-top: 1px solid var(--border-soft); }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: var(--space-4) 0;
+  font-family: var(--font-sans); font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: rgba(232,237,245,0.72); cursor: pointer;
+  gap: var(--space-3); transition: color var(--transition-ui); text-align: left;
+}
+.faq-q:hover, .faq-item.is-open .faq-q { color: var(--text); }
+.faq-q:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.faq-icon {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color var(--transition-ui), transform var(--transition-ui), background var(--transition-ui);
+}
+.faq-icon svg { width: 10px; height: 10px; stroke: var(--muted-2); stroke-linecap: round; transition: stroke var(--transition-ui); }
+.faq-item.is-open .faq-icon { border-color: rgba(40,212,255,0.28); transform: rotate(45deg); background: rgba(40,212,255,0.05); }
+.faq-item.is-open .faq-icon svg { stroke: var(--accent); }
+.faq-a-wrap { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+.faq-a { padding-bottom: var(--space-5); font-size: var(--text-sm); color: var(--muted); line-height: var(--leading-body); }
+
+/* ── CTA FINAL ── */
+.srv-cta { text-align: center; position: relative; }
+.srv-cta-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(20,80,200,0.09) 0%, rgba(40,212,255,0.025) 40%, transparent 70%);
+  pointer-events: none;
+}
+.srv-cta-border {
+  position: absolute; top: 0;
+  left: var(--container-pad); right: var(--container-pad); height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(40,212,255,0.16), transparent);
+}
+.srv-cta-title {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: var(--weight-extrabold); letter-spacing: -0.035em;
+  line-height: 1.08; color: #fff;
+  margin-bottom: var(--space-3); max-width: 660px;
+  margin-left: auto; margin-right: auto;
+}
+.srv-cta-text {
+  font-size: var(--text-base); color: var(--muted);
+  max-width: 420px; margin: 0 auto var(--space-7); line-height: var(--leading-body);
+}
+.srv-cta-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1099px) {
+  .srv-hero    { min-height: 60vh; }
+  .srv-detail  { grid-template-columns: 1fr; gap: var(--space-7); }
+  .srv-detail--flip .srv-detail-content { order: 0; }
+  .srv-detail--flip .srv-visual-panel   { order: 0; }
+  .srv-visual-panel { min-height: 280px; }
+  .faq-body    { grid-template-columns: 1fr; gap: var(--space-7); }
+  .faq-left    { position: static; }
+}
+@media (max-width: 767px) {
+  .srv-hero          { padding: 120px var(--container-pad) var(--space-7); min-height: auto; }
+  .srv-hero-actions  { flex-direction: column; align-items: stretch; }
+  .srv-quicknav      { gap: 6px; }
+  .srv-scores        { grid-template-columns: repeat(2, 1fr); }
+  .srv-apps-display  { flex-direction: column; gap: var(--space-3); }
+  .srv-phone         { width: 72px; height: 130px; }
+  .srv-ecom-stats    { grid-template-columns: repeat(2, 1fr); }
+  .srv-cta-actions   { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Sari la conținut</a>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <a class="logo" href="index.html">&lt;lup vision&gt;</a>
+
+  <nav aria-label="Navigare principală">
+    <a href="servicii.html" aria-current="page">Servicii</a>
+    <a href="proiecte.html">Proiecte</a>
+    <a href="misiunea-noastra.html">Misiunea noastră</a>
+    <a href="contact.html" class="nav-cta">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Începe proiectul
+    </a>
+  </nav>
+
+  <button class="hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div id="dv-menu"></div>
+  <a href="servicii.html" aria-current="page">Servicii</a>
+  <a href="proiecte.html">Proiecte</a>
+  <a href="misiunea-noastra.html">Misiunea noastră</a>
+  <a href="contact.html" class="nav-cta">
+    <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+    <span class="glow-shine" aria-hidden="true"></span>
+    Începe proiectul
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ══════════ HERO ══════════ -->
+<div class="srv-hero">
+
+  <div id="dv-hero" class="dv-container"></div>
+  <div class="srv-hero-glow" aria-hidden="true"></div>
+  <div class="srv-hero-grid" aria-hidden="true"></div>
+
+  <div class="srv-hero-content">
+    <span class="srv-hero-eyebrow">Ce construim</span>
+    <h1>Sisteme digitale care<br><em>vând, cresc și rezistă.</em></h1>
+    <p class="srv-hero-sub">De la identitate vizuală la platforme scalabile — fiecare serviciu este construit cu scop clar, nu cu template reciclat.</p>
+    <div class="srv-hero-actions">
+      <a href="contact.html" class="btn-main">
+        <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+        <span class="glow-shine" aria-hidden="true"></span>
+        Începe proiectul
+      </a>
+      <a href="#identitate-vizuala" class="btn-ghost">
+        <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+        <span class="glow-shine" aria-hidden="true"></span>
+        Explorează serviciile
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /srv-hero -->
+
+<!-- ══════════ QUICK NAV ══════════ -->
+<nav class="srv-quicknav" aria-label="Navigare servicii">
+  <a href="#identitate-vizuala" class="srv-qlink">branding</a>
+  <a href="#web-design" class="srv-qlink">web.design + dev</a>
+  <a href="#platforme-aplicatii" class="srv-qlink">platforms + apps</a>
+  <a href="#magazine-online" class="srv-qlink">e-commerce</a>
+  <a href="#optimizare-seo" class="srv-qlink">seo</a>
+  <a href="#strategie-digitala" class="srv-qlink">strategie</a>
+</nav>
+
+<!-- ══════════ 1. IDENTITATE VIZUALĂ ══════════ -->
+<div class="srv-section-sep" aria-hidden="true"></div>
+<section id="identitate-vizuala" class="section">
+  <div class="srv-detail">
+
+    <div class="srv-detail-content reveal">
+      <span class="section-label">Branding</span>
+      <h2>Identitate vizuală<br><em>care rămâne.</em></h2>
+      <p class="srv-detail-desc">Un brand slab se vede imediat. Construim sisteme de identitate coerente — logo, culori, tipografie, pattern-uri — care creează recunoaștere și transmit credibilitate la prima vedere.</p>
+      <ul class="srv-includes">
+        <li class="srv-include-item">Cercetare și poziționare brand</li>
+        <li class="srv-include-item">Logo design + variante (mono, alb, negru, favicon)</li>
+        <li class="srv-include-item">Sistem de culori și tipografie</li>
+        <li class="srv-include-item">Ghid de identitate vizuală complet (brandbook)</li>
+        <li class="srv-include-item">Template-uri materiale (prezentare, social media, cărți de vizită)</li>
+      </ul>
+      <div class="srv-tech">
+        <span class="srv-tech-tag">Figma</span>
+        <span class="srv-tech-tag">Illustrator</span>
+        <span class="srv-tech-tag">Design System</span>
+        <span class="srv-tech-tag">Style Guide</span>
+      </div>
+    </div>
+
+    <div class="srv-visual-panel reveal">
+      <div class="srv-vis-tag">// branding system</div>
+      <div class="srv-brand-display">
+        <div class="srv-brand-mark">
+          <span class="srv-brand-mark-text">lup</span>
+        </div>
+        <div class="srv-palette">
+          <div class="srv-swatch srv-swatch-1"></div>
+          <div class="srv-swatch srv-swatch-2"></div>
+          <div class="srv-swatch srv-swatch-3"></div>
+          <div class="srv-swatch srv-swatch-4"></div>
+        </div>
+        <div class="srv-typo-sample">
+          <div class="srv-typo-line srv-typo-line--h"></div>
+          <div class="srv-typo-line srv-typo-line--b"></div>
+          <div class="srv-typo-line srv-typo-line--c"></div>
+        </div>
+        <div class="srv-brand-badge">Sistem de design complet ✓</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 2. WEB DESIGN & DEVELOPMENT ══════════ -->
+<div class="srv-section-sep" aria-hidden="true"></div>
+<section id="web-design" class="section">
+  <div class="srv-detail srv-detail--flip">
+
+    <div class="srv-detail-content reveal">
+      <span class="section-label">Web Design + Dev</span>
+      <h2>Site-uri care<br><em>convertesc.</em></h2>
+      <p class="srv-detail-desc">Nu facem site-uri frumoase care nu vând. Fiecare pagină este construită cu logică de conversie, viteză maximă și structură SEO solidă din prima zi.</p>
+      <ul class="srv-includes">
+        <li class="srv-include-item">Design UI/UX personalizat — zero template-uri reciclate</li>
+        <li class="srv-include-item">Dezvoltare front-end performantă și scalabilă</li>
+        <li class="srv-include-item">Structură SEO tehnică corectă de la început</li>
+        <li class="srv-include-item">Core Web Vitals optimizate — Lighthouse 99+</li>
+        <li class="srv-include-item">CMS integrat (WordPress, Webflow sau headless)</li>
+        <li class="srv-include-item">Responsive complet + testare cross-browser</li>
+      </ul>
+      <div class="srv-tech">
+        <span class="srv-tech-tag">React / Next.js</span>
+        <span class="srv-tech-tag">WordPress</span>
+        <span class="srv-tech-tag">Webflow</span>
+        <span class="srv-tech-tag">Figma</span>
+        <span class="srv-tech-tag">Vercel</span>
+      </div>
+    </div>
+
+    <div class="srv-visual-panel reveal">
+      <div class="srv-vis-tag">// performance audit</div>
+      <div class="srv-browser">
+        <div class="srv-browser-bar">
+          <div class="srv-bdot r"></div>
+          <div class="srv-bdot y"></div>
+          <div class="srv-bdot g"></div>
+          <div class="srv-browser-url"></div>
+        </div>
+        <div class="srv-browser-body">
+          <div class="srv-browser-hero"><div class="srv-browser-hero-text">hero section</div></div>
+          <div class="srv-browser-row">
+            <div class="srv-browser-blk lit"></div>
+            <div class="srv-browser-blk"></div>
+            <div class="srv-browser-blk"></div>
+          </div>
+          <div class="srv-browser-cards">
+            <div class="srv-browser-card"></div>
+            <div class="srv-browser-card"></div>
+            <div class="srv-browser-card"></div>
+          </div>
+        </div>
+      </div>
+      <div class="srv-scores">
+        <div class="srv-score-cell">
+          <span class="srv-score-val">99</span>
+          <div class="srv-score-lbl">Performance</div>
+        </div>
+        <div class="srv-score-cell">
+          <span class="srv-score-val">100</span>
+          <div class="srv-score-lbl">SEO</div>
+        </div>
+        <div class="srv-score-cell">
+          <span class="srv-score-val green">97</span>
+          <div class="srv-score-lbl">A11y</div>
+        </div>
+        <div class="srv-score-cell">
+          <span class="srv-score-val">100</span>
+          <div class="srv-score-lbl">Best Pract.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 3. PLATFORME & APLICAȚII ══════════ -->
+<div class="srv-section-sep" aria-hidden="true"></div>
+<section id="platforme-aplicatii" class="section">
+  <div class="srv-detail">
+
+    <div class="srv-detail-content reveal">
+      <span class="section-label">Platforms + Apps</span>
+      <h2>Aplicații care<br><em>funcționează.</em></h2>
+      <p class="srv-detail-desc">Platforme web, aplicații mobile native sau cross-platform — construite cu arhitectură scalabilă și experiențe de utilizare care rețin utilizatorii pe termen lung.</p>
+      <ul class="srv-includes">
+        <li class="srv-include-item">Aplicații iOS și Android native</li>
+        <li class="srv-include-item">Aplicații cross-platform (React Native / Flutter)</li>
+        <li class="srv-include-item">Web apps și platforme SaaS</li>
+        <li class="srv-include-item">API design și integrări backend</li>
+        <li class="srv-include-item">Autentificare, baze de date, infrastructură cloud</li>
+        <li class="srv-include-item">Publicare App Store &amp; Google Play</li>
+      </ul>
+      <div class="srv-tech">
+        <span class="srv-tech-tag">React Native</span>
+        <span class="srv-tech-tag">Flutter</span>
+        <span class="srv-tech-tag">Node.js</span>
+        <span class="srv-tech-tag">PostgreSQL</span>
+        <span class="srv-tech-tag">AWS</span>
+        <span class="srv-tech-tag">Supabase</span>
+      </div>
+    </div>
+
+    <div class="srv-visual-panel reveal">
+      <div class="srv-vis-tag">// multiplatform</div>
+      <div class="srv-apps-display">
+        <div class="srv-phone">
+          <div class="srv-ph-notch"></div>
+          <div class="srv-ph-screen">
+            <div class="srv-ph-bar"></div>
+            <div class="srv-ph-card">
+              <div class="srv-ph-dot"></div>
+              <div class="srv-ph-lines">
+                <div class="srv-ph-line"></div>
+                <div class="srv-ph-line s"></div>
+              </div>
+            </div>
+            <div class="srv-ph-card" style="background:rgba(40,212,255,0.05);">
+              <div class="srv-ph-dot srv-ph-dot--dim"></div>
+              <div class="srv-ph-lines">
+                <div class="srv-ph-line"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="srv-platforms">
+          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>iOS App</div>
+          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>Android App</div>
+          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>Web App</div>
+          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>PWA</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 4. MAGAZINE ONLINE ══════════ -->
+<div class="srv-section-sep" aria-hidden="true"></div>
+<section id="magazine-online" class="section">
+  <div class="srv-detail srv-detail--flip">
+
+    <div class="srv-detail-content reveal">
+      <span class="section-label">E-Commerce</span>
+      <h2>Magazine care<br><em>vând nonstop.</em></h2>
+      <p class="srv-detail-desc">E-commerce construit pentru conversii reale, nu pentru bifat o căsuță. Plăți integrate, stoc automatizat, SEO tehnic și viteze de încărcare sub 1 secundă.</p>
+      <ul class="srv-includes">
+        <li class="srv-include-item">Design personalizat orientat pe conversie</li>
+        <li class="srv-include-item">Plăți integrate (Stripe, PayU, card, transfer)</li>
+        <li class="srv-include-item">Gestiune stoc și comenzi automatizată</li>
+        <li class="srv-include-item">SEO tehnic și on-page pentru fiecare produs</li>
+        <li class="srv-include-item">Integrare curierat și facturare automată</li>
+        <li class="srv-include-item">Rapoarte și analytics avansate (GA4, Data Studio)</li>
+      </ul>
+      <div class="srv-tech">
+        <span class="srv-tech-tag">WooCommerce</span>
+        <span class="srv-tech-tag">Shopify</span>
+        <span class="srv-tech-tag">Custom</span>
+        <span class="srv-tech-tag">Stripe</span>
+        <span class="srv-tech-tag">PayU</span>
+      </div>
+    </div>
+
+    <div class="srv-visual-panel reveal">
+      <div class="srv-vis-tag">// sales dashboard</div>
+      <div class="srv-ecom-display">
+        <div class="srv-ecom-header">
+          <span class="srv-ecom-title">Sales Dashboard</span>
+          <span class="srv-live-badge">
+            <span class="srv-live-dot"></span>
+            <span class="srv-live-text">Live</span>
+          </span>
+        </div>
+        <div class="srv-ecom-stats">
+          <div class="srv-ecom-stat">
+            <span class="val green">+340%</span>
+            <span class="lbl">Conversii</span>
+          </div>
+          <div class="srv-ecom-stat">
+            <span class="val">99ms</span>
+            <span class="lbl">Load time</span>
+          </div>
+          <div class="srv-ecom-stat">
+            <span class="val">4.9★</span>
+            <span class="lbl">UX Score</span>
+          </div>
+          <div class="srv-ecom-stat">
+            <span class="val">24/7</span>
+            <span class="lbl">Automat</span>
+          </div>
+        </div>
+        <div class="srv-ecom-products">
+          <div class="srv-ecom-product">
+            <div class="srv-ecom-product-img"></div>
+            <div class="srv-ecom-line"></div>
+            <div class="srv-ecom-line w7"></div>
+            <div class="srv-ecom-price">199 RON</div>
+          </div>
+          <div class="srv-ecom-product">
+            <div class="srv-ecom-product-img"></div>
+            <div class="srv-ecom-line"></div>
+            <div class="srv-ecom-line w7"></div>
+            <div class="srv-ecom-price">349 RON</div>
+          </div>
+          <div class="srv-ecom-product">
+            <div class="srv-ecom-product-img"></div>
+            <div class="srv-ecom-line"></div>
+            <div class="srv-ecom-line w7"></div>
+            <div class="srv-ecom-price">89 RON</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 5. OPTIMIZARE SEO ══════════ -->
+<div class="srv-section-sep" aria-hidden="true"></div>
+<section id="optimizare-seo" class="section">
+  <div class="srv-detail">
+
+    <div class="srv-detail-content reveal">
+      <span class="section-label">SEO</span>
+      <h2>Vizibilitate care<br><em>aduce clienți.</em></h2>
+      <p class="srv-detail-desc">Nu creștem trafic la întâmplare. Fiecare strategie SEO e bazată pe date reale — keyword research, audit tehnic, optimizare on-page și link building cu ROI măsurabil.</p>
+      <ul class="srv-includes">
+        <li class="srv-include-item">Audit SEO tehnic complet</li>
+        <li class="srv-include-item">Keyword research și strategie de conținut</li>
+        <li class="srv-include-item">Optimizare on-page (titluri, meta, structură, schema)</li>
+        <li class="srv-include-item">Core Web Vitals și optimizare viteză</li>
+        <li class="srv-include-item">Link building și autoritate de domeniu</li>
+        <li class="srv-include-item">Rapoarte lunare de performanță și progres</li>
+      </ul>
+      <div class="srv-tech">
+        <span class="srv-tech-tag">Ahrefs</span>
+        <span class="srv-tech-tag">Search Console</span>
+        <span class="srv-tech-tag">Semrush</span>
+        <span class="srv-tech-tag">PageSpeed</span>
+        <span class="srv-tech-tag">GA4</span>
+      </div>
+    </div>
+
+    <div class="srv-visual-panel reveal">
+      <div class="srv-vis-tag">// seo performance</div>
+      <div class="srv-seo-display">
+        <div class="srv-seo-ring">
+          <div class="srv-seo-num">99</div>
+          <div class="srv-seo-sublbl">Scor</div>
+        </div>
+        <div class="srv-seo-grid">
+          <div class="srv-seo-cell"><span class="val">#1</span><span class="lbl">Google ranking</span></div>
+          <div class="srv-seo-cell"><span class="val">↑87%</span><span class="lbl">Trafic organic</span></div>
+          <div class="srv-seo-cell"><span class="val">3x</span><span class="lbl">ROI mediu</span></div>
+          <div class="srv-seo-cell"><span class="val">CWV ✓</span><span class="lbl">Core Web Vitals</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 6. STRATEGIE DIGITALĂ ══════════ -->
+<div class="srv-section-sep" aria-hidden="true"></div>
+<section id="strategie-digitala" class="section">
+  <div class="srv-detail srv-detail--flip">
+
+    <div class="srv-detail-content reveal">
+      <span class="section-label">Strategie</span>
+      <h2>Un plan clar<br><em>pentru creștere.</em></h2>
+      <p class="srv-detail-desc">Dacă nu știi unde vrei să ajungi, orice direcție sună bine. Construim strategii digitale bazate pe date, cu obiective clare și un sistem de execuție care funcționează fără supraveghere constantă.</p>
+      <ul class="srv-includes">
+        <li class="srv-include-item">Audit digital complet (site, SEO, prezență online)</li>
+        <li class="srv-include-item">Analiza concurenței și oportunități de piață</li>
+        <li class="srv-include-item">Obiective clare și KPI-uri măsurabile</li>
+        <li class="srv-include-item">Plan de conținut și comunicare</li>
+        <li class="srv-include-item">Roadmap de implementare pe 3–12 luni</li>
+        <li class="srv-include-item">Sesiuni periodice de review și ajustare</li>
+      </ul>
+      <div class="srv-tech">
+        <span class="srv-tech-tag">GA4</span>
+        <span class="srv-tech-tag">Hotjar</span>
+        <span class="srv-tech-tag">Notion</span>
+        <span class="srv-tech-tag">Ahrefs</span>
+        <span class="srv-tech-tag">Data Studio</span>
+      </div>
+    </div>
+
+    <div class="srv-visual-panel reveal">
+      <div class="srv-vis-tag">// roadmap digital</div>
+      <div class="srv-strat-display">
+        <div class="srv-strat-step srv-strat-step--active">
+          <div class="srv-strat-nd srv-strat-nd--active">01</div>
+          <div>
+            <div class="srv-strat-label">Audit &amp; Cercetare</div>
+            <div class="srv-strat-sub">Date reale, nu presupuneri</div>
+            <div class="srv-strat-prog"><div class="srv-strat-fill" style="width:92%"></div></div>
+          </div>
+        </div>
+        <div class="srv-strat-step">
+          <div class="srv-strat-nd">02</div>
+          <div>
+            <div class="srv-strat-label">Strategie &amp; Obiective</div>
+            <div class="srv-strat-sub">KPI-uri și prioritizare</div>
+            <div class="srv-strat-prog"><div class="srv-strat-fill" style="width:72%"></div></div>
+          </div>
+        </div>
+        <div class="srv-strat-step">
+          <div class="srv-strat-nd">03</div>
+          <div>
+            <div class="srv-strat-label">Plan de Acțiune</div>
+            <div class="srv-strat-sub">Roadmap pe 3–12 luni</div>
+            <div class="srv-strat-prog"><div class="srv-strat-fill" style="width:56%"></div></div>
+          </div>
+        </div>
+        <div class="srv-strat-step">
+          <div class="srv-strat-nd">04</div>
+          <div>
+            <div class="srv-strat-label">Execuție &amp; Scalare</div>
+            <div class="srv-strat-sub">Sistem, nu campanie</div>
+            <div class="srv-strat-prog"><div class="srv-strat-fill" style="width:40%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="section">
+  <div class="faq-body">
+    <div class="faq-left reveal">
+      <span class="section-label">Întrebări frecvente</span>
+      <h2>Înainte să<br>ne <em>contactezi.</em></h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item reveal-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="sfaq-1">
+          Pot comanda un singur serviciu sau trebuie pachete?
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a-wrap" id="sfaq-1">
+          <p class="faq-a">Poți comanda exact ce ai nevoie. Nu impunem pachete forțate. Lucrăm punctual — doar SEO, doar branding, sau un proiect complet de la zero. Discutăm nevoile și propunem ce are sens pentru situația ta.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="sfaq-2">
+          Lucrați cu orice tip de afacere?
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a-wrap" id="sfaq-2">
+          <p class="faq-a">Lucrăm cu antreprenori, IMM-uri și companii medii din orice industrie — de la e-commerce la servicii B2B, de la startup-uri la branduri consacrate. Dacă ai un obiectiv digital clar, putem construi drumul.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="sfaq-3">
+          Cât costă și cum înceapem colaborarea?
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a-wrap" id="sfaq-3">
+          <p class="faq-a">Prețurile variază în funcție de complexitate și obiective. Lucrăm cu bugete de la 1.500€ pentru servicii punctuale până la 15.000€+ pentru proiecte complexe. Completează formularul de contact — îți trimitem o estimare clară în 24 de ore.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="sfaq-4">
+          Oferiți și suport după livrarea proiectului?
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a-wrap" id="sfaq-4">
+          <p class="faq-a">Da. Avem pachete de mentenanță și suport continuu — actualizări tehnice, monitoring, modificări rapide. Clienții cu relații pe termen lung primesc și sesiuni periodice de strategie incluse.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA FINAL ══════════ -->
+<section class="section srv-cta">
+  <div class="srv-cta-glow" aria-hidden="true"></div>
+  <div class="srv-cta-border" aria-hidden="true"></div>
+  <span class="section-label reveal">Hai să construim</span>
+  <h2 class="srv-cta-title reveal">Știi ce ai nevoie?<br><em>Noi știm cum să o construim.</em></h2>
+  <p class="srv-cta-text reveal">Spune-ne obiectivul. Noi alegem serviciile potrivite și construim sistemul care te duce acolo.</p>
+  <div class="srv-cta-actions reveal">
+    <a href="contact.html" class="btn-main">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Începe proiectul
+    </a>
+    <a href="contact.html#programeaza" class="btn-ghost">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Programează o discuție
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">&lt;lup vision&gt;</a>
+      <p class="footer-desc">Construim sisteme digitale pentru companii care vor să crească. Prezența ta digitală de neignorat.</p>
+      <div class="footer-social">
+        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <nav class="footer-nav" aria-label="Navigare footer">
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Servicii</span>
+        <a href="servicii.html#identitate-vizuala">Identitate Vizuală</a>
+        <a href="servicii.html#web-design">Web Design &amp; Dev</a>
+        <a href="servicii.html#platforme-aplicatii">Platforme &amp; Aplicații</a>
+        <a href="servicii.html#magazine-online">Magazine Online</a>
+        <a href="servicii.html#optimizare-seo">Optimizare SEO</a>
+        <a href="servicii.html#strategie-digitala">Strategie Digitală</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Companie</span>
+        <a href="servicii.html">Servicii</a>
+        <a href="proiecte.html">Proiecte</a>
+        <a href="misiunea-noastra.html">Misiunea noastră</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html#programeaza">Programează o discuție</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Legal</span>
+        <a href="confidentialitate.html">Politică de confidențialitate</a>
+        <a href="termeni.html">Termeni și condiții</a>
+        <a href="cookies.html">Politică de cookie-uri</a>
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Lup Vision. Toate drepturile rezervate.</span>
+    <span class="footer-tagline">Prezența digitală este cartea de vizită a afacerii tale. Noi o facem de neignorat.</span>
+    <nav class="footer-legal" aria-label="Navigare legală">
+      <a href="confidentialitate.html">Confidențialitate</a>
+      <a href="termeni.html">Termeni</a>
+      <a href="cookies.html">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Global JS -->
+<script src="lupvision.ro-global.js"></script>
+
+<script>
+/* ============================================================
+   SERVICII.HTML — JS specific
+   ============================================================ */
+
+/* ── Reveal stagger — overcard stagger delays ── */
+(function () {
+  var faqItems = document.querySelectorAll('.faq-item.reveal-item');
+  var faqDelays = [0, 0.08, 0.14, 0.20];
+  faqItems.forEach(function (el, i) {
+    var delay = faqDelays[i] || 0;
+    if (!delay) return;
+    el.style.transitionDelay = delay + 's';
+    el.addEventListener('transitionend', function clear(e) {
+      if (e.propertyName === 'opacity') {
+        el.style.transitionDelay = '';
+        el.removeEventListener('transitionend', clear);
+      }
+    });
+  });
+})();
+
+/* ── FAQ Accordion ── */
+(function () {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const btn   = item.querySelector('.faq-q');
+    const panel = item.querySelector('.faq-a-wrap');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      items.forEach(i => {
+        const b = i.querySelector('.faq-q');
+        const p = i.querySelector('.faq-a-wrap');
+        if (b) b.setAttribute('aria-expanded', 'false');
+        if (p) p.style.maxHeight = '0';
+        i.classList.remove('is-open');
+      });
+
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        item.classList.add('is-open');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proiecte — Lup Vision | Portofoliu</title>
+  <meta name="description" content="Proiectele Lup Vision — site-uri, magazine online, platforme și branding care au produs rezultate reale pentru clienții noștri." />
+  <link rel="canonical" href="https://lupvision.ro/proiecte.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lupvision.ro/proiecte.html" />
+  <meta property="og:title" content="Proiecte — Lup Vision | Portofoliu" />
+  <meta property="og:description" content="Proiectele Lup Vision — rezultate reale pentru clienți reali." />
+  <style>html, body { background: #030812; }</style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Cascadia+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="lupvision.ro-global.css">
+
+<style>
+/* ============================================================
+   PROIECTE.HTML — CSS specific
+   ============================================================ */
+
+/* ── HERO ── */
+.prj-hero {
+  padding: 160px var(--container-pad) var(--space-8);
+  max-width: var(--container-max); margin: 0 auto;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.prj-hero-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -55%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse at center,
+    rgba(20,80,200,0.10) 0%, rgba(40,212,255,0.03) 45%, transparent 70%);
+  pointer-events: none;
+}
+.prj-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+  pointer-events: none;
+}
+.dv-container {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.dv-container canvas {
+  display: block; width: 100% !important; height: 100% !important;
+  mix-blend-mode: screen; opacity: 0.6;
+}
+.prj-hero-content { position: relative; z-index: 10; max-width: 680px; margin: 0 auto; }
+.prj-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: var(--space-3); animation: rise 0.5s ease 0.05s both;
+}
+.prj-hero-eyebrow::before,
+.prj-hero-eyebrow::after {
+  content: ''; display: block; width: 20px; height: 1px; background: var(--accent); opacity: 0.6;
+}
+.prj-hero h1 {
+  font-size: var(--text-h1); font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight); line-height: var(--leading-tight);
+  color: #fff; margin-bottom: var(--space-3);
+  animation: rise 0.7s ease 0.12s both;
+}
+.prj-hero-sub {
+  font-size: var(--text-md); color: rgba(232,237,245,0.58);
+  line-height: var(--leading-body);
+  animation: rise 0.7s ease 0.22s both;
+}
+
+/* ── FILTER BAR ── */
+.prj-filter-wrap {
+  max-width: var(--container-max); margin: 0 auto;
+  padding: 0 var(--container-pad) var(--space-8);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.prj-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted); letter-spacing: 0.05em;
+  padding: 7px 16px; border-radius: var(--radius-full);
+  border: 1px solid var(--border); background: rgba(255,255,255,0.025);
+  cursor: pointer; transition: color var(--transition-ui), border-color var(--transition-ui), background var(--transition-ui);
+  user-select: none;
+}
+.prj-pill:hover {
+  color: var(--text); border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+}
+.prj-pill.is-active {
+  color: var(--accent); border-color: rgba(40,212,255,0.35);
+  background: rgba(40,212,255,0.07);
+}
+.prj-pill-count {
+  font-size: 0.6rem; background: rgba(255,255,255,0.08);
+  border-radius: 99px; padding: 1px 6px; color: var(--muted-2);
+  transition: background var(--transition-ui), color var(--transition-ui);
+}
+.prj-pill.is-active .prj-pill-count { background: rgba(40,212,255,0.15); color: var(--accent); }
+
+/* ── PROJECT CARD ── */
+/* Re-definit local — candidat de promovare la sync point */
+.proj-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+.proj-card {
+  border-radius: var(--radius-lg); border: 1px solid var(--border);
+  background: var(--bg-card); overflow: hidden;
+  transition: border-color var(--transition-ui), box-shadow var(--transition-ui), transform var(--transition-fx);
+  cursor: pointer;
+}
+.proj-card:hover {
+  border-color: rgba(40,212,255,0.18);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+  transform: translateY(-3px);
+}
+.proj-card.is-hidden {
+  display: none;
+}
+.proj-visual { height: 200px; position: relative; overflow: hidden; }
+.proj-visual-bg { position: absolute; inset: 0; }
+.proj-visual-tag {
+  position: absolute; top: 14px; left: 14px;
+  font-family: var(--font-mono); font-size: 0.625rem;
+  color: rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.45); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-full); padding: 3px 10px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.proj-body { padding: var(--space-4) var(--space-4) var(--space-5); }
+.proj-domain {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted-2); letter-spacing: var(--tracking-wide);
+  text-transform: uppercase; display: block; margin-bottom: var(--space-1);
+}
+.proj-name {
+  font-size: var(--text-lg); font-weight: var(--weight-semibold);
+  color: var(--text); letter-spacing: -0.025em;
+  margin-bottom: var(--space-3); line-height: 1.3;
+}
+.proj-result {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); background: rgba(40,212,255,0.06);
+  border: 1px solid rgba(40,212,255,0.14);
+  border-radius: var(--radius-full); padding: 4px 11px;
+}
+.proj-result::before {
+  content: ''; display: block; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--accent);
+}
+
+/* ── FEATURED CARD (lățime dublă) ── */
+.proj-card--featured { grid-column: span 2; }
+.proj-card--featured .proj-visual { height: 260px; }
+
+/* ── EMPTY STATE ── */
+.prj-empty {
+  display: none; grid-column: 1 / -1;
+  padding: var(--space-10) 0; text-align: center;
+}
+.prj-empty.is-visible { display: block; }
+.prj-empty-text {
+  font-size: var(--text-base); color: var(--muted-2); font-style: italic;
+}
+
+/* ── CTA ── */
+.prj-cta { text-align: center; position: relative; }
+.prj-cta-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(20,80,200,0.09) 0%, rgba(40,212,255,0.025) 40%, transparent 70%);
+  pointer-events: none;
+}
+.prj-cta-border {
+  position: absolute; top: 0;
+  left: var(--container-pad); right: var(--container-pad); height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(40,212,255,0.16), transparent);
+}
+.prj-cta-title {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: var(--weight-extrabold); letter-spacing: -0.035em;
+  line-height: 1.08; color: #fff;
+  margin-bottom: var(--space-3); max-width: 640px;
+  margin-left: auto; margin-right: auto;
+}
+.prj-cta-text {
+  font-size: var(--text-base); color: var(--muted);
+  max-width: 400px; margin: 0 auto var(--space-7); line-height: var(--leading-body);
+}
+.prj-cta-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1099px) {
+  .proj-grid { grid-template-columns: repeat(2, 1fr); }
+  .proj-card--featured { grid-column: span 1; }
+  .proj-card--featured .proj-visual { height: 200px; }
+}
+@media (max-width: 767px) {
+  .prj-hero { padding: 120px var(--container-pad) var(--space-7); }
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-card--featured { grid-column: span 1; }
+  .prj-cta-actions { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Sari la conținut</a>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <a class="logo" href="index.html">&lt;lup vision&gt;</a>
+
+  <nav aria-label="Navigare principală">
+    <a href="servicii.html">Servicii</a>
+    <a href="proiecte.html" aria-current="page">Proiecte</a>
+    <a href="misiunea-noastra.html">Misiunea noastră</a>
+    <a href="contact.html" class="nav-cta">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Începe proiectul
+    </a>
+  </nav>
+
+  <button class="hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div id="dv-menu"></div>
+  <a href="servicii.html">Servicii</a>
+  <a href="proiecte.html" aria-current="page">Proiecte</a>
+  <a href="misiunea-noastra.html">Misiunea noastră</a>
+  <a href="contact.html" class="nav-cta">
+    <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+    <span class="glow-shine" aria-hidden="true"></span>
+    Începe proiectul
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ══════════ HERO ══════════ -->
+<div class="prj-hero">
+  <div id="dv-hero" class="dv-container"></div>
+  <div class="prj-hero-glow" aria-hidden="true"></div>
+  <div class="prj-hero-grid" aria-hidden="true"></div>
+
+  <div class="prj-hero-content">
+    <span class="prj-hero-eyebrow">Portofoliu</span>
+    <h1>Proiecte care<br><em>vorbesc de la sine.</em></h1>
+    <p class="prj-hero-sub">Rezultatele nu au nevoie de explicații lungi. Fiecare proiect a rezolvat o problemă reală pentru o afacere reală.</p>
+  </div>
+</div>
+
+<!-- ══════════ FILTER ══════════ -->
+<div class="prj-filter-wrap" role="group" aria-label="Filtrare proiecte">
+  <button class="prj-pill is-active" data-filter="all">
+    Toate <span class="prj-pill-count">6</span>
+  </button>
+  <button class="prj-pill" data-filter="ecommerce">
+    E-Commerce <span class="prj-pill-count">2</span>
+  </button>
+  <button class="prj-pill" data-filter="branding">
+    Branding &amp; Web <span class="prj-pill-count">2</span>
+  </button>
+  <button class="prj-pill" data-filter="platforma">
+    Platforme <span class="prj-pill-count">1</span>
+  </button>
+  <button class="prj-pill" data-filter="seo">
+    SEO <span class="prj-pill-count">1</span>
+  </button>
+</div>
+
+<!-- ══════════ GRID PROIECTE ══════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="proj-grid" id="proj-grid">
+
+    <!-- P1 — E-Commerce featured -->
+    <article class="proj-card proj-card--featured reveal-item" data-category="ecommerce">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:
+          radial-gradient(ellipse 70% 80% at 75% 25%, rgba(40,212,255,0.15) 0%, rgba(4,9,26,1) 65%),
+          linear-gradient(145deg, #060f22 0%, #030812 100%);"></div>
+        <span class="proj-visual-tag">// e-commerce</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Optică medicală</span>
+        <h2 class="proj-name">Magazin Optice</h2>
+        <span class="proj-result">+37% conversii în 3 luni</span>
+      </div>
+    </article>
+
+    <!-- P2 — Branding -->
+    <article class="proj-card reveal-item" data-category="branding">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:
+          radial-gradient(ellipse 80% 80% at 30% 70%, rgba(120,80,220,0.13) 0%, rgba(4,9,26,1) 65%),
+          linear-gradient(145deg, #07050f 0%, #030812 100%);"></div>
+        <span class="proj-visual-tag">// branding + web</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Arhitectură &amp; design interior</span>
+        <h2 class="proj-name">Studio Arhitectură</h2>
+        <span class="proj-result">Brand repositioning</span>
+      </div>
+    </article>
+
+    <!-- P3 — Platformă -->
+    <article class="proj-card reveal-item" data-category="platforma">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:
+          radial-gradient(ellipse 80% 80% at 50% 20%, rgba(30,100,180,0.18) 0%, rgba(4,9,26,1) 65%),
+          linear-gradient(145deg, #040c1e 0%, #030812 100%);"></div>
+        <span class="proj-visual-tag">// platformă saas</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Logistică &amp; transport</span>
+        <h2 class="proj-name">Platformă Logistică</h2>
+        <span class="proj-result">Platformă scalabilă · 10k+ utilizatori</span>
+      </div>
+    </article>
+
+    <!-- P4 — Branding -->
+    <article class="proj-card reveal-item" data-category="branding">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:
+          radial-gradient(ellipse 80% 80% at 60% 40%, rgba(20,160,100,0.12) 0%, rgba(4,9,26,1) 65%),
+          linear-gradient(145deg, #040f0a 0%, #030812 100%);"></div>
+        <span class="proj-visual-tag">// web design</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Medicină &amp; sănătate</span>
+        <h2 class="proj-name">Cabinet Stomatologic</h2>
+        <span class="proj-result">+180% programări online</span>
+      </div>
+    </article>
+
+    <!-- P5 — E-Commerce -->
+    <article class="proj-card reveal-item" data-category="ecommerce">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:
+          radial-gradient(ellipse 80% 80% at 25% 60%, rgba(200,80,80,0.10) 0%, rgba(4,9,26,1) 65%),
+          linear-gradient(145deg, #0f0505 0%, #030812 100%);"></div>
+        <span class="proj-visual-tag">// e-commerce</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Modă &amp; artizanat</span>
+        <h2 class="proj-name">Bijuterii Artizanale</h2>
+        <span class="proj-result">+290% vânzări online</span>
+      </div>
+    </article>
+
+    <!-- P6 — SEO -->
+    <article class="proj-card reveal-item" data-category="seo">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:
+          radial-gradient(ellipse 80% 80% at 70% 50%, rgba(255,180,40,0.08) 0%, rgba(4,9,26,1) 65%),
+          linear-gradient(145deg, #0c0b04 0%, #030812 100%);"></div>
+        <span class="proj-visual-tag">// seo + web</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Consultanță financiară</span>
+        <h2 class="proj-name">Firmă Consultanță</h2>
+        <span class="proj-result">#1 Google în 4 luni</span>
+      </div>
+    </article>
+
+    <div class="prj-empty" id="prj-empty" aria-live="polite">
+      <p class="prj-empty-text">Niciun proiect în această categorie momentan.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ CTA FINAL ══════════ -->
+<section class="section prj-cta">
+  <div class="prj-cta-glow" aria-hidden="true"></div>
+  <div class="prj-cta-border" aria-hidden="true"></div>
+  <span class="section-label reveal">Hai să construim</span>
+  <h2 class="prj-cta-title reveal">Proiectul tău ar putea<br>fi <em>următorul de pe listă.</em></h2>
+  <p class="prj-cta-text reveal">Spune-ne ce vrei să construiești. Noi îți spunem ce e posibil și în cât timp.</p>
+  <div class="prj-cta-actions reveal">
+    <a href="contact.html" class="btn-main">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Începe proiectul
+    </a>
+    <a href="servicii.html" class="btn-ghost">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Vezi serviciile noastre
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">&lt;lup vision&gt;</a>
+      <p class="footer-desc">Construim sisteme digitale pentru companii care vor să crească. Prezența ta digitală de neignorat.</p>
+      <div class="footer-social">
+        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <nav class="footer-nav" aria-label="Navigare footer">
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Servicii</span>
+        <a href="servicii.html#identitate-vizuala">Identitate Vizuală</a>
+        <a href="servicii.html#web-design">Web Design &amp; Dev</a>
+        <a href="servicii.html#platforme-aplicatii">Platforme &amp; Aplicații</a>
+        <a href="servicii.html#magazine-online">Magazine Online</a>
+        <a href="servicii.html#optimizare-seo">Optimizare SEO</a>
+        <a href="servicii.html#strategie-digitala">Strategie Digitală</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Companie</span>
+        <a href="servicii.html">Servicii</a>
+        <a href="proiecte.html">Proiecte</a>
+        <a href="misiunea-noastra.html">Misiunea noastră</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html#programeaza">Programează o discuție</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Legal</span>
+        <a href="confidentialitate.html">Politică de confidențialitate</a>
+        <a href="termeni.html">Termeni și condiții</a>
+        <a href="cookies.html">Politică de cookie-uri</a>
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Lup Vision. Toate drepturile rezervate.</span>
+    <span class="footer-tagline">Prezența digitală este cartea de vizită a afacerii tale. Noi o facem de neignorat.</span>
+    <nav class="footer-legal" aria-label="Navigare legală">
+      <a href="confidentialitate.html">Confidențialitate</a>
+      <a href="termeni.html">Termeni</a>
+      <a href="cookies.html">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Global JS -->
+<script src="lupvision.ro-global.js"></script>
+
+<script>
+/* ============================================================
+   PROIECTE.HTML — JS specific
+   ============================================================ */
+
+/* ── Filter proiecte ── */
+(function () {
+  var pills   = document.querySelectorAll('.prj-pill');
+  var cards   = document.querySelectorAll('.proj-card');
+  var empty   = document.getElementById('prj-empty');
+  var current = 'all';
+
+  function filter(cat) {
+    current = cat;
+    var visible = 0;
+
+    pills.forEach(function (p) {
+      p.classList.toggle('is-active', p.dataset.filter === cat);
+    });
+
+    cards.forEach(function (card) {
+      var show = cat === 'all' || card.dataset.category === cat;
+      card.classList.toggle('is-hidden', !show);
+      if (show) visible++;
+    });
+
+    if (empty) empty.classList.toggle('is-visible', visible === 0);
+  }
+
+  pills.forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      filter(this.dataset.filter);
+    });
+  });
+})();
+
+/* ── Reveal stagger ── */
+(function () {
+  var items   = document.querySelectorAll('.proj-card.reveal-item');
+  var delays  = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30];
+  items.forEach(function (el, i) {
+    var d = delays[i] || 0;
+    if (!d) return;
+    el.style.transitionDelay = d + 's';
+    el.addEventListener('transitionend', function clear(e) {
+      if (e.propertyName === 'opacity') {
+        el.style.transitionDelay = '';
+        el.removeEventListener('transitionend', clear);
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

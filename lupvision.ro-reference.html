@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lup Vision — Sisteme Digitale</title>
+<style>html,body{background:#030812}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Cascadia+Code:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+
+/* ═══════════════════════════════════════════
+   VARIABILE
+═══════════════════════════════════════════ */
+:root {
+  --bg-card:     #080F1E;
+  --bg-section:  #04091A;
+  --border:      rgba(255,255,255,0.07);
+  --border-soft: rgba(255,255,255,0.042);
+  --border-acc:  rgba(40,212,255,0.22);
+  --text:        #E8EDF5;
+  --muted:       #5A6A85;
+  --muted-2:     #35445C;
+  --accent:      #28D4FF;
+  --radius:      14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  color: var(--text);
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1rem; /* baseline 16px */
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* ═══════════════════════════════════════════
+   FUNDAL ANIMAT — gradient pulsant
+   Folosim un pseudo-element fix pe care
+   animăm culorile continuu
+═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 110% 55% at 18% 0%,   rgba(8,28,90,0.55)   0%, transparent 52%),
+    radial-gradient(ellipse 75%  70% at 82% 100%,  rgba(4,18,65,0.60)   0%, transparent 58%),
+    radial-gradient(ellipse 55%  38% at 52% 48%,   rgba(15,45,110,0.18) 0%, transparent 65%),
+    linear-gradient(162deg, #040C1E 0%, #060F22 30%, #050D1E 60%, #040A18 80%, #030812 100%);
+}
+
+/* .bg-animated removed — no pulsing gradient */
+
+/* noise grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.3;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: 74px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+  transition: background 0.35s ease, backdrop-filter 0.35s ease,
+              border-color 0.35s ease;
+}
+
+/* scrolled state — frosted glass */
+header.scrolled {
+  background: rgba(3,8,20,0.82);
+  backdrop-filter: blur(28px) saturate(200%);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+/* când drawer-ul e deschis — header seamless cu drawer-ul, fără linie */
+header.drawer-open {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom-color: transparent !important;
+}
+
+.logo {
+  font-family: 'Cascadia Code', monospace;
+  font-size: 1.05rem; font-weight: 400;
+  color: rgba(232,237,245,0.7); text-decoration: none;
+  transition: color 0.18s;
+  letter-spacing: 0.04em; word-spacing: 0.08em;
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.logo:hover { color: var(--text); }
+
+.hamburger {
+  display: flex; flex-direction: column; gap: 7px;
+  cursor: pointer; padding: 6px;
+  background: none; border: none;
+  position: relative; z-index: 1001;
+  opacity: 0; pointer-events: none; visibility: hidden;
+  width: 0; overflow: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease, width 0s 0.35s;
+  flex-shrink: 0;
+}
+.hamburger span {
+  display: block; width: 26px; height: 2px;
+  background: var(--text); border-radius: 1px;
+  transition: transform 0.38s cubic-bezier(0.23,1,0.32,1),
+              opacity  0.35s ease;
+  transform-origin: center;
+  opacity: 1;
+}
+/* X state — linia 1 coboară la mijloc și rotește +45°, linia 2 urcă și rotește -45° */
+.hamburger.open span:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { transform: translateY(-4.5px) rotate(-45deg); }
+
+nav { display: flex; align-items: center; gap: 4px;
+  margin-left: auto;
+  opacity: 1; visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease; }
+nav a {
+  font-size: 0.875rem; font-weight: 500; color: rgba(232,237,245,0.7);
+  text-decoration: none; padding: 6px 14px; border-radius: 6px;
+  transition: color 0.18s, background 0.18s; letter-spacing: 0.01em;
+}
+nav a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+
+.nav-cta {
+  --line-width: 1px;
+  --line-color: #28D4FF;
+  --line-opacity: 0.35;
+  --duration: 14s;
+  --easing: linear;
+  all: unset;
+  margin-left: 12px;
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 18px;
+  border-radius: 7px;
+  font-family: 'Geist', sans-serif;
+  font-size: 0.8125rem; font-weight: 500;
+  color: #28D4FF;
+  text-decoration: none;
+  flex-shrink: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: all .2s ease-out, outline 0s, outline-offset 0s;
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,.28);
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,.10) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.nav-cta:hover {
+  color: #28D4FF;
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,.16) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,.14);
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,.45), 0 0 18px rgba(40,212,255,.15);
+}
+
+
+/* ── fullscreen mobile nav overlay ── */
+.nav-drawer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(3,8,20,0.93);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  gap: 0;
+  overflow: hidden; /* clips the WebGL canvas */
+}
+
+
+.nav-drawer.open {
+  display: flex;
+  animation: drawerIn 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  pointer-events: auto;
+}
+.nav-drawer.closing {
+  display: flex;
+  animation: drawerOut 0.22s ease-in both;
+  pointer-events: none;
+}
+@keyframes drawerIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes drawerOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-14px); }
+}
+
+/* drawer: linkurile sunt nth-child 1,2,3,4 */
+.nav-drawer.open a:nth-child(2) { animation: slideDown 0.28s ease 0.06s both; }
+.nav-drawer.open a:nth-child(3) { animation: slideDown 0.28s ease 0.12s both; }
+.nav-drawer.open a:nth-child(4) { animation: slideDown 0.28s ease 0.18s both; }
+.nav-drawer.open a:nth-child(5) { animation: slideDown 0.28s ease 0.24s both; }
+
+
+
+.nav-drawer a {
+  font-size: 1rem; color: rgba(232,237,245,0.85);
+  text-decoration: none;
+  padding: 16px 0;
+  font-weight: 500;
+  transition: color 0.18s;
+  opacity: 0;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+/* separator — linie scurtă centrată */
+.nav-drawer a:not(:last-child)::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin-top: 16px;
+}
+.nav-drawer a:hover { color: #fff; }
+
+.nav-drawer .nav-cta {
+  --line-width: 1px;
+  --line-color: #28D4FF;
+  --line-opacity: 0.35;
+  --duration: 14s;
+  --easing: linear;
+  all: unset;
+  margin-top: 24px;
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 40px;
+  border-radius: 8px;
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem; font-weight: 500;
+  color: #28D4FF;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  z-index: 1;
+  transition: all .2s ease-out, outline 0s, outline-offset 0s;
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,.28);
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,.10) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.nav-drawer .nav-cta:hover {
+  color: #28D4FF;
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,.16) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,.14);
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,.45), 0 0 18px rgba(40,212,255,.15);
+}
+
+
+a.card, a.card-flat { text-decoration: none; color: inherit; display: block; }
+a.card-mobile-row { text-decoration: none; color: inherit; display: flex; }
+
+/* ── Shine effect pe cuvântul "multe" ── */
+@keyframes shine-glow {
+  0%, 100% { filter: drop-shadow(0 0 3px rgba(40,212,255,0.30)) drop-shadow(0 0 10px rgba(40,212,255,0.12)); }
+  50%       { filter: drop-shadow(0 0 6px rgba(40,212,255,0.55)) drop-shadow(0 0 20px rgba(40,212,255,0.25)) drop-shadow(0 0 38px rgba(40,212,255,0.10)); }
+}
+.shine-word {
+  color: var(--accent);
+  animation: shine-glow 5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  padding: 160px 48px 0; text-align: center;
+  position: relative; overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute; top: 35%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(20,80,200,0.10) 0%, rgba(40,212,255,0.035) 40%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent);
+  pointer-events: none; z-index: 1;
+}
+
+.hero-eyebrow {
+  position: relative; z-index: 10;
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(232,237,245,0.75); margin-bottom: 28px;
+  animation: rise 0.7s ease both;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block; width: 24px; height: 1px;
+  background: rgba(232,237,245,0.4);
+}
+
+h1 {
+  position: relative; z-index: 10;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.04em; max-width: 820px;
+  color: #fff; margin-bottom: 32px;
+  animation: rise 0.7s ease 0.1s both;
+}
+h1 em, h2 em { font-style: normal; color: var(--accent); }
+
+.hero-sub {
+  position: relative; z-index: 10;
+  font-size: 1.125rem; font-weight: 400;
+  color: rgba(232,237,245,0.65); letter-spacing: 0.01em;
+  margin-bottom: 32px;
+  animation: rise 0.7s ease 0.2s both;
+}
+
+.hero-actions {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 120px;
+  animation: rise 0.7s ease 0.3s both;
+}
+
+.btn-main {
+  /* glowing button — main CTA */
+  --line-width: 1px;
+  --line-color: #28D4FF;
+  --line-opacity: 0.35;
+  --duration: 14s;
+  --easing: linear;
+
+  all: unset;
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 8px;
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem; font-weight: 500;
+  color: #28D4FF;
+  cursor: pointer;
+  text-wrap: nowrap; white-space: nowrap;
+  transition: all .2s ease-out, outline 0s, outline-offset 0s;
+
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,.28);
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,.10) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.btn-main:hover {
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,.16) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,.14);
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,.45), 0 0 18px rgba(40,212,255,.15);
+}
+
+.btn-ghost {
+  /* glowing button — ghost variant */
+  --line-width: 1px;
+  --line-color: #c2ccff;
+  --line-opacity: 0.22;
+  --duration: 16s;
+  --easing: linear;
+
+  all: unset;
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem; font-weight: 500;
+  color: rgba(232,237,245,0.85);
+  cursor: pointer;
+  text-wrap: nowrap; white-space: nowrap;
+  transition: all .2s ease-out, outline 0s, outline-offset 0s;
+
+  box-shadow: inset 0 0 0 1px rgba(186,215,247,.12);
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(186,214,247,.08) 0%, rgba(186,214,247,0) 100%),
+    rgba(186,214,247,.06);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.btn-ghost:hover {
+  color: #fff;
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(186,214,247,.14) 0%, rgba(186,214,247,0) 100%),
+    rgba(186,214,247,.11);
+  box-shadow: inset 0 0 0 1px rgba(186,215,247,.28), 0 4px 18px rgba(0,0,0,.2);
+}
+.btn-ghost svg { width: 15px; height: 15px; stroke: currentColor; flex-shrink: 0; }
+.btn-closing-tag {
+  font-family: 'Cascadia Code', monospace;
+  font-size: 1.1em;
+  font-weight: 400;
+  opacity: 0.65;
+  letter-spacing: -0.02em;
+  margin-left: 2px;
+  transition: opacity .2s;
+}
+.btn-ghost:hover .btn-closing-tag {
+  opacity: 1;
+}
+
+
+/* ── Glowing button — SVG animated border line ── */
+.btn-main .glow-lines,
+.btn-ghost .glow-lines,
+.nav-cta .glow-lines {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.btn-main .glow-lines svg,
+.btn-ghost .glow-lines svg,
+.nav-cta .glow-lines svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border-radius: inherit;
+}
+/* linia care se plimbă pe border */
+.btn-main .glow-lines rect,
+.btn-ghost .glow-lines rect,
+.nav-cta .glow-lines rect {
+  fill: none;
+  stroke: var(--line-color);
+  stroke-width: var(--line-width);
+  opacity: var(--line-opacity);
+  stroke-dasharray: 50% 200%;
+  stroke-dashoffset: 0%;
+  animation: glow-line-travel var(--duration) var(--easing) infinite;
+}
+.btn-main .glow-lines rect { rx: 8px; }
+.btn-ghost .glow-lines rect { rx: 8px; }
+.nav-cta .glow-lines rect { rx: 7px; }
+
+@keyframes glow-line-travel {
+  0%   { stroke-dashoffset: 0%; }
+  100% { stroke-dashoffset: -400%; }
+}
+
+/* Shine overlay interior */
+.btn-main .glow-shine,
+.btn-ghost .glow-shine,
+.nav-cta .glow-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 60% 40% at var(--shine-x, 50%) -20%,
+    rgba(255,255,255,0.18) 0%,
+    transparent 70%
+  );
+  animation: glow-shine-move var(--duration) var(--easing) infinite;
+}
+@keyframes glow-shine-move {
+  0%   { --shine-x: 20%; opacity: 0.6; }
+  50%  { --shine-x: 80%; opacity: 0.9; }
+  100% { --shine-x: 20%; opacity: 0.6; }
+}
+
+
+/* ═══════════════════════════════════════════
+   FAN WRAP — carduri mărite pe desktop
+   Card: 240px wide × 320px tall
+   Spacing between centers: 205px
+   6 cards: centers at ±0.5×205, ±1.5×205, ±2.5×205
+           = ±102.5, ±307.5, ±512.5
+   margin-left = center - cardWidth/2 (120px)
+   c1: -512.5-120 = -632.5 → -633
+   c2: -307.5-120 = -427.5 → -428
+   c3: -102.5-120 = -222.5 → -223
+   c4: +102.5-120 = -17.5  → -18
+   c5: +307.5-120 = +187.5 → +188
+   c6: +512.5-120 = +392.5 → +393
+═══════════════════════════════════════════ */
+.fan-wrap {
+  position: relative; z-index: 10;
+  width: 100%; max-width: 1380px;
+  height: 400px;
+  animation: rise 0.9s ease 0.4s both;
+  margin-bottom: 56px;
+}
+
+.card {
+  position: absolute;
+  width: 240px; height: 320px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden; cursor: pointer;
+  transition: box-shadow 0.55s, border-color 0.4s;
+  transform-origin: center bottom;
+  display: flex; flex-direction: column;
+  --glow-x: 50%; --glow-y: 50%;
+  --glow-intensity: 0; --glow-radius: 280px;
+}
+.card::after {
+  content: '';
+  position: absolute; inset: 0; padding: 1.5px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(40,212,255, calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(40,212,255, calc(var(--glow-intensity) * 0.4)) 35%,
+    transparent 65%
+  );
+  border-radius: inherit;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none; z-index: 2;
+}
+.card:hover {
+  box-shadow: 0 24px 60px rgba(0,0,0,0.65),
+              0 0 0 1px rgba(40,212,255,0.22) !important;
+  border-color: rgba(40,212,255,0.22) !important;
+  z-index: 50 !important;
+}
+
+/* ── Card header: serviciu proeminent ── */
+.card-header {
+  padding: 18px 18px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  flex-shrink: 0;
+}
+.card-service-name {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.22;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+.card-service-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.6875rem;
+  color: var(--muted-2);
+  letter-spacing: 0.05em;
+  margin-top: 5px;
+  opacity: 0.85;
+}
+.card-visual {
+  flex: 1; padding: 13px 16px 14px;
+  display: flex; flex-direction: column; gap: 7px;
+  overflow: hidden;
+}
+
+/* ── Poziții — float și crowd effect prin JS ── */
+.c1 { left:50%; margin-left:-633px; top:36px; z-index:1; --rot:rotate(-20deg); transform:rotate(-20deg); }
+.c2 { left:50%; margin-left:-428px; top:18px; z-index:2; --rot:rotate(-12deg); transform:rotate(-12deg); }
+.c3 { left:50%; margin-left:-223px; top:5px;  z-index:3; --rot:rotate(-4deg);  transform:rotate(-4deg);  }
+.c4 { left:50%; margin-left: -18px; top:5px;  z-index:3; --rot:rotate(+4deg);  transform:rotate(4deg);   }
+.c5 { left:50%; margin-left: 188px; top:18px; z-index:2; --rot:rotate(+12deg); transform:rotate(12deg);  }
+.c6 { left:50%; margin-left: 393px; top:36px; z-index:1; --rot:rotate(+20deg); transform:rotate(20deg);  }
+
+/* ── TABLET GRID (2×3) ── */
+.cards-grid {
+  display: none;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px; width: 100%; padding: 0 8px;
+  animation: rise 0.7s ease 0.3s both;
+  margin-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── MOBILE STACK ── */
+.cards-mobile {
+  display: none;
+  flex-direction: column; gap: 10px;
+  width: 100%; padding: 0 16px;
+  animation: rise 0.7s ease 0.3s both;
+  margin-top: 80px;
+  position: relative;
+}
+
+/* ── Card plat (tablet/grid) ── */
+.card-flat {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  /* bento glow variables */
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 280px;
+}
+/* border glow layer — identic cu MagicBento --border-glow logic */
+.card-flat::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(40,212,255, calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(40,212,255, calc(var(--glow-intensity) * 0.4)) 35%,
+    transparent 65%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+.card-flat:hover {
+  border-color: rgba(40,212,255,0.12);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+.card-flat .card-header { padding: 16px 18px 12px; }
+.card-flat .card-service-name { font-size: 1rem; }
+.card-flat .card-service-tag { font-size: 0.75rem; }
+.card-flat .card-visual { padding: 12px 18px 16px; max-height: 130px; }
+
+/* ── Card mobil (list row) ── */
+.card-mobile-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+  --glow-x: 50%; --glow-y: 50%; --glow-intensity: 0; --glow-radius: 280px;
+}
+.card-mobile-row:hover { border-color: rgba(40,212,255,0.12); }
+.card-mobile-row::after {
+  content: '';
+  position: absolute; inset: 0; padding: 1.5px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(40,212,255, calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(40,212,255, calc(var(--glow-intensity) * 0.4)) 35%,
+    transparent 65%
+  );
+  border-radius: inherit;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none; z-index: 2;
+}
+.card-mobile-icon {
+  width: 46px; height: 46px; border-radius: 11px;
+  background: rgba(40,212,255,0.06);
+  border: 1px solid var(--border-acc);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.card-mobile-icon svg { width: 20px; height: 20px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.card-mobile-text { flex: 1; }
+.card-mobile-name { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: 0.06em; text-transform: uppercase; }
+.card-mobile-desc { font-size: 0.875rem; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+.card-mobile-arrow { color: var(--muted-2); font-size: 1.1rem; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   VIZUALURI INTERNE CARDURI
+   Toate elementele text vizibil mărite
+═══════════════════════════════════════════ */
+
+/* --- Web Design & Dev --- */
+.wc-browser { border-radius: 7px; border: 1px solid var(--border-soft); overflow: hidden; background: rgba(3,7,18,0.85); }
+.wc-bar { height: 18px; background: rgba(255,255,255,0.035); display: flex; align-items: center; gap: 4px; padding: 0 7px; }
+.wc-dot { width: 5px; height: 5px; border-radius: 50%; opacity: 0.55; }
+.wc-dot.r { background:#ff6b6b } .wc-dot.y { background:#ffd93d } .wc-dot.g { background:#6bcb77 }
+.wc-body { padding: 7px; }
+.wc-hero-block { height: 38px; border-radius: 5px; background: rgba(40,212,255,0.08); border: 1px solid rgba(40,212,255,0.1); margin-bottom: 5px; display: flex; align-items: center; justify-content: center; }
+.wc-hero-text { font-size: 0.5rem; color: rgba(40,212,255,0.5); font-family: 'Geist Mono', monospace; letter-spacing: 0.05em; }
+.wc-row { display: flex; gap: 4px; margin-bottom: 4px; }
+.wc-row-block { flex: 1; height: 9px; border-radius: 3px; background: rgba(255,255,255,0.06); }
+.wc-row-block.lit { background: rgba(40,212,255,0.12); }
+.code-snip {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.6rem;   /* crescut semnificativ */
+  line-height: 1.75;
+  color: rgba(232,237,245,0.55);
+  background: rgba(2,6,16,0.8);
+  border-radius: 6px; padding: 7px 9px;
+  border: 1px solid var(--border-soft); margin-top: 5px;
+}
+.ck  { color: #7dd3fc }
+.cfn { color: rgba(40,212,255,0.85) }
+.cst { color: rgba(134,239,172,0.75) }
+
+/* --- Branding --- */
+.brand-symbol {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist Mono', monospace; font-weight: 600;
+  font-size: 1.5rem; color: var(--text); margin: 0 auto 8px;
+}
+/* brand-square: full square centered "lup" text */
+.brand-square-wrap {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; flex: 1;
+}
+.brand-square {
+  width: 86px; height: 86px; border-radius: 14px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+}
+.brand-square-text {
+  font-family: 'Cascadia Code', monospace; font-weight: 600;
+  font-size: 1.65rem; color: var(--accent); letter-spacing: 0.04em; word-spacing: 0.08em;
+}
+/* --- Magazine Online --- */
+.shop-visual { display: flex; flex-direction: column; gap: 6px; }
+.shop-top { display: flex; gap: 6px; align-items: stretch; }
+.shop-cart-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(40,212,255,0.08); border: 1px solid rgba(40,212,255,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.shop-cart-icon svg { width: 16px; height: 16px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.shop-stats { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.shop-stat { background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft); border-radius: 6px; padding: 5px 7px; }
+.shop-stat .sv { font-family: 'Geist', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--accent); }
+.shop-stat .sl { font-size: 0.5rem; color: rgba(232,237,245,0.4); margin-top: 1px; }
+.shop-products { display: flex; gap: 5px; }
+.shop-product { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft); border-radius: 7px; padding: 6px 7px; }
+.shop-product .sp-img { height: 22px; border-radius: 4px; background: rgba(40,212,255,0.07); border: 1px solid rgba(40,212,255,0.1); margin-bottom: 4px; }
+.shop-product .sp-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); margin-bottom: 3px; }
+.shop-product .sp-line.w7 { width: 70%; }
+.shop-product .sp-price { font-family: 'Geist Mono', monospace; font-size: 0.55rem; color: var(--accent); }
+.shop-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.16); border-radius: 999px; padding: 3px 9px; }
+.shop-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(74,222,128,0.8); }
+.shop-badge-text { font-family: 'Geist Mono', monospace; font-size: 0.55rem; color: rgba(74,222,128,0.8); letter-spacing: 0.05em; }
+.brand-name-display {
+  font-size: 0.6875rem;  /* 11px → crescut la 11px echivalent mai vizibil */
+  font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted);
+  text-align: center; margin-bottom: 9px;
+}
+.palette-row { display: flex; gap: 6px; justify-content: center; margin-bottom: 9px; }
+.swatch { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
+.type-scale { display: flex; flex-direction: column; gap: 5px; }
+.ts-row { display: flex; align-items: center; gap: 8px; }
+.ts-lbl { font-size: 0.5rem; color: rgba(232,237,245,0.45); width: 38px; flex-shrink: 0; font-family: 'Geist Mono', monospace; }
+.ts-track { flex: 1; background: rgba(255,255,255,0.06); border-radius: 2px; height: 4px; }
+.ts-bar { height: 100%; border-radius: 2px; background: rgba(255,255,255,0.18); }
+
+/* --- Apps --- */
+.phone-outer { display: flex; justify-content: center; }
+.ph-shell { width: 72px; height: 122px; border-radius: 13px; border: 1.5px solid rgba(255,255,255,0.12); background: rgba(2,6,18,0.95); overflow: hidden; }
+.ph-notch { width: 22px; height: 4px; border-radius: 3px; background: rgba(255,255,255,0.12); margin: 6px auto 8px; }
+.ph-sc { padding: 0 5px; }
+.ph-bar { height: 8px; border-radius: 3px; background: rgba(40,212,255,0.18); margin-bottom: 5px; }
+.ph-card { height: 28px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-soft); margin-bottom: 4px; display: flex; align-items: center; gap: 5px; padding: 0 6px; }
+.ph-cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(40,212,255,0.35); flex-shrink: 0; }
+.ph-clines { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ph-cline { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.1); }
+.ph-cline.s { width: 60%; }
+.pills-row { display: flex; gap: 5px; justify-content: center; margin-top: 7px; flex-wrap: wrap; }
+.pill {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.625rem;  /* crescut */
+  color: rgba(232,237,245,0.55);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-soft);
+  border-radius: 4px; padding: 3px 8px;
+}
+
+/* --- SEO --- */
+.seo-ring {
+  width: 78px; height: 78px; border-radius: 50%;
+  border: 2px solid rgba(40,212,255,0.25);
+  background: rgba(40,212,255,0.04);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  margin: 0 auto 9px;
+  box-shadow: 0 0 26px rgba(40,212,255,0.09);
+}
+.seo-num { font-family: 'Geist', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--accent); line-height: 1; }
+.seo-sublbl { font-size: 0.5rem; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+.seo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.seo-cell { background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft); border-radius: 7px; padding: 6px 8px; }
+.seo-cell .sv { font-family: 'Geist', sans-serif; font-weight: 700; font-size: 0.8125rem; color: var(--accent); }
+.seo-cell .sl { font-size: 0.5rem; color: rgba(232,237,245,0.4); margin-top: 2px; }
+
+/* --- Strategy --- */
+.strat-list { display: flex; flex-direction: column; gap: 7px; }
+.strat-list.strat-centered { gap: 14px; justify-content: center; align-items: stretch; padding: 4px 0; }
+.strat-item { display: flex; align-items: flex-start; gap: 8px; }
+.strat-nd {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(40,212,255,0.3);
+  background: rgba(40,212,255,0.06);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.5rem; color: rgba(40,212,255,0.8);
+  line-height: 1;    /* fix: centrare verticală numerelor */
+}
+.strat-info { flex: 1; }
+.strat-label { font-size: 0.6875rem; font-weight: 600; color: rgba(232,237,245,0.9); line-height: 1.3; }
+.strat-sub { font-size: 0.5625rem; color: var(--muted-2); margin-top: 2px; }
+.strat-prog { height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; margin-top: 4px; }
+.strat-fill { height: 3px; border-radius: 2px; background: rgba(40,212,255,0.7); }
+
+/* --- UI/UX --- */
+.ux-grid {
+  display: grid; grid-template-columns: 44px 1fr;
+  grid-template-rows: 1fr 1fr; gap: 5px; height: 95px;
+}
+.ux-sidebar { grid-row: span 2; background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft); border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 4px; }
+.ux-ni { height: 6px; border-radius: 2px; background: rgba(255,255,255,0.08); }
+.ux-ni.act { background: rgba(40,212,255,0.24); }
+.ux-panel { background: rgba(255,255,255,0.03); border: 1px solid var(--border-soft); border-radius: 6px; padding: 6px; }
+.ux-panel.hi { border-color: rgba(40,212,255,0.14); background: rgba(40,212,255,0.025); }
+.ux-pl { height: 5px; border-radius: 2px; background: rgba(255,255,255,0.08); margin-bottom: 4px; }
+.ux-pl.w6 { width: 60%; } .ux-pl.w8 { width: 80%; }
+.ux-btn-sim { height: 10px; width: 34px; border-radius: 3px; background: rgba(40,212,255,0.22); margin-top: 3px; }
+.ux-tokens { display: flex; gap: 4px; margin-top: 7px; }
+.ux-tok { flex: 1; height: 22px; border-radius: 5px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; }
+.ux-tok-dot { width: 7px; height: 7px; border-radius: 50%; }
+.ux-spec { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+.ux-spec-row { display: flex; gap: 6px; align-items: center; }
+.ux-spec-k { font-family: 'Geist Mono', monospace; font-size: 0.5rem; color: var(--muted-2); width: 34px; }
+.ux-spec-v { font-size: 0.5rem; color: rgba(232,237,245,0.5); }
+
+/* floating badges removed */
+
+/* ═══════════════════════════════════════════
+   PROOF BAR
+═══════════════════════════════════════════ */
+.proof-bar {
+  margin-top: -60px;
+  position: relative; z-index: 20;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  background: rgba(3,7,18,0.96);
+  padding: 22px 48px;
+  display: flex; align-items: center; justify-content: center;
+}
+.proof-inner {
+  display: flex; align-items: center;
+  gap: 40px; max-width: 940px; width: 100%;
+}
+.proof-stat { text-align: center; flex-shrink: 0; }
+.proof-stat .num {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.6rem; font-weight: 800;
+  color: var(--text); line-height: 1; letter-spacing: -0.03em;
+}
+.proof-stat .lbl { font-size: 0.8125rem; color: var(--muted); margin-top: 5px; }
+.proof-divider { width: 1px; height: 36px; background: var(--border-soft); flex-shrink: 0; }
+.proof-text { flex: 1; font-size: 0.875rem; color: var(--muted-2); text-align: center; letter-spacing: 0.01em; font-style: italic; }
+
+
+}
+
+/* ═══════════════════════════════════════════
+   SECȚIUNI
+═══════════════════════════════════════════ */
+section { padding: 92px 48px; max-width: 1100px; margin: 0 auto; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted-2); margin-bottom: 14px;
+}
+.section-label::before { content: ''; display: block; width: 18px; height: 1px; background: var(--muted-2); opacity: 0.5; }
+
+h2 {
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 800; letter-spacing: -0.035em;
+  line-height: 1.08; color: #fff; margin-bottom: 14px;
+}
+.section-desc { font-size: 1rem; color: var(--muted); max-width: 480px; line-height: 1.8; }
+
+/* METODOLOGIE */
+.method-section {
+  border-top: 1px solid var(--border-soft);
+  position: relative;
+  overflow: hidden;
+}
+/* fundal identic cu hero — glow radial + grid subtil */
+.method-section::before {
+  content: '';
+  position: absolute;
+  top: 35%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(20,80,200,0.10) 0%, rgba(40,212,255,0.035) 40%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+.method-section::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent);
+  pointer-events: none; z-index: 1;
+}
+
+/* conținutul secțiunii — deasupra tuturor layerelor */
+.method-section section { position: relative; z-index: 2; }
+.method-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; gap: 40px; flex-wrap: wrap; }
+
+.method-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius); overflow: hidden;
+}
+.step { background: var(--bg-section); padding: 32px 28px; position: relative; transition: background 0.2s; }
+.step:hover { background: rgba(40,212,255,0.025); }
+.step-num { font-family: 'Geist Mono', monospace; font-size: 0.75rem; color: var(--muted-2); letter-spacing: 0.08em; margin-bottom: 18px; }
+.step-num em { color: var(--muted); font-style: normal; }
+.step-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.035); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.step-icon svg { width: 16px; height: 16px; stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.step:hover .step-icon { border-color: var(--border-acc); }
+.step:hover .step-icon svg { stroke: var(--accent); }
+.step h3 { font-size: 1.0625rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 8px; }
+.step p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+.step-arrow { position: absolute; right: -1px; top: 50%; transform: translateY(-50%); width: 1px; height: 36px; background: linear-gradient(to bottom, transparent, var(--border), transparent); }
+.step:last-child .step-arrow { display: none; }
+
+/* REZULTATE */
+.benefits-section { border-top: 1px solid var(--border-soft); }
+.benefits-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+
+.benefit-list { display: flex; flex-direction: column; gap: 1px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; }
+.benefit-item { background: var(--bg-section); padding: 20px 22px; display: flex; align-items: center; gap: 14px; transition: background 0.2s; cursor: default; }
+.benefit-item:hover { background: rgba(40,212,255,0.02); }
+.benefit-icon { width: 38px; height: 38px; border-radius: 9px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.benefit-icon svg { width: 16px; height: 16px; stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.benefit-item:hover .benefit-icon { border-color: var(--border-acc); }
+.benefit-item:hover .benefit-icon svg { stroke: var(--accent); }
+.benefit-text h4 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 3px; letter-spacing: -0.01em; }
+.benefit-text p { font-size: 0.875rem; color: var(--muted); }
+
+.benefit-visual { border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-section); padding: 24px; }
+.bv-title { font-size: 0.75rem; font-weight: 600; color: var(--muted-2); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+.bv-badge { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.16); color: rgba(74,222,128,0.8); font-size: 0.75rem; padding: 3px 9px; border-radius: 999px; font-weight: 600; }
+.bv-chart { display: flex; align-items: flex-end; gap: 5px; height: 96px; margin-bottom: 18px; }
+.bv-bar { flex: 1; border-radius: 3px 3px 0 0; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.035); transition: height 0.85s cubic-bezier(0.34,1,0.64,1); }
+.bv-bar.active { background: rgba(40,212,255,0.2); border-color: rgba(40,212,255,0.14); }
+.bv-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.bv-metric { background: rgba(255,255,255,0.025); border-radius: 8px; padding: 12px 14px; border: 1px solid var(--border-soft); }
+.bv-metric .mv { font-family: 'Geist', sans-serif; font-weight: 800; font-size: 1.125rem; color: var(--accent); letter-spacing: -0.02em; }
+.bv-metric .ml { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+.bv-metric .mc { font-size: 0.75rem; color: rgba(74,222,128,0.7); font-weight: 600; }
+
+/* CTA */
+.cta-section-wrap { background: var(--bg-section); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+.cta-section { text-align: center; padding: 92px 48px; max-width: 700px; position: relative; }
+.cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 260px; background: radial-gradient(ellipse, rgba(40,212,255,0.04) 0%, transparent 70%); pointer-events: none; }
+.cta-section h2 { margin-bottom: 12px; }
+.cta-section .section-desc { margin: 0 auto 36px; text-align: center; max-width: 420px; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--border-soft); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; }
+.footer-logo { font-family: 'Geist Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--muted-2); letter-spacing: 0.04em; word-spacing: 0.08em; }
+footer p { font-size: 0.875rem; color: var(--muted-2); }
+footer nav { display: flex; gap: 24px; }
+footer nav a { font-size: 0.875rem; color: var(--muted-2); text-decoration: none; transition: color 0.2s; }
+footer nav a:hover { color: var(--muted); }
+
+/* ═══════════════════════════════════════════
+   ANIMAȚII GENERALE
+═══════════════════════════════════════════ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-16px); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* page-load classes — applied via JS after DOMContentLoaded */
+.anim-logo    { opacity: 0; animation: slideRight 0.5s ease 0.05s both; }
+.anim-nav-1   { opacity: 0; animation: fadeIn 0.4s ease 0.15s both; }
+.anim-nav-2   { opacity: 0; animation: fadeIn 0.4s ease 0.22s both; }
+.anim-nav-3   { opacity: 0; animation: fadeIn 0.4s ease 0.29s both; }
+.anim-nav-cta { opacity: 0; animation: scaleIn 0.4s ease 0.36s both; }
+
+/* scroll reveal */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-item { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal-item.visible { opacity: 1; transform: translateY(0); }
+
+
+
+
+/* ═══════════════════════════════════════════
+   DARK VEIL — CPPN shader background
+═══════════════════════════════════════════ */
+.dv-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.dv-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  mix-blend-mode: screen;
+  opacity: 0.82;
+}
+#dv-menu {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+#dv-menu canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  mix-blend-mode: screen;
+  opacity: 0.50;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+
+/* TABLET: 768–1099px */
+@media (max-width: 1390px) and (min-width: 768px) {
+  .fan-wrap { display: none; }
+  .cards-grid { display: grid; }
+  .cards-mobile { display: none; }
+  .proof-bar { margin-top: 72px; }
+  .hero-actions { margin-bottom: 36px; }
+}
+
+@media (max-width: 1099px) and (min-width: 768px) {
+  header { padding: 0 32px; }
+  .hamburger {
+    opacity: 1; pointer-events: auto; visibility: visible;
+    width: auto; overflow: visible;
+  }
+  nav { display: none; }
+  header > .nav-cta { display: none; }
+
+
+  .fan-wrap { display: none; }
+  .cards-grid { display: grid; }
+  .cards-mobile { display: none; }
+
+  section { padding: 68px 28px; }
+  .method-steps { grid-template-columns: 1fr 1fr; }
+  .benefits-layout { grid-template-columns: 1fr; gap: 32px; }
+  .benefit-visual { display: none; }
+
+  .proof-bar { padding: 22px 28px; margin-top: 72px; }
+  .proof-inner { gap: 24px; flex-wrap: wrap; justify-content: center; }
+  .proof-text { display: none; }
+  .proof-divider { display: none; }
+
+  footer { padding: 24px 28px; flex-direction: column; gap: 16px; text-align: center; }
+  footer nav { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .cta-section { padding: 68px 28px; }
+}
+
+/* MOBILE: ≤767px */
+@media (max-width: 767px) {
+  header { padding: 0 20px; height: 68px; }
+  .hamburger {
+    opacity: 1; pointer-events: auto; visibility: visible;
+    width: auto; overflow: visible;
+  }
+  nav { display: none; }
+  header > .nav-cta { display: none; }
+
+
+  .hero { padding: 120px 0 32px; min-height: auto; }
+  h1 { padding: 0 20px; }
+  .hero-sub { padding: 0 20px; font-size: 1.0625rem; }
+  .hero-eyebrow { font-size: 0.75rem; }
+  .hero-actions { flex-direction: column; padding: 0 20px; width: 100%; gap: 10px; margin-bottom: 40px; }
+  .btn-main, .btn-ghost { width: 100%; justify-content: center; height: 52px; font-size: 1rem; }
+
+  .fan-wrap { display: none; }
+  .cards-grid { display: none; }
+  .cards-mobile { display: flex; margin-top: 20px; }
+
+  section { padding: 56px 20px; }
+  .method-steps { grid-template-columns: 1fr; }
+  .step-arrow { display: none !important; }
+  .method-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+  .benefits-layout { grid-template-columns: 1fr; gap: 24px; }
+  .benefit-visual { display: none; }
+
+  .proof-bar { padding: 20px 20px; margin-top: 24px; }
+  .proof-inner { flex-wrap: wrap; gap: 20px; justify-content: center; }
+  .proof-divider { display: none; }
+  .proof-text { display: none; }
+  .proof-stat .num { font-size: 1.4rem; }
+
+  footer { padding: 24px 20px; flex-direction: column; gap: 14px; text-align: center; }
+  footer p { order: 2; }
+  footer nav { order: 1; flex-wrap: wrap; justify-content: center; gap: 14px; }
+  .footer-logo { order: 0; }
+  .cta-section { padding: 64px 20px; }
+  .cta-section .section-desc { max-width: 100%; }
+
+  h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+  .section-desc { font-size: 1rem; }
+  .step h3 { font-size: 1.0625rem; }
+  .step p { font-size: 0.9375rem; }
+}
+
+/* LARGE desktop */
+@media (min-width: 1400px) {
+  .fan-wrap { max-width: 1280px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <a class="logo" href="#">&lt;lup vision&gt;</a>
+
+  <nav>
+    <a href="#metodologie">Servicii</a>
+    <a href="#">Proiecte</a>
+    <a href="#metodologie">Misiunea noastră</a>
+    <a href="#contact" class="nav-cta"><span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span><span class="glow-shine" aria-hidden="true"></span>Începe proiectul</a>
+  </nav>
+
+  <button class="hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div id="dv-menu"></div>
+  <a href="#metodologie">Servicii</a>
+  <a href="#">Proiecte</a>
+  <a href="#metodologie">Misiunea noastră</a>
+  <a href="#contact" class="nav-cta"><span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span><span class="glow-shine" aria-hidden="true"></span>Începe proiectul</a>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+
+
+
+  <!-- DarkVeil CPPN shader -->
+  <div id="dv-hero" class="dv-container"></div>
+
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+
+  <h1>Facem site-uri bune.<br>Și <em><span class="shine-word">multe</span></em> altele.</h1>
+
+  <p class="hero-sub">Prezența digitală este cartea de vizită a afacerii tale. Noi o facem de neignorat.</p>
+
+  <div class="hero-actions">
+    <button class="btn-main">
+      <span class="glow-lines" aria-hidden="true">
+        <svg><rect width="100%" height="100%" rx="8" ry="8"/></svg>
+      </span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Începe proiectul
+    </button>
+    <button class="btn-ghost">
+      <span class="glow-lines" aria-hidden="true">
+        <svg><rect width="100%" height="100%" rx="8" ry="8"/></svg>
+      </span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Vezi ce putem construi
+    </button>
+  </div>
+
+  <!-- ════ DESKTOP FAN — 6 carduri centrate matematic ════ -->
+  <div class="fan-wrap">
+
+    <!-- C1: Identitate Vizuală -->
+    <a href="servicii#identitate-vizuala" class="card c1">
+      <div class="card-header">
+        <div class="card-service-name">Identitate<br>Vizuală</div>
+        <div class="card-service-tag">// branding</div>
+      </div>
+      <div class="card-visual" style="justify-content:center;align-items:center">
+        <div class="brand-square-wrap">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%">
+            <div class="brand-square">
+              <span class="brand-square-text">lup</span>
+            </div>
+            <div class="palette-row" style="margin-bottom:0">
+              <div class="swatch" style="background:#28D4FF"></div>
+              <div class="swatch" style="background:#1a3a7a"></div>
+              <div class="swatch" style="background:rgba(232,237,245,0.9)"></div>
+              <div class="swatch" style="background:#020818"></div>
+            </div>
+            <div style="font-size:0.625rem;color:var(--muted);font-family:'Geist Mono',monospace;letter-spacing:0.04em;">Sistem de design complet</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C2: Web Design & Development -->
+    <a href="servicii#web-design" class="card c2">
+      <div class="card-header">
+        <div class="card-service-name">Web Design<br>&amp; Development</div>
+        <div class="card-service-tag">// web.design + dev</div>
+      </div>
+      <div class="card-visual">
+        <div class="wc-browser">
+          <div class="wc-bar">
+            <div class="wc-dot r"></div><div class="wc-dot y"></div><div class="wc-dot g"></div>
+          </div>
+          <div class="wc-body">
+            <div class="wc-hero-block"><div class="wc-hero-text">hero section</div></div>
+            <div class="wc-row"><div class="wc-row-block lit"></div><div class="wc-row-block"></div></div>
+            <div class="wc-row"><div class="wc-row-block" style="flex:0.65"></div></div>
+          </div>
+        </div>
+        <div class="code-snip">
+<span class="ck">const</span> <span class="cfn">site</span> = <span class="cfn">build</span>({<br>
+&nbsp;&nbsp;perf: <span class="cst">99</span>, seo: <span class="cst">true</span><br>
+})
+        </div>
+      </div>
+    </a>
+
+    <!-- C3: Platforme & Aplicații -->
+    <a href="servicii#platforme-aplicatii" class="card c3">
+      <div class="card-header">
+        <div class="card-service-name">Platforme &amp;<br>Aplicații</div>
+        <div class="card-service-tag">// platforms + apps</div>
+      </div>
+      <div class="card-visual">
+        <div class="phone-outer">
+          <div class="ph-shell">
+            <div class="ph-notch"></div>
+            <div class="ph-sc">
+              <div class="ph-bar"></div>
+              <div class="ph-card">
+                <div class="ph-cdot"></div>
+                <div class="ph-clines"><div class="ph-cline"></div><div class="ph-cline s"></div></div>
+              </div>
+              <div class="ph-card" style="height:22px">
+                <div class="ph-cdot" style="background:rgba(255,255,255,0.15)"></div>
+                <div class="ph-clines"><div class="ph-cline"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pills-row">
+          <div class="pill">iOS</div>
+          <div class="pill">Android</div>
+          <div class="pill">Web</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C4: Magazine Online -->
+    <a href="servicii#magazine-online" class="card c4">
+      <div class="card-header">
+        <div class="card-service-name">Magazine<br>Online</div>
+        <div class="card-service-tag">// e-commerce</div>
+      </div>
+      <div class="card-visual">
+        <div class="shop-visual">
+          <div class="shop-top">
+            <div class="shop-cart-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </div>
+            <div class="shop-stats">
+              <div class="shop-stat"><div class="sv">+340%</div><div class="sl">Conversii</div></div>
+              <div class="shop-stat"><div class="sv">99ms</div><div class="sl">Load time</div></div>
+              <div class="shop-stat"><div class="sv">4.9★</div><div class="sl">UX Score</div></div>
+              <div class="shop-stat"><div class="sv">24/7</div><div class="sl">Automat</div></div>
+            </div>
+          </div>
+          <div class="shop-products">
+            <div class="shop-product"><div class="sp-img"></div><div class="sp-line"></div><div class="sp-line w7"></div><div class="sp-price">199 RON</div></div>
+            <div class="shop-product"><div class="sp-img"></div><div class="sp-line"></div><div class="sp-line w7"></div><div class="sp-price">349 RON</div></div>
+            <div class="shop-product"><div class="sp-img"></div><div class="sp-line"></div><div class="sp-line w7"></div><div class="sp-price">89 RON</div></div>
+          </div>
+          <div style="display:flex;justify-content:flex-start;margin-top:4px">
+            <div class="shop-badge"><div class="shop-badge-dot"></div><div class="shop-badge-text">Plăți integrate · Stoc · SEO</div></div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C5: Optimizare SEO -->
+    <a href="servicii#optimizare-seo" class="card c5">
+      <div class="card-header">
+        <div class="card-service-name">Optimizare<br>SEO</div>
+        <div class="card-service-tag">// seo</div>
+      </div>
+      <div class="card-visual">
+        <div class="seo-ring">
+          <div class="seo-num">99</div>
+          <div class="seo-sublbl">Scor</div>
+        </div>
+        <div class="seo-grid">
+          <div class="seo-cell"><div class="sv">#1</div><div class="sl">Google</div></div>
+          <div class="seo-cell"><div class="sv">↑87%</div><div class="sl">Trafic</div></div>
+          <div class="seo-cell"><div class="sv">3x</div><div class="sl">ROI mediu</div></div>
+          <div class="seo-cell"><div class="sv">CWV</div><div class="sl">Core Vitals ✓</div></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C6: Strategie Digitală -->
+    <a href="servicii#strategie-digitala" class="card c6">
+      <div class="card-header">
+        <div class="card-service-name">Strategie<br>Digitală</div>
+        <div class="card-service-tag">// strategie</div>
+      </div>
+      <div class="card-visual" style="justify-content:center">
+        <div class="strat-list strat-centered">
+          <div class="strat-item">
+            <div class="strat-nd">01</div>
+            <div class="strat-info">
+              <div class="strat-label">Audit &amp; Cercetare</div>
+              <div class="strat-sub">Date reale, nu presupuneri</div>
+              <div class="strat-prog"><div class="strat-fill" style="width:90%"></div></div>
+            </div>
+          </div>
+          <div class="strat-item">
+            <div class="strat-nd">02</div>
+            <div class="strat-info">
+              <div class="strat-label">Plan de Acțiune</div>
+              <div class="strat-sub">Priorități și milestones</div>
+              <div class="strat-prog"><div class="strat-fill" style="width:68%"></div></div>
+            </div>
+          </div>
+          <div class="strat-item">
+            <div class="strat-nd">03</div>
+            <div class="strat-info">
+              <div class="strat-label">Execuție &amp; Scalare</div>
+              <div class="strat-sub">Sistem, nu campanie</div>
+              <div class="strat-prog"><div class="strat-fill" style="width:48%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div><!-- /fan-wrap -->
+
+  <!-- ════ TABLET GRID 2×3 ════ -->
+  <div class="cards-grid">
+
+    <!-- C1: Identitate Vizuală -->
+    <a href="servicii#identitate-vizuala" class="card-flat">
+      <div class="card-header">
+        <div class="card-service-name">Identitate Vizuală</div>
+        <div class="card-service-tag">// branding</div>
+      </div>
+      <div class="card-visual" style="align-items:center;justify-content:center">
+        <div class="brand-square-wrap" style="width:74px;height:74px">
+          <span class="brand-square-text" style="font-size:0.9rem;font-family:'Cascadia Code',monospace">lup</span>
+        </div>
+        <div class="palette-row" style="margin-top:10px">
+          <div class="swatch" style="background:#28D4FF;width:16px;height:16px"></div>
+          <div class="swatch" style="background:#1a3a7a;width:16px;height:16px"></div>
+          <div class="swatch" style="background:rgba(232,237,245,0.9);width:16px;height:16px"></div>
+          <div class="swatch" style="background:#020818;width:16px;height:16px"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C2: Web Design & Development -->
+    <a href="servicii#web-design" class="card-flat">
+      <div class="card-header">
+        <div class="card-service-name">Web Design & Development</div>
+        <div class="card-service-tag">// web.design + dev</div>
+      </div>
+      <div class="card-visual">
+        <div class="wc-browser">
+          <div class="wc-bar"><div class="wc-dot r"></div><div class="wc-dot y"></div><div class="wc-dot g"></div></div>
+          <div class="wc-body">
+            <div class="wc-hero-block" style="height:30px"><div class="wc-hero-text">hero section</div></div>
+            <div class="wc-row"><div class="wc-row-block lit"></div><div class="wc-row-block"></div></div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C3: Platforme & Aplicații -->
+    <a href="servicii#platforme-aplicatii" class="card-flat">
+      <div class="card-header">
+        <div class="card-service-name">Platforme & Aplicații</div>
+        <div class="card-service-tag">// platforms + apps</div>
+      </div>
+      <div class="card-visual" style="flex-direction:row;align-items:center;gap:14px">
+        <div class="ph-shell" style="width:58px;height:92px;border-radius:11px;flex-shrink:0">
+          <div class="ph-notch" style="margin:5px auto 6px"></div>
+          <div class="ph-sc">
+            <div class="ph-bar" style="height:7px;margin-bottom:4px"></div>
+            <div class="ph-card" style="height:22px"><div class="ph-cdot"></div><div class="ph-clines"><div class="ph-cline"></div></div></div>
+          </div>
+        </div>
+        <div class="pills-row" style="flex-direction:column;align-items:flex-start;gap:6px">
+          <div style="display:flex;gap:6px">
+            <div class="pill" style="font-size:0.8rem;padding:6px 12px">iOS</div>
+            <div class="pill" style="font-size:0.8rem;padding:6px 12px">Android</div>
+          </div>
+          <div class="pill" style="font-size:0.8rem;padding:6px 12px">Web App</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C4: Magazine Online -->
+    <a href="servicii#magazine-online" class="card-flat">
+      <div class="card-header">
+        <div class="card-service-name">Magazine Online</div>
+        <div class="card-service-tag">// e-commerce</div>
+      </div>
+      <div class="card-visual" style="flex-direction:row;align-items:center;gap:12px">
+        <div style="display:flex;flex-direction:column;gap:6px;flex:1">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+            <div class="seo-cell"><div class="sv" style="color:#4ade80">+340%</div><div class="sl">Conversii</div></div>
+            <div class="seo-cell"><div class="sv">99ms</div><div class="sl">Load</div></div>
+            <div class="seo-cell"><div class="sv">4.9★</div><div class="sl">UX Score</div></div>
+            <div class="seo-cell"><div class="sv">24/7</div><div class="sl">Automat</div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
+          <div class="shop-badge" style="font-size:0.55rem;padding:3px 7px;border-radius:20px;background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.3);color:#4ade80;white-space:nowrap">Plăți · Stoc · SEO</div>
+          <div style="display:flex;gap:4px">
+            <div style="width:28px;height:38px;background:rgba(255,255,255,0.05);border:1px solid var(--border-soft);border-radius:5px"></div>
+            <div style="width:28px;height:38px;background:rgba(255,255,255,0.05);border:1px solid var(--border-soft);border-radius:5px"></div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C5: Optimizare SEO -->
+    <a href="servicii#optimizare-seo" class="card-flat">
+      <div class="card-header">
+        <div class="card-service-name">Optimizare SEO</div>
+        <div class="card-service-tag">// seo</div>
+      </div>
+      <div class="card-visual" style="flex-direction:row;align-items:center;gap:14px">
+        <div class="seo-ring" style="width:64px;height:64px;flex-shrink:0;margin:0">
+          <div class="seo-num" style="font-size:1.25rem">99</div>
+          <div class="seo-sublbl">Scor</div>
+        </div>
+        <div class="seo-grid" style="flex:1">
+          <div class="seo-cell"><div class="sv">#1</div><div class="sl">Google</div></div>
+          <div class="seo-cell"><div class="sv">↑87%</div><div class="sl">Trafic</div></div>
+          <div class="seo-cell"><div class="sv">3x</div><div class="sl">ROI</div></div>
+          <div class="seo-cell"><div class="sv">CWV</div><div class="sl">✓ Vitals</div></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- C6: Strategie Digitală -->
+    <a href="servicii#strategie-digitala" class="card-flat">
+      <div class="card-header">
+        <div class="card-service-name">Strategie Digitală</div>
+        <div class="card-service-tag">// strategie</div>
+      </div>
+      <div class="card-visual">
+        <div class="strat-list" style="gap:7px">
+          <div class="strat-item"><div class="strat-nd act" style="width:20px;height:20px;font-size:0.5rem">01</div><div class="strat-info"><div class="strat-label">Audit & Cercetare</div><div class="strat-prog" style="margin-top:3px"><div class="strat-fill" style="width:90%"></div></div></div></div>
+          <div class="strat-item"><div class="strat-nd" style="width:20px;height:20px;font-size:0.5rem">02</div><div class="strat-info"><div class="strat-label">Plan de Acțiune</div><div class="strat-prog" style="margin-top:3px"><div class="strat-fill" style="width:65%"></div></div></div></div>
+          <div class="strat-item"><div class="strat-nd" style="width:20px;height:20px;font-size:0.5rem">03</div><div class="strat-info"><div class="strat-label">Execuție & Scalare</div><div class="strat-prog" style="margin-top:3px"><div class="strat-fill" style="width:44%"></div></div></div></div>
+        </div>
+      </div>
+    </a>
+
+  </div><!-- /cards-grid -->
+
+  <!-- ════ MOBILE STACK ════ -->
+  <div class="cards-mobile">
+
+    <a href="servicii#identitate-vizuala" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></div>
+      <div class="card-mobile-text">
+        <div class="card-mobile-name">Identitate Vizuală</div>
+        <div class="card-mobile-desc">Brand coerent, sistem de design complet</div>
+      </div>
+      <div class="card-mobile-arrow">→</div>
+    </a>
+
+    <a href="servicii#web-design" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="card-mobile-text">
+        <div class="card-mobile-name">Web Design & Development</div>
+        <div class="card-mobile-desc">Site-uri rapide, scalabile, Lighthouse 99+</div>
+      </div>
+      <div class="card-mobile-arrow">→</div>
+    </a>
+
+    <a href="servicii#platforme-aplicatii" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+      <div class="card-mobile-text">
+        <div class="card-mobile-name">Platforme & Aplicații</div>
+        <div class="card-mobile-desc">iOS, Android & Web Apps native</div>
+      </div>
+      <div class="card-mobile-arrow">→</div>
+    </a>
+
+    <a href="servicii#magazine-online" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+      <div class="card-mobile-text">
+        <div class="card-mobile-name">Magazine Online</div>
+        <div class="card-mobile-desc">E-commerce cu plăți integrate, stoc și SEO</div>
+      </div>
+      <div class="card-mobile-arrow">→</div>
+    </a>
+
+    <a href="servicii#optimizare-seo" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <div class="card-mobile-text">
+        <div class="card-mobile-name">Optimizare SEO</div>
+        <div class="card-mobile-desc">Poziție #1 Google, trafic organic +87%</div>
+      </div>
+      <div class="card-mobile-arrow">→</div>
+    </a>
+
+    <a href="servicii#strategie-digitala" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="card-mobile-text">
+        <div class="card-mobile-name">Strategie Digitală</div>
+        <div class="card-mobile-desc">Audit, plan de creștere și execuție</div>
+      </div>
+      <div class="card-mobile-arrow">→</div>
+    </a>
+
+  </div><!-- /cards-mobile -->
+
+</div><!-- /hero -->
+
+<!-- ══════════ PROOF BAR ══════════ -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-stat">
+      <div class="num" data-count="120" data-suffix="+">0</div>
+      <div class="lbl">Proiecte livrate</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <div class="num" data-count="98" data-suffix="%">0</div>
+      <div class="lbl">Clienți mulțumiți</div>
+    </div>
+    <div class="proof-divider"></div>
+    <p class="proof-text">Construim sisteme digitale pentru companii care vor să crească.</p>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <div class="num" data-count="3.2" data-suffix="x" data-decimals="1">0.0</div>
+      <div class="lbl">ROI mediu</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <div class="num" data-count="1.2" data-prefix="&lt;" data-suffix="s" data-decimals="1">0.0s</div>
+      <div class="lbl">Timp încărcare</div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+
+/* ══════════════════════════════════════════════════════════════
+   1. HAMBURGER MENU — fullscreen overlay cu animații in/out
+══════════════════════════════════════════════════════════════ */
+const hamburger = document.getElementById('hamburger');
+const drawer    = document.getElementById('nav-drawer');
+function openDrawer() {
+  hamburger.classList.add('open');
+  drawer.classList.remove('closing');
+  drawer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.querySelector('header').classList.add('drawer-open');
+  if (window.initDarkVeilMenu) window.initDarkVeilMenu();
+}
+
+function closeDrawer() {
+  hamburger.classList.remove('open');
+  drawer.classList.add('closing');
+  document.body.style.overflow = '';
+  document.querySelector('header').classList.remove('drawer-open');
+  // ascunde după ce termină animația de ieșire (220ms)
+  const onEnd = () => {
+    drawer.classList.remove('open', 'closing');
+    drawer.removeEventListener('animationend', onEnd);
+  };
+  drawer.addEventListener('animationend', onEnd);
+}
+
+hamburger.addEventListener('click', () => {
+  drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 1099) {
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open', 'closing');
+    document.body.style.overflow = '';
+    document.querySelector('header').classList.remove('drawer-open');
+  }
+}, { passive: true });
+
+/* ══════════════════════════════════════════════════════════════
+   2. HEADER: transparent → frosted-glass on scroll
+══════════════════════════════════════════════════════════════ */
+const hdr = document.querySelector('header');
+const updateHeader = () => hdr.classList.toggle('scrolled', window.scrollY > 20);
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
+
+/* ══════════════════════════════════════════════════════════════
+   3. SCROLL REVEAL
+══════════════════════════════════════════════════════════════ */
+(() => {
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // stagger reveal pentru step-uri și benefit-items
+  const ioItems = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        ioItems.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal-item').forEach(el => ioItems.observe(el));
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   4. PAGE LOAD ANIMATIONS — header + nav stagger
+══════════════════════════════════════════════════════════════ */
+(() => {
+  const logo    = document.querySelector('.logo');
+  const navLinks = document.querySelectorAll('nav a:not(.nav-cta)');
+  const navCta  = document.querySelector('nav .nav-cta');
+
+  if (logo)   logo.classList.add('anim-logo');
+  navLinks.forEach((el, i) => el.classList.add(`anim-nav-${i+1}`));
+  if (navCta) navCta.classList.add('anim-nav-cta');
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   4. DASHBOARD BAR ANIMATIONS
+══════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.bv-bar').forEach(bar => {
+  const h = bar.style.height;
+  bar.style.height = '0px';
+  setTimeout(() => { bar.style.height = h; }, 800);
+});
+
+/* ══════════════════════════════════════════════════════════════
+   5c. FAN CARDS — float orbit + crowd effect cu lerp smooth
+══════════════════════════════════════════════════════════════ */
+(function() {
+  const ROTS   = [-20, -12, -4, 4, 12, 20];
+  const NAMES  = ['c1','c2','c3','c4','c5','c6'];
+  const ORBITS = [
+    [[0,0],[3,-5],[6,-2],[2,4]],
+    [[0,0],[-4,-6],[2,-4],[5,3]],
+    [[0,0],[5,-7],[-3,-3],[-5,5]],
+    [[0,0],[-5,-6],[4,-4],[3,5]],
+    [[0,0],[-3,-5],[-6,2],[2,6]],
+    [[0,0],[4,-4],[-4,-6],[-2,3]],
+  ];
+  const PERIODS = [7200, 8500, 7800, 9100, 7500, 8200];
+  const OFFSETS = [0, 2100, 4300, 1400, 3700, 5900];
+  const PUSH = [0, 20, 11, 5];
+
+  let cards      = [];
+  let hoveredIdx = -1;
+  const crowdCur = [0,0,0,0,0,0];
+  const liftCur  = [0,0,0,0,0,0];
+
+  const LIFT_Y    = -26;
+  const LIFT_SC   = 1.05;
+  const SPD_LIFT  = 0.055;   // mai lent = mai fluid
+  const SPD_CROWD = 0.042;   // şi mai lent pentru cedare
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function orbitXY(idx, now) {
+    const pts = ORBITS[idx];
+    const n   = pts.length;
+    const t   = ((now + OFFSETS[idx]) % PERIODS[idx]) / PERIODS[idx];
+    const seg = t * n;
+    const i0  = Math.floor(seg) % n;
+    const i1  = (i0 + 1) % n;
+    const f   = seg - Math.floor(seg);
+    const fe  = f < 0.5 ? 2*f*f : -1+(4-2*f)*f;
+    return [
+      lerp(pts[i0][0], pts[i1][0], fe),
+      lerp(pts[i0][1], pts[i1][1], fe),
+    ];
+  }
+
+  function getCrowdTarget(i) {
+    if (hoveredIdx < 0) return 0;
+    const dist = Math.abs(i - hoveredIdx);
+    if (dist === 0) return 0;
+    const dir = i < hoveredIdx ? -1 : 1;
+    return dir * PUSH[Math.min(dist, PUSH.length - 1)];
+  }
+
+  function init() {
+    cards = NAMES.map(n => document.querySelector('.fan-wrap .' + n));
+    if (!cards[0]) return;
+    cards.forEach((card, i) => {
+      if (!card) return;
+      card.style.willChange = 'transform';
+      card.addEventListener('mouseenter', () => { hoveredIdx = i; });
+      card.addEventListener('mouseleave', () => { hoveredIdx = -1; });
+    });
+    requestAnimationFrame(loop);
+  }
+
+  function loop() {
+    requestAnimationFrame(loop);
+    const now = performance.now();
+
+    for (let i = 0; i < 6; i++) {
+      liftCur[i]  = lerp(liftCur[i],  i === hoveredIdx ? 1 : 0,  SPD_LIFT);
+      crowdCur[i] = lerp(crowdCur[i], getCrowdTarget(i),          SPD_CROWD);
+    }
+
+    cards.forEach((card, i) => {
+      if (!card) return;
+      const fade = 1 - liftCur[i];
+      let fx = 0, fy = 0;
+      if (fade > 0.01) {
+        [fx, fy] = orbitXY(i, now);
+        fx *= fade; fy *= fade;
+      }
+      const liftY = liftCur[i] * LIFT_Y;
+      const sc    = 1 + liftCur[i] * (LIFT_SC - 1);
+      card.style.transform =
+        `rotate(${ROTS[i]}deg) translate(${(fx + crowdCur[i]).toFixed(2)}px,${(fy + liftY).toFixed(2)}px) scale(${sc.toFixed(4)})`;
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   5a. MAGIC BENTO — spotlight per-card + border glow + click ripple
+   Aplicat pe: .cards-grid .card-flat  +  .cards-mobile .card-mobile-row
+══════════════════════════════════════════════════════════════ */
+(function() {
+  const GLOW_COLOR = '40,212,255';
+  const SPOTLIGHT_R = 340;
+  const proximity = SPOTLIGHT_R * 0.5;
+  const fadeDist  = SPOTLIGHT_R * 0.75;
+
+  function makeSpotlight() {
+    const el = document.createElement('div');
+    el.classList.add('bento-spotlight');
+    el.style.cssText = `
+      position:absolute;
+      width:${SPOTLIGHT_R*2}px; height:${SPOTLIGHT_R*2}px;
+      border-radius:50%;
+      pointer-events:none;
+      background:radial-gradient(circle,
+        rgba(${GLOW_COLOR},0.13) 0%,
+        rgba(${GLOW_COLOR},0.06) 20%,
+        rgba(${GLOW_COLOR},0.02) 40%,
+        transparent 65%
+      );
+      z-index:1; opacity:0;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:screen;
+      will-change:left,top,opacity;
+    `;
+    return el;
+  }
+
+  function getBentoState() {
+    const fanWrap = document.querySelector('.fan-wrap');
+    const grid    = document.querySelector('.cards-grid');
+    const mobile  = document.querySelector('.cards-mobile');
+    if (fanWrap && getComputedStyle(fanWrap).display !== 'none')
+      return { container: fanWrap, cards: Array.from(fanWrap.querySelectorAll('.card')), loose: true };
+    if (grid && getComputedStyle(grid).display !== 'none')
+      return { container: grid,    cards: Array.from(grid.querySelectorAll('.card-flat')) };
+    if (mobile && getComputedStyle(mobile).display !== 'none')
+      return { container: mobile,  cards: Array.from(mobile.querySelectorAll('.card-mobile-row')) };
+    return null;
+  }
+
+  function ensureSpotlights(cards) {
+    cards.forEach(card => {
+      if (!card.querySelector('.bento-spotlight'))
+        card.appendChild(makeSpotlight());
+    });
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.card-flat, .card-mobile-row, .fan-wrap .card').forEach(card => {
+      const sp = card.querySelector('.bento-spotlight');
+      if (sp) sp.style.opacity = '0';
+      card.style.setProperty('--glow-intensity', '0');
+    });
+  }
+
+  // Urmărim dacă mouse-ul e pe vreun card
+  let activeCard = null;
+
+  function activateTracking(cards, e) {
+    ensureSpotlights(cards);
+    cards.forEach(card => {
+      const r  = card.getBoundingClientRect();
+      const rx = e.clientX - r.left;
+      const ry = e.clientY - r.top;
+      const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
+      const dy = Math.max(r.top  - e.clientY, 0, e.clientY - r.bottom);
+      const dist = Math.hypot(dx, dy);
+
+      let intensity = 0;
+      if      (dist <= proximity) intensity = 1;
+      else if (dist <= fadeDist)  intensity = (fadeDist - dist) / (fadeDist - proximity);
+
+      card.style.setProperty('--glow-x', `${(rx / r.width  * 100).toFixed(1)}%`);
+      card.style.setProperty('--glow-y', `${(ry / r.height * 100).toFixed(1)}%`);
+      card.style.setProperty('--glow-intensity', intensity.toFixed(3));
+
+      const sp = card.querySelector('.bento-spotlight');
+      if (sp) { sp.style.left = rx+'px'; sp.style.top = ry+'px'; sp.style.opacity = intensity.toFixed(3); }
+    });
+  }
+
+  // Desktop fan cards — mouseenter/mouseleave per card
+  function bindFanCards() {
+    const fanWrap = document.querySelector('.fan-wrap');
+    if (!fanWrap) return;
+    const cards = Array.from(fanWrap.querySelectorAll('.card'));
+    ensureSpotlights(cards);
+
+    fanWrap.addEventListener('mousemove', e => {
+      // Verificăm dacă mouse-ul e pe vreun card
+      const onCard = cards.some(card => {
+        const r = card.getBoundingClientRect();
+        return e.clientX >= r.left && e.clientX <= r.right
+            && e.clientY >= r.top  && e.clientY <= r.bottom;
+      });
+      if (!onCard) { resetAll(); return; }
+      activateTracking(cards, e);
+    });
+
+    fanWrap.addEventListener('mouseleave', resetAll);
+  }
+
+  // Tablet grid și mobile — mousemove pe container, reset dacă nu ești pe card
+  document.addEventListener('mousemove', e => {
+    const state = getBentoState();
+    if (!state) { resetAll(); return; }
+    const { container, cards, loose } = state;
+
+    // Fan cards gestionat separat mai sus
+    if (loose) return;
+
+    const cr = container.getBoundingClientRect();
+    const inside = e.clientX >= cr.left && e.clientX <= cr.right
+                && e.clientY >= cr.top  && e.clientY <= cr.bottom;
+    if (!inside) { resetAll(); return; }
+
+    const onCard = cards.some(card => {
+      const r = card.getBoundingClientRect();
+      return e.clientX >= r.left && e.clientX <= r.right
+          && e.clientY >= r.top  && e.clientY <= r.bottom;
+    });
+    if (!onCard) { resetAll(); return; }
+
+    activateTracking(cards, e);
+  });
+
+  document.addEventListener('mouseleave', resetAll);
+
+  // Init fan cards după DOM ready
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', bindFanCards);
+  else
+    bindFanCards();
+
+  /* ── click ripple ── */
+  document.addEventListener('click', e => {
+    const card = e.target.closest('.cards-grid .card-flat, .cards-mobile .card-mobile-row, .fan-wrap .card');
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const maxD = Math.max(Math.hypot(x,y), Math.hypot(x-r.width,y),
+                          Math.hypot(x,y-r.height), Math.hypot(x-r.width,y-r.height));
+    const rpl = document.createElement('div');
+    rpl.style.cssText = `
+      position:absolute; width:${maxD*2}px; height:${maxD*2}px; border-radius:50%;
+      background:radial-gradient(circle,rgba(${GLOW_COLOR},0.28) 0%,rgba(${GLOW_COLOR},0.1) 30%,transparent 70%);
+      left:${x-maxD}px; top:${y-maxD}px; pointer-events:none; z-index:10;
+      transform:scale(0); opacity:1;
+      transition:transform 0.65s cubic-bezier(0.23,1,0.32,1),opacity 0.65s ease;
+    `;
+    card.appendChild(rpl);
+    requestAnimationFrame(() => { rpl.style.transform='scale(1)'; rpl.style.opacity='0'; });
+    setTimeout(() => rpl.remove(), 700);
+  });
+
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   5b. PROOF BAR COUNTERS
+══════════════════════════════════════════════════════════════ */
+(function() {
+  const counters = document.querySelectorAll('.proof-stat .num[data-count]');
+  if (!counters.length) return;
+
+  function animateCounter(el) {
+    const target   = parseFloat(el.dataset.count);
+    const prefix   = el.dataset.prefix || '';
+    const suffix   = el.dataset.suffix || '';
+    const decimals = parseInt(el.dataset.decimals || '0');
+    const duration = 3200;
+    const start    = performance.now();
+
+    function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+    function tick(now) {
+      const elapsed  = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const value    = easeOutQuart(progress) * target;
+      el.textContent = prefix + value.toFixed(decimals) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(el => io.observe(el));
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   6. PARALLAX HERO GLOW
+══════════════════════════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  const g = document.querySelector('.hero-glow');
+  if (g) g.style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.1}px))`;
+}, { passive: true });
+
+
+
+
+/* ══════════════════════════════════════════════════════════════
+   7. DARK VEIL — vanilla WebGL port of React Bits DarkVeil
+   Paleta LupVision prin lupPalette() în fragment shader
+══════════════════════════════════════════════════════════════ */
+(function() {
+
+  /* ── Vertex shader (identic React Bits) ── */
+  var VERT = [
+    'attribute vec2 position;',
+    'void main(){gl_Position=vec4(position,0.0,1.0);}'
+  ].join('\n');
+
+  /* ── Fragment shader — CPPN neatins, void main() cu lupPalette ── */
+  var FRAG = [
+    '#ifdef GL_ES',
+    'precision lowp float;',
+    '#endif',
+    'uniform vec2 uResolution;',
+    'uniform float uTime;',
+    'uniform float uNoise;',
+    'uniform float uScan;',
+    'uniform float uScanFreq;',
+    'uniform float uWarp;',
+    '#define iTime uTime',
+    '#define iResolution uResolution',
+
+    'vec4 buf[8];',
+    'float rand(vec2 c){return fract(sin(dot(c,vec2(12.9898,78.233)))*43758.5453);}',
+
+    'vec4 sigmoid(vec4 x){return 1./(1.+exp(-x));}',
+
+    /* ── CPPN — identic cu React Bits, nicio modificare ── */
+    'vec4 cppn_fn(vec2 coordinate,float in0,float in1,float in2){',
+    '  buf[6]=vec4(coordinate.x,coordinate.y,0.3948333106474662+in0,0.36+in1);',
+    '  buf[7]=vec4(0.14+in2,sqrt(coordinate.x*coordinate.x+coordinate.y*coordinate.y),0.,0.);',
+    '  buf[0]=mat4(vec4(6.5404263,-3.6126034,0.7590882,-1.13613),vec4(2.4582713,3.1660357,1.2219609,0.06276096),vec4(-5.478085,-6.159632,1.8701609,-4.7742867),vec4(6.039214,-5.542865,-0.90925294,3.251348))*buf[6]+mat4(vec4(0.8473259,-5.722911,3.975766,1.6522468),vec4(-0.24321538,0.5839259,-1.7661959,-5.350116),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(0.21808943,1.1243913,-1.7969975,5.0294676);',
+    '  buf[1]=mat4(vec4(-3.3522482,-6.0612736,0.55641043,-4.4719114),vec4(0.8631464,1.7432913,5.643898,1.6106541),vec4(2.4941394,-3.5012043,1.7184316,6.357333),vec4(3.310376,8.209261,1.1355612,-1.165539))*buf[6]+mat4(vec4(5.24046,-13.034365,0.009859298,15.870829),vec4(2.987511,3.129433,-0.89023495,-1.6822904),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(-5.9457836,-6.573602,-0.8812491,1.5436668);',
+    '  buf[0]=sigmoid(buf[0]);buf[1]=sigmoid(buf[1]);',
+    '  buf[2]=mat4(vec4(-15.219568,8.095543,-2.429353,-1.9381982),vec4(-5.951362,4.3115187,2.6393783,1.274315),vec4(-7.3145227,6.7297835,5.2473326,5.9411426),vec4(5.0796127,8.979051,-1.7278991,-1.158976))*buf[6]+mat4(vec4(-11.967154,-11.608155,6.1486754,11.237008),vec4(2.124141,-6.263192,-1.7050359,-0.7021966),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(-4.17164,-3.2281182,-4.576417,-3.6401186);',
+    '  buf[3]=mat4(vec4(3.1832156,-13.738922,1.879223,3.233465),vec4(0.64300746,12.768129,1.9141049,0.50990224),vec4(-0.049295485,4.4807224,1.4733979,1.801449),vec4(5.0039253,13.000481,3.3991797,-4.5561905))*buf[6]+mat4(vec4(-0.1285731,7.720628,-3.1425676,4.742367),vec4(0.6393625,3.714393,-0.8108378,-0.39174938),vec4(0.,0.,0.,0.),vec4(0.,0.,0.,0.))*buf[7]+vec4(-1.1811101,-21.621881,0.7851888,1.2329718);',
+    '  buf[2]=sigmoid(buf[2]);buf[3]=sigmoid(buf[3]);',
+    '  buf[4]=mat4(vec4(5.214916,-7.183024,2.7228765,2.6592617),vec4(-5.601878,-25.3591,4.067988,0.4602802),vec4(-10.57759,24.286327,21.102104,37.546658),vec4(4.3024497,-1.9625226,2.3458803,-1.372816))*buf[0]+mat4(vec4(-17.6526,-10.507558,2.2587414,12.462782),vec4(6.265566,-502.75443,-12.642513,0.9112289),vec4(-10.983244,20.741234,-9.701768,-0.7635988),vec4(5.383626,1.4819539,-4.1911616,-4.8444734))*buf[1]+mat4(vec4(12.785233,-16.345072,-0.39901125,1.7955981),vec4(-30.48365,-1.8345358,1.4542528,-1.1118771),vec4(19.872723,-7.337935,-42.941723,-98.52709),vec4(8.337645,-2.7312303,-2.2927687,-36.142323))*buf[2]+mat4(vec4(-16.298317,3.5471997,-0.44300047,-9.444417),vec4(57.5077,-35.609753,16.163465,-4.1534753),vec4(-0.07470326,-3.8656476,-7.0901804,3.1523974),vec4(-12.559385,-7.077619,1.490437,-0.8211543))*buf[3]+vec4(-7.67914,15.927437,1.3207729,-1.6686112);',
+    '  buf[5]=mat4(vec4(-1.4109162,-0.372762,-3.770383,-21.367174),vec4(-6.2103205,-9.35908,0.92529047,8.82561),vec4(11.460242,-22.348068,13.625772,-18.693201),vec4(-0.3429052,-3.9905605,-2.4626114,-0.45033523))*buf[0]+mat4(vec4(7.3481627,-4.3661838,-6.3037653,-3.868115),vec4(1.5462853,6.5488915,1.9701879,-0.58291394),vec4(6.5858274,-2.2180402,3.7127688,-1.3730392),vec4(-5.7973905,10.134961,-2.3395722,-5.965605))*buf[1]+mat4(vec4(-2.5132585,-6.6685553,-1.4029363,-0.16285264),vec4(-0.37908727,0.53738135,4.389061,-1.3024765),vec4(-0.70647055,2.0111287,-5.1659346,-3.728635),vec4(-13.562562,10.487719,-0.9173751,-2.6487076))*buf[2]+mat4(vec4(-8.645013,6.5546675,-6.3944063,-5.5933375),vec4(-0.57783127,-1.077275,36.91025,5.736769),vec4(14.283112,3.7146652,7.1452246,-4.5958776),vec4(2.7192075,3.6021907,-4.366337,-2.3653464))*buf[3]+vec4(-5.9000807,-4.329569,1.2427121,8.59503);',
+    '  buf[4]=sigmoid(buf[4]);buf[5]=sigmoid(buf[5]);',
+    '  buf[6]=mat4(vec4(-1.61102,0.7970257,1.4675229,0.20917463),vec4(-28.793737,-7.1390953,1.5025433,4.656581),vec4(-10.94861,39.66238,0.74318546,-10.095605),vec4(-0.7229728,-1.5483948,0.7301322,2.1687684))*buf[0]+mat4(vec4(3.2547753,21.489103,-1.0194173,-3.3100595),vec4(-3.7316632,-3.3792162,-7.223193,-0.23685838),vec4(13.1804495,0.7916005,5.338587,5.687114),vec4(-4.167605,-17.798311,-6.815736,-1.6451967))*buf[1]+mat4(vec4(0.604885,-7.800309,-7.213122,-2.741014),vec4(-3.522382,-0.12359311,-0.5258442,0.43852118),vec4(9.6752825,-22.853785,2.062431,0.099892326),vec4(-4.3196306,-17.730087,2.5184598,5.30267))*buf[2]+mat4(vec4(-6.545563,-15.790176,-6.0438633,-5.415399),vec4(-43.591583,28.551912,-16.00161,18.84728),vec4(4.212382,8.394307,3.0958717,8.657522),vec4(-5.0237565,-4.450633,-4.4768,-5.5010443))*buf[3]+mat4(vec4(1.6985557,-67.05806,6.897715,1.9004834),vec4(1.8680354,2.3915145,2.5231109,4.081538),vec4(11.158006,1.7294737,2.0738268,7.386411),vec4(-4.256034,-306.24686,8.258898,-17.132736))*buf[4]+mat4(vec4(1.6889864,-4.5852966,3.8534803,-6.3482175),vec4(1.3543309,-1.2640043,9.932754,2.9079645),vec4(-5.2770967,0.07150358,-0.13962056,3.3269649),vec4(28.34703,-4.918278,6.1044083,4.085355))*buf[5]+vec4(6.6818056,12.522166,-3.7075126,-4.104386);',
+    '  buf[7]=mat4(vec4(-8.265602,-4.7027016,5.098234,0.7509808),vec4(8.6507845,-17.15949,16.51939,-8.884479),vec4(-4.036479,-2.3946867,-2.6055532,-1.9866527),vec4(-2.2167742,-1.8135649,-5.9759874,4.8846445))*buf[0]+mat4(vec4(6.7790847,3.5076547,-2.8191125,-2.7028968),vec4(-5.743024,-0.27844876,1.4958696,-5.0517144),vec4(13.122226,15.735168,-2.9397483,-4.101023),vec4(-14.375265,-5.030483,-6.2599335,2.9848232))*buf[1]+mat4(vec4(4.0950394,-0.94011575,-5.674733,4.755022),vec4(4.3809423,4.8310084,1.7425908,-3.437416),vec4(2.117492,0.16342592,-104.56341,16.949184),vec4(-5.22543,-2.994248,3.8350096,-1.9364246))*buf[2]+mat4(vec4(-5.900337,1.7946124,-13.604192,-3.8060522),vec4(6.6583457,31.911177,25.164474,91.81147),vec4(11.840538,4.1503043,-0.7314397,6.768467),vec4(-6.3967767,4.034772,6.1714606,-0.32874924))*buf[3]+mat4(vec4(3.4992442,-196.91893,-8.923708,2.8142626),vec4(3.4806502,-3.1846354,5.1725626,5.1804223),vec4(-2.4009497,15.585794,1.2863957,2.0252278),vec4(-71.25271,-62.441242,-8.138444,0.50670296))*buf[4]+mat4(vec4(-12.291733,-11.176166,-7.3474145,4.390294),vec4(10.805477,5.6337385,-0.9385842,-4.7348723),vec4(-12.869276,-7.039391,5.3029537,7.5436664),vec4(1.4593618,8.91898,3.5101583,5.840625))*buf[5]+vec4(2.2415268,-6.705987,-0.98861027,-2.117676);',
+    '  buf[6]=sigmoid(buf[6]);buf[7]=sigmoid(buf[7]);',
+    '  buf[0]=mat4(vec4(1.6794263,1.3817469,2.9625452,0.),vec4(-1.8834411,-1.4806935,-3.5924516,0.),vec4(-1.3279216,-1.0918057,-2.3124623,0.),vec4(0.2662234,0.23235129,0.44178495,0.))*buf[0]+mat4(vec4(-0.6299101,-0.5945583,-0.9125601,0.),vec4(0.17828953,0.18300213,0.18182953,0.),vec4(-2.96544,-2.5819945,-4.9001055,0.),vec4(1.4195864,1.1868085,2.5176322,0.))*buf[1]+mat4(vec4(-1.2584374,-1.0552157,-2.1688404,0.),vec4(-0.7200217,-0.52666044,-1.438251,0.),vec4(0.15345335,0.15196142,0.272854,0.),vec4(0.945728,0.8861938,1.2766753,0.))*buf[2]+mat4(vec4(-2.4218085,-1.968602,-4.35166,0.),vec4(-22.683098,-18.0544,-41.954372,0.),vec4(0.63792,0.5470648,1.1078634,0.),vec4(-1.5489894,-1.3075932,-2.6444845,0.))*buf[3]+mat4(vec4(-0.49252132,-0.39877754,-0.91366625,0.),vec4(0.95609266,0.7923952,1.640221,0.),vec4(0.30616966,0.15693925,0.8639857,0.),vec4(1.1825981,0.94504964,2.176963,0.))*buf[4]+mat4(vec4(0.35446745,0.3293795,0.59547555,0.),vec4(-0.58784515,-0.48177817,-1.0614829,0.),vec4(2.5271258,1.9991658,4.6846647,0.),vec4(0.13042648,0.08864098,0.30187556,0.))*buf[5]+mat4(vec4(-1.7718065,-1.4033192,-3.3355875,0.),vec4(3.1664357,2.638297,5.378702,0.),vec4(-3.1724713,-2.6107926,-5.549295,0.),vec4(-2.851368,-2.249092,-5.3013067,0.))*buf[6]+mat4(vec4(1.5203838,1.2212278,2.8404984,0.),vec4(1.5210563,1.2651345,2.683903,0.),vec4(2.9789467,2.4364579,5.2347264,0.),vec4(2.2270417,1.8825914,3.8028636,0.))*buf[7]+vec4(-1.5468478,-3.6171484,0.24762098,0.);',
+    '  buf[0]=sigmoid(buf[0]);',
+    '  return vec4(buf[0].x,buf[0].y,buf[0].z,1.);}',
+
+    /* ── mainImage neatins ── */
+    'void mainImage(out vec4 fragColor,in vec2 fragCoord){',
+    '  vec2 uv=fragCoord/uResolution.xy*2.-1.;',
+    '  uv.y*=-1.;',
+    '  uv+=uWarp*vec2(sin(uv.y*6.283+uTime*0.5),cos(uv.x*6.283+uTime*0.5))*0.05;',
+    '  fragColor=cppn_fn(uv,0.1*sin(0.3*uTime),0.1*sin(0.69*uTime),0.1*sin(0.44*uTime));}',
+
+    /* ── lupPalette: luminanța CPPN → gradient site ── */
+    /* #020818=vec3(0.008,0.031,0.094)  #0a1a5c=vec3(0.039,0.102,0.361) */
+    /* #1a3a7a=vec3(0.102,0.227,0.478)  #28D4FF=vec3(0.157,0.831,1.0)  */
+    'vec3 lupPalette(float t){',
+    '  t=clamp(t,0.0,1.0);',
+    '  vec3 c0=vec3(0.008,0.031,0.094);',
+    '  vec3 c1=vec3(0.039,0.102,0.361);',
+    '  vec3 c2=vec3(0.102,0.227,0.478);',
+    '  vec3 c3=vec3(0.157,0.831,1.0);',
+    '  if(t<0.33)return mix(c0,c1,t/0.33);',
+    '  if(t<0.66)return mix(c1,c2,(t-0.33)/0.33);',
+    '  return mix(c2,c3,(t-0.66)/0.34);}',
+
+    /* ── void main: aplică paleta + noise opțional ── */
+    'void main(){',
+    '  vec4 col;mainImage(col,gl_FragCoord.xy);',
+    '  float lum=dot(col.rgb,vec3(0.299,0.587,0.114));',
+    '  col.rgb=lupPalette(lum);',
+    '  float sv=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;',
+    '  col.rgb*=1.-(sv*sv)*uScan;',
+    '  col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;',
+    '  gl_FragColor=vec4(clamp(col.rgb,0.0,1.0),1.0);}'
+  ].join('\n');
+
+  /* ── initDarkVeil ── */
+  function initDarkVeil(container, opts) {
+    opts = opts || {};
+
+    var speed    = opts.speed    !== undefined ? opts.speed    : 0.4;
+    var noise    = opts.noise    !== undefined ? opts.noise    : 0.018;
+    var scan     = opts.scan     !== undefined ? opts.scan     : 0.0;
+    var scanFreq = opts.scanFreq !== undefined ? opts.scanFreq : 0.0;
+    var warp     = opts.warp     !== undefined ? opts.warp     : 0.35;
+
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'display:block;width:100%;height:100%;';
+    container.appendChild(canvas);
+
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) { console.warn('[DarkVeil] WebGL not supported'); return null; }
+
+    function compileShader(type, src) {
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS))
+        console.error('[DarkVeil] shader:', gl.getShaderInfoLog(s));
+      return s;
+    }
+    var prog = gl.createProgram();
+    gl.attachShader(prog, compileShader(gl.VERTEX_SHADER,   VERT));
+    gl.attachShader(prog, compileShader(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    /* Full-screen triangle */
+    var vbuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vbuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    var posLoc = gl.getAttribLocation(prog, 'position');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    var uTime     = gl.getUniformLocation(prog, 'uTime');
+    var uRes      = gl.getUniformLocation(prog, 'uResolution');
+    var uNoise_u  = gl.getUniformLocation(prog, 'uNoise');
+    var uScan_u   = gl.getUniformLocation(prog, 'uScan');
+    var uScanFreq = gl.getUniformLocation(prog, 'uScanFreq');
+    var uWarp_u   = gl.getUniformLocation(prog, 'uWarp');
+
+    gl.uniform1f(uNoise_u,  noise);
+    gl.uniform1f(uScan_u,   scan);
+    gl.uniform1f(uScanFreq, scanFreq);
+    gl.uniform1f(uWarp_u,   warp);
+
+    function setSize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.max(1, container.clientWidth);
+      var h = Math.max(1, container.clientHeight);
+      canvas.width  = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uRes, w, h);
+    }
+    var ro = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(setSize); ro.observe(container);
+    }
+    setSize();
+
+    var start = performance.now(), raf = null;
+    function loop(t) {
+      gl.uniform1f(uTime, ((t - start) / 1000) * speed);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      raf = requestAnimationFrame(loop);
+    }
+    raf = requestAnimationFrame(loop);
+
+    return {
+      destroy: function() {
+        cancelAnimationFrame(raf);
+        if (ro) ro.disconnect();
+        if (canvas.parentElement) canvas.parentElement.removeChild(canvas);
+        gl.deleteProgram(prog); gl.deleteBuffer(vbuf);
+      }
+    };
+  }
+
+  window.initDarkVeil = initDarkVeil;
+
+  /* ── Boot hero ── */
+  var heroEl = document.getElementById('dv-hero');
+  if (heroEl) {
+    var heroApp = null;
+    new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !heroApp)
+        heroApp = initDarkVeil(heroEl);
+    }, { threshold: 0.01 }).observe(heroEl);
+    setTimeout(function() { if (!heroApp) heroApp = initDarkVeil(heroEl); }, 80);
+  }
+
+  /* ── Drawer lazy init ── */
+  window._dvMenuApp = null;
+  window.initDarkVeilMenu = function() {
+    if (!window._dvMenuApp) {
+      var el = document.getElementById('dv-menu');
+      if (el) window._dvMenuApp = initDarkVeil(el, {
+        speed: 0.35, noise: 0.012, warp: 0.28
+      });
+    }
+  };
+
+})();
+
+
+</script>
+
+</body>
+</html>

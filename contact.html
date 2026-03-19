@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Lup Vision | Începe proiectul</title>
+  <meta name="description" content="Contactează Lup Vision. Spune-ne despre proiectul tău și primești o estimare clară în 24 de ore. Fără spam, fără complicații." />
+  <link rel="canonical" href="https://lupvision.ro/contact.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lupvision.ro/contact.html" />
+  <meta property="og:title" content="Contact — Lup Vision | Începe proiectul" />
+  <meta property="og:description" content="Contactează Lup Vision. Primești o estimare clară în 24 de ore." />
+  <style>html, body { background: #030812; }</style>
+
+  <!-- Fonturi -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Cascadia+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Design system global -->
+  <link rel="stylesheet" href="lupvision.ro-global.css">
+
+<style>
+/* ============================================================
+   CONTACT.HTML — CSS specific
+   ============================================================ */
+
+/* ── HERO ── */
+.ctc-hero {
+  padding: 160px var(--container-pad) var(--space-8);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  position: relative; overflow: hidden;
+}
+.ctc-hero-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -55%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse at center,
+    rgba(20, 80, 200, 0.10) 0%, rgba(40, 212, 255, 0.03) 45%, transparent 70%);
+  pointer-events: none;
+}
+.ctc-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+  pointer-events: none;
+}
+.dv-container {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.dv-container canvas {
+  display: block; width: 100% !important; height: 100% !important;
+  mix-blend-mode: screen; opacity: 0.6;
+}
+.ctc-hero-content {
+  position: relative; z-index: 10;
+  text-align: center; max-width: 680px;
+  margin: 0 auto;
+}
+.ctc-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: var(--space-3);
+  animation: rise 0.5s ease 0.05s both;
+}
+.ctc-hero-eyebrow::before {
+  content: ''; display: block;
+  width: 20px; height: 1px; background: var(--accent); opacity: 0.6;
+}
+.ctc-hero-eyebrow::after {
+  content: ''; display: block;
+  width: 20px; height: 1px; background: var(--accent); opacity: 0.6;
+}
+.ctc-hero h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: #fff; margin-bottom: var(--space-3);
+  animation: rise 0.7s ease 0.12s both;
+}
+.ctc-hero-sub {
+  font-size: var(--text-md); color: rgba(232,237,245,0.58);
+  line-height: var(--leading-body);
+  animation: rise 0.7s ease 0.22s both;
+}
+
+/* ── MAIN LAYOUT ── */
+.ctc-body {
+  display: grid; grid-template-columns: 3fr 2fr;
+  gap: var(--space-7); align-items: start;
+}
+
+/* ── FORM ── */
+.ctc-form-wrap {
+  border-radius: var(--radius-xl); border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: var(--space-6);
+  position: relative; overflow: hidden;
+}
+.ctc-form-wrap::before {
+  content: ''; position: absolute;
+  top: -120px; left: -120px;
+  width: 360px; height: 360px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(40,212,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ctc-form-tag {
+  font-family: var(--font-mono); font-size: 0.625rem;
+  color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase;
+  display: block; margin-bottom: var(--space-4);
+}
+.ctc-form { display: flex; flex-direction: column; gap: var(--space-3); }
+
+/* Row de 2 câmpuri */
+.ctc-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+
+/* Grup câmp */
+.ctc-group { display: flex; flex-direction: column; gap: 7px; }
+.ctc-label {
+  font-size: var(--text-xs); font-weight: var(--weight-semibold);
+  color: rgba(232,237,245,0.55); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.ctc-label-opt {
+  font-size: 0.6rem; color: var(--muted-2);
+  font-weight: var(--weight-regular); letter-spacing: 0.04em;
+  text-transform: none; margin-left: 4px;
+}
+
+/* Input / select / textarea */
+.ctc-input,
+.ctc-select,
+.ctc-textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  transition: border-color var(--transition-ui), background var(--transition-ui), box-shadow var(--transition-ui);
+  outline: none;
+  -webkit-appearance: none;
+}
+.ctc-input,
+.ctc-select { height: 48px; padding: 0 16px; }
+.ctc-textarea { padding: 14px 16px; resize: vertical; min-height: 120px; line-height: var(--leading-body); }
+
+.ctc-input::placeholder,
+.ctc-textarea::placeholder { color: var(--muted-2); }
+
+.ctc-input:focus,
+.ctc-select:focus,
+.ctc-textarea:focus {
+  border-color: rgba(40,212,255,0.38);
+  background: rgba(40,212,255,0.04);
+  box-shadow: 0 0 0 3px rgba(40,212,255,0.08);
+}
+
+/* Select arrow */
+.ctc-select-wrap { position: relative; }
+.ctc-select-wrap::after {
+  content: '';
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  width: 10px; height: 6px; pointer-events: none;
+  background: var(--muted-2);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transition: background var(--transition-ui);
+}
+.ctc-select-wrap:focus-within::after { background: var(--accent); }
+.ctc-select {
+  padding-right: 40px;
+  cursor: pointer;
+  color: var(--text);
+}
+.ctc-select option { background: #080F1E; color: var(--text); }
+.ctc-select.is-placeholder { color: var(--muted-2); }
+
+/* Consimțământ */
+.ctc-consent {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border-soft);
+}
+.ctc-checkbox {
+  width: 18px; height: 18px; border-radius: 5px;
+  border: 1px solid var(--border); background: rgba(255,255,255,0.04);
+  cursor: pointer; flex-shrink: 0; margin-top: 1px;
+  appearance: none; -webkit-appearance: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color var(--transition-ui), background var(--transition-ui);
+}
+.ctc-checkbox:checked {
+  background: rgba(40,212,255,0.18); border-color: rgba(40,212,255,0.5);
+}
+.ctc-checkbox:checked::after {
+  content: ''; display: block;
+  width: 10px; height: 6px;
+  border-left: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent);
+  transform: rotate(-45deg) translateY(-1px);
+}
+.ctc-checkbox:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ctc-consent-text {
+  font-size: var(--text-xs); color: var(--muted); line-height: 1.6;
+}
+.ctc-consent-text a {
+  color: rgba(232,237,245,0.55); text-decoration: underline;
+  text-decoration-color: rgba(232,237,245,0.2);
+  transition: color var(--transition-ui);
+}
+.ctc-consent-text a:hover { color: var(--text); }
+
+/* Submit */
+.ctc-submit {
+  width: 100%; height: 52px; font-size: var(--text-base);
+  margin-top: var(--space-1);
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+}
+.ctc-submit svg { width: 17px; height: 17px; stroke: currentColor; stroke-width: 1.5; fill: none; flex-shrink: 0; }
+
+/* Success state */
+.ctc-success {
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: var(--space-9) var(--space-5);
+  gap: var(--space-3);
+}
+.ctc-success-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.ctc-success-icon svg { width: 28px; height: 28px; stroke: #4ade80; stroke-width: 1.5; fill: none; }
+.ctc-success h3 {
+  font-size: var(--text-xl); font-weight: var(--weight-bold);
+  color: var(--text); letter-spacing: -0.02em;
+}
+.ctc-success p { font-size: var(--text-sm); color: var(--muted); line-height: var(--leading-body); max-width: 320px; }
+
+/* ── SIDEBAR DREAPTA ── */
+.ctc-sidebar { display: flex; flex-direction: column; gap: var(--space-5); }
+
+/* Info card */
+.ctc-info-card {
+  border-radius: var(--radius-lg); border: 1px solid var(--border);
+  background: var(--bg-card); padding: var(--space-5);
+}
+.ctc-info-title {
+  font-size: var(--text-xs); font-weight: var(--weight-semibold);
+  color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: var(--space-4); display: block;
+}
+.ctc-contact-items { display: flex; flex-direction: column; gap: var(--space-3); }
+.ctc-contact-item { display: flex; align-items: flex-start; gap: 14px; }
+.ctc-contact-icon {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: rgba(40,212,255,0.06); border: 1px solid rgba(40,212,255,0.14);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ctc-contact-icon svg { width: 15px; height: 15px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.ctc-contact-label {
+  font-size: var(--text-xs); color: var(--muted-2); display: block; margin-bottom: 3px;
+}
+.ctc-contact-val {
+  font-size: var(--text-sm); color: var(--text); font-weight: var(--weight-medium);
+}
+.ctc-contact-val a { transition: color var(--transition-ui); }
+.ctc-contact-val a:hover { color: var(--accent); }
+
+/* Pași — ce se întâmplă după */
+.ctc-steps { display: flex; flex-direction: column; }
+.ctc-step {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border-soft);
+  position: relative;
+}
+.ctc-step:first-child { border-top: 1px solid var(--border-soft); }
+.ctc-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(40,212,255,0.25); background: rgba(40,212,255,0.05);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 0.55rem; color: rgba(40,212,255,0.8);
+}
+.ctc-step-label {
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  color: var(--text); margin-bottom: 3px;
+}
+.ctc-step-sub { font-size: 0.6875rem; color: var(--muted-2); line-height: 1.5; }
+
+/* Programează card */
+.ctc-schedule-card {
+  border-radius: var(--radius-lg); border: 1px solid rgba(40,212,255,0.12);
+  background: rgba(40,212,255,0.04);
+  padding: var(--space-5); text-align: center;
+  position: relative; overflow: hidden;
+}
+.ctc-schedule-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(40,212,255,0.25), transparent);
+}
+.ctc-schedule-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(40,212,255,0.08); border: 1px solid rgba(40,212,255,0.18);
+  display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-3);
+}
+.ctc-schedule-icon svg { width: 22px; height: 22px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.ctc-schedule-title {
+  font-size: var(--text-base); font-weight: var(--weight-semibold);
+  color: var(--text); margin-bottom: 7px;
+}
+.ctc-schedule-desc {
+  font-size: var(--text-xs); color: var(--muted);
+  line-height: 1.7; margin-bottom: var(--space-4);
+}
+.ctc-schedule-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; height: 44px; padding: 0 20px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans); font-size: var(--text-sm); font-weight: var(--weight-medium);
+  color: var(--accent); cursor: pointer; white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,0.28);
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,0.10) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,0.07);
+  transition: all 0.2s ease-out; position: relative; overflow: hidden;
+}
+.ctc-schedule-btn:hover {
+  box-shadow: inset 0 0 0 1px rgba(40,212,255,0.45), var(--shadow-glow);
+  background:
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,0.16) 0%, rgba(40,212,255,0) 100%),
+    rgba(40,212,255,0.12);
+}
+.ctc-schedule-btn svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 1.5; fill: none; }
+.ctc-schedule-note {
+  font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted-2);
+  margin-top: 10px; letter-spacing: 0.04em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1099px) {
+  .ctc-body { grid-template-columns: 1fr; gap: var(--space-6); }
+  .ctc-sidebar { flex-direction: row; flex-wrap: wrap; }
+  .ctc-info-card, .ctc-schedule-card { flex: 1; min-width: 260px; }
+  .ctc-info-card:has(.ctc-steps) { flex-basis: 100%; }
+}
+@media (max-width: 767px) {
+  .ctc-hero { padding: 120px var(--container-pad) var(--space-7); }
+  .ctc-row  { grid-template-columns: 1fr; }
+  .ctc-form-wrap { padding: var(--space-4); }
+  .ctc-sidebar { flex-direction: column; }
+  .ctc-info-card, .ctc-schedule-card { min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Sari la conținut</a>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <a class="logo" href="index.html">&lt;lup vision&gt;</a>
+
+  <nav aria-label="Navigare principală">
+    <a href="servicii.html">Servicii</a>
+    <a href="proiecte.html">Proiecte</a>
+    <a href="misiunea-noastra.html">Misiunea noastră</a>
+    <a href="contact.html" class="nav-cta" aria-current="page">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Începe proiectul
+    </a>
+  </nav>
+
+  <button class="hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div id="dv-menu"></div>
+  <a href="servicii.html">Servicii</a>
+  <a href="proiecte.html">Proiecte</a>
+  <a href="misiunea-noastra.html">Misiunea noastră</a>
+  <a href="contact.html" class="nav-cta" aria-current="page">
+    <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+    <span class="glow-shine" aria-hidden="true"></span>
+    Începe proiectul
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ══════════ HERO ══════════ -->
+<div class="ctc-hero">
+  <div id="dv-hero" class="dv-container"></div>
+  <div class="ctc-hero-glow" aria-hidden="true"></div>
+  <div class="ctc-hero-grid" aria-hidden="true"></div>
+
+  <div class="ctc-hero-content">
+    <span class="ctc-hero-eyebrow">Hai să construim</span>
+    <h1>Spune-ne despre<br><em>proiectul tău.</em></h1>
+    <p class="ctc-hero-sub">Completează formularul — primești o estimare clară în 24 de ore. Fără spam, fără angajamente.</p>
+  </div>
+</div>
+
+<!-- ══════════ CONTACT BODY ══════════ -->
+<section class="section">
+  <div class="ctc-body reveal">
+
+    <!-- ── FORMULAR ── -->
+    <div class="ctc-form-wrap">
+      <span class="ctc-form-tag">// trimite un mesaj</span>
+
+      <form class="ctc-form" id="ctc-form" novalidate>
+
+        <div class="ctc-row">
+          <div class="ctc-group">
+            <label class="ctc-label" for="ctc-name">Nume</label>
+            <input class="ctc-input" id="ctc-name" name="name" type="text"
+              placeholder="Ion Popescu" autocomplete="name" required />
+          </div>
+          <div class="ctc-group">
+            <label class="ctc-label" for="ctc-email">Email</label>
+            <input class="ctc-input" id="ctc-email" name="email" type="email"
+              placeholder="ion@companie.ro" autocomplete="email" required />
+          </div>
+        </div>
+
+        <div class="ctc-row">
+          <div class="ctc-group">
+            <label class="ctc-label" for="ctc-phone">
+              Telefon <span class="ctc-label-opt">(opțional)</span>
+            </label>
+            <input class="ctc-input" id="ctc-phone" name="phone" type="tel"
+              placeholder="+40 7xx xxx xxx" autocomplete="tel" />
+          </div>
+          <div class="ctc-group">
+            <label class="ctc-label" for="ctc-company">
+              Companie <span class="ctc-label-opt">(opțional)</span>
+            </label>
+            <input class="ctc-input" id="ctc-company" name="company" type="text"
+              placeholder="Numele companiei" autocomplete="organization" />
+          </div>
+        </div>
+
+        <div class="ctc-group">
+          <label class="ctc-label" for="ctc-service">Serviciu de interes</label>
+          <div class="ctc-select-wrap">
+            <select class="ctc-select is-placeholder" id="ctc-service" name="service" required>
+              <option value="" disabled selected>Alege un serviciu...</option>
+              <option value="identitate-vizuala">Identitate Vizuală &amp; Branding</option>
+              <option value="web-design">Web Design &amp; Development</option>
+              <option value="platforme-aplicatii">Platforme &amp; Aplicații</option>
+              <option value="magazine-online">Magazine Online (E-Commerce)</option>
+              <option value="optimizare-seo">Optimizare SEO</option>
+              <option value="strategie-digitala">Strategie Digitală</option>
+              <option value="mai-multe">Mai multe servicii / Nu știu încă</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ctc-group">
+          <label class="ctc-label" for="ctc-budget">Buget estimat</label>
+          <div class="ctc-select-wrap">
+            <select class="ctc-select is-placeholder" id="ctc-budget" name="budget">
+              <option value="" disabled selected>Selectează un interval...</option>
+              <option value="sub-1500">Sub 1.500€</option>
+              <option value="1500-5000">1.500€ — 5.000€</option>
+              <option value="5000-15000">5.000€ — 15.000€</option>
+              <option value="peste-15000">Peste 15.000€</option>
+              <option value="necunoscut">Nu știu încă</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ctc-group">
+          <label class="ctc-label" for="ctc-message">Mesaj</label>
+          <textarea class="ctc-textarea" id="ctc-message" name="message"
+            placeholder="Descrie pe scurt proiectul — ce vrei să construiești, ce problemă rezolvă, când ai nevoie de el..." required></textarea>
+        </div>
+
+        <div class="ctc-consent">
+          <input class="ctc-checkbox" id="ctc-gdpr" name="gdpr" type="checkbox" required />
+          <label class="ctc-consent-text" for="ctc-gdpr">
+            Sunt de acord cu <a href="confidentialitate.html">Politica de confidențialitate</a>.
+            Datele tale sunt folosite exclusiv pentru a răspunde solicitării tale.
+          </label>
+        </div>
+
+        <button type="submit" class="btn-main ctc-submit">
+          <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+          <span class="glow-shine" aria-hidden="true"></span>
+          Trimite mesajul
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+        </button>
+
+      </form>
+
+      <!-- Stare succes -->
+      <div class="ctc-success" id="ctc-success" aria-live="polite">
+        <div class="ctc-success-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Mesaj trimis!</h3>
+        <p>Te contactăm în maxim 24 de ore cu o estimare clară și pașii următori.</p>
+      </div>
+    </div>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="ctc-sidebar">
+
+      <!-- Info contact -->
+      <div class="ctc-info-card reveal">
+        <span class="ctc-info-title">// contact direct</span>
+        <div class="ctc-contact-items">
+          <div class="ctc-contact-item">
+            <div class="ctc-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <span class="ctc-contact-label">Email</span>
+              <span class="ctc-contact-val"><a href="mailto:hello@lupvision.ro">hello@lupvision.ro</a></span>
+            </div>
+          </div>
+          <div class="ctc-contact-item">
+            <div class="ctc-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <span class="ctc-contact-label">Telefon</span>
+              <span class="ctc-contact-val"><a href="tel:+40700000000">+40 700 000 000</a></span>
+            </div>
+          </div>
+          <div class="ctc-contact-item">
+            <div class="ctc-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <span class="ctc-contact-label">Locație</span>
+              <span class="ctc-contact-val">România, remote-first</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ce se întâmplă după -->
+      <div class="ctc-info-card reveal">
+        <span class="ctc-info-title">// ce se întâmplă după</span>
+        <div class="ctc-steps">
+          <div class="ctc-step">
+            <div class="ctc-step-num">01</div>
+            <div>
+              <div class="ctc-step-label">Trimiți formularul</div>
+              <div class="ctc-step-sub">Durează 2 minute. Fără angajamente.</div>
+            </div>
+          </div>
+          <div class="ctc-step">
+            <div class="ctc-step-num">02</div>
+            <div>
+              <div class="ctc-step-label">Te contactăm în 24h</div>
+              <div class="ctc-step-sub">Cu întrebări de clarificare sau o estimare directă.</div>
+            </div>
+          </div>
+          <div class="ctc-step">
+            <div class="ctc-step-num">03</div>
+            <div>
+              <div class="ctc-step-label">Discuție de 30 minute</div>
+              <div class="ctc-step-sub">Clarificăm obiectivele, bugetul și calendarul.</div>
+            </div>
+          </div>
+          <div class="ctc-step">
+            <div class="ctc-step-num">04</div>
+            <div>
+              <div class="ctc-step-label">Propunere clară</div>
+              <div class="ctc-step-sub">Scop, livrabile, preț și termen. Fără surprize.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Programează direct -->
+      <div class="ctc-schedule-card reveal" id="programeaza">
+        <div class="ctc-schedule-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="ctc-schedule-title">Programează o discuție</div>
+        <p class="ctc-schedule-desc">Preferai să vorbim direct? Alege un slot disponibil și setăm un call de 30 de minute — gratuit, fără presiune.</p>
+        <a href="#" class="ctc-schedule-btn" aria-label="Programează o discuție">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Alege un slot
+        </a>
+        <div class="ctc-schedule-note">// Disponibil L–V, 09:00–18:00</div>
+      </div>
+
+    </aside>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html">&lt;lup vision&gt;</a>
+      <p class="footer-desc">Construim sisteme digitale pentru companii care vor să crească. Prezența ta digitală de neignorat.</p>
+      <div class="footer-social">
+        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <nav class="footer-nav" aria-label="Navigare footer">
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Servicii</span>
+        <a href="servicii.html#identitate-vizuala">Identitate Vizuală</a>
+        <a href="servicii.html#web-design">Web Design &amp; Dev</a>
+        <a href="servicii.html#platforme-aplicatii">Platforme &amp; Aplicații</a>
+        <a href="servicii.html#magazine-online">Magazine Online</a>
+        <a href="servicii.html#optimizare-seo">Optimizare SEO</a>
+        <a href="servicii.html#strategie-digitala">Strategie Digitală</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Companie</span>
+        <a href="servicii.html">Servicii</a>
+        <a href="proiecte.html">Proiecte</a>
+        <a href="misiunea-noastra.html">Misiunea noastră</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html#programeaza">Programează o discuție</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Legal</span>
+        <a href="confidentialitate.html">Politică de confidențialitate</a>
+        <a href="termeni.html">Termeni și condiții</a>
+        <a href="cookies.html">Politică de cookie-uri</a>
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Lup Vision. Toate drepturile rezervate.</span>
+    <span class="footer-tagline">Prezența digitală este cartea de vizită a afacerii tale. Noi o facem de neignorat.</span>
+    <nav class="footer-legal" aria-label="Navigare legală">
+      <a href="confidentialitate.html">Confidențialitate</a>
+      <a href="termeni.html">Termeni</a>
+      <a href="cookies.html">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Global JS -->
+<script src="lupvision.ro-global.js"></script>
+
+<script>
+/* ============================================================
+   CONTACT.HTML — JS specific
+   ============================================================ */
+
+/* ── Select placeholder style ── */
+(function () {
+  document.querySelectorAll('.ctc-select').forEach(function (sel) {
+    sel.addEventListener('change', function () {
+      if (this.value) this.classList.remove('is-placeholder');
+      else this.classList.add('is-placeholder');
+    });
+  });
+})();
+
+/* ── Form — validare + success state ── */
+(function () {
+  var form    = document.getElementById('ctc-form');
+  var success = document.getElementById('ctc-success');
+  if (!form) return;
+
+  /* Highlight field invalid on blur */
+  form.querySelectorAll('.ctc-input, .ctc-select, .ctc-textarea').forEach(function (el) {
+    el.addEventListener('blur', function () {
+      if (this.required && !this.value.trim()) {
+        this.style.borderColor = 'rgba(248,113,113,0.4)';
+        this.style.boxShadow   = '0 0 0 3px rgba(248,113,113,0.08)';
+      } else {
+        this.style.borderColor = '';
+        this.style.boxShadow   = '';
+      }
+    });
+    el.addEventListener('input', function () {
+      this.style.borderColor = '';
+      this.style.boxShadow   = '';
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    /* Validare de bază */
+    var valid = true;
+    form.querySelectorAll('[required]').forEach(function (el) {
+      var val = el.type === 'checkbox' ? el.checked : el.value.trim();
+      if (!val) {
+        valid = false;
+        if (el.type !== 'checkbox') {
+          el.style.borderColor = 'rgba(248,113,113,0.4)';
+          el.style.boxShadow   = '0 0 0 3px rgba(248,113,113,0.08)';
+          el.focus();
+        }
+      }
+    });
+    if (!valid) return;
+
+    /* Simulare trimitere — înlocuiește cu fetch real */
+    var btn = form.querySelector('.ctc-submit');
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+
+    setTimeout(function () {
+      form.style.display    = 'none';
+      success.style.display = 'flex';
+    }, 800);
+  });
+})();
+</script>
+
+</body>
+</html>
