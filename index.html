@@ -48,7 +48,7 @@
   transform: translate(-50%, -50%);
   width: 900px; height: 500px;
   background: radial-gradient(ellipse at center,
-    rgba(20, 80, 200, 0.10) 0%, rgba(40, 212, 255, 0.035) 40%, transparent 70%);
+    rgba(12, 112, 220, 0.12) 0%, rgba(248, 69, 3, 0.06) 40%, transparent 70%);
   pointer-events: none; z-index: 1;
 }
 .hero-grid {
@@ -90,13 +90,11 @@
   margin-bottom: var(--space-7);
 }
 
-/* Fan card positions */
-.c1 { left:50%; margin-left:-633px; top:36px; z-index:1; transform:rotate(-20deg); }
-.c2 { left:50%; margin-left:-428px; top:18px; z-index:2; transform:rotate(-12deg); }
-.c3 { left:50%; margin-left:-223px; top:5px;  z-index:3; transform:rotate(-4deg);  }
-.c4 { left:50%; margin-left: -18px; top:5px;  z-index:3; transform:rotate(4deg);   }
-.c5 { left:50%; margin-left: 188px; top:18px; z-index:2; transform:rotate(12deg);  }
-.c6 { left:50%; margin-left: 393px; top:36px; z-index:1; transform:rotate(20deg);  }
+/* Fan card positions — 4 cards */
+.c1 { left:50%; margin-left:-428px; top:18px; z-index:1; transform:rotate(-12deg); }
+.c2 { left:50%; margin-left:-223px; top:5px;  z-index:2; transform:rotate(-4deg);  }
+.c3 { left:50%; margin-left: -18px; top:5px;  z-index:2; transform:rotate(4deg);   }
+.c4 { left:50%; margin-left: 188px; top:18px; z-index:1; transform:rotate(12deg);  }
 
 /* ── TABLET GRID ── */
 .cards-grid {
@@ -147,7 +145,7 @@
 .palette-row--flush { margin-bottom: 0; }
 .swatch { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
 .swatch--sm   { width: 16px; height: 16px; }
-.swatch-cyan  { background: #28D4FF; }
+.swatch-cyan  { background: #f84503; }
 .swatch-navy  { background: #1a3a7a; }
 .swatch-light { background: rgba(232, 237, 245, 0.9); }
 .swatch-dark  { background: #020818; }
@@ -158,20 +156,20 @@
 .wc-dot { width: 5px; height: 5px; border-radius: 50%; opacity: 0.55; }
 .wc-dot.r { background: #ff6b6b; } .wc-dot.y { background: #ffd93d; } .wc-dot.g { background: #6bcb77; }
 .wc-body { padding: 7px; }
-.wc-hero-block { height: 38px; border-radius: 5px; background: rgba(40,212,255,0.08); border: 1px solid rgba(40,212,255,0.1); margin-bottom: 5px; display: flex; align-items: center; justify-content: center; }
+.wc-hero-block { height: 38px; border-radius: 5px; background: rgba(248,69,3,0.08); border: 1px solid rgba(248,69,3,0.1); margin-bottom: 5px; display: flex; align-items: center; justify-content: center; }
 .wc-hero-block--sm { height: 30px; }
-.wc-hero-text { font-size: 0.5rem; color: rgba(40,212,255,0.5); font-family: var(--font-mono); letter-spacing: 0.05em; }
+.wc-hero-text { font-size: 0.5rem; color: rgba(248,69,3,0.5); font-family: var(--font-mono); letter-spacing: 0.05em; }
 .wc-row { display: flex; gap: 4px; margin-bottom: 4px; }
 .wc-row-block { flex: 1; height: 9px; border-radius: 3px; background: rgba(255,255,255,0.06); }
-.wc-row-block.lit { background: rgba(40,212,255,0.12); }
+.wc-row-block.lit { background: rgba(248,69,3,0.12); }
 .wc-row-block--narrow { flex: 0.65; }
 .code-snip { font-family: var(--font-mono); font-size: 0.6rem; line-height: 1.75; color: rgba(232,237,245,0.55); background: rgba(2,6,16,0.8); border-radius: 6px; padding: 7px 9px; border: 1px solid var(--border-soft); margin-top: 5px; }
-.ck { color: #7dd3fc; } .cfn { color: rgba(40,212,255,0.85); } .cst { color: rgba(134,239,172,0.75); }
+.ck { color: #5aabf0; } .cfn { color: rgba(248,69,3,0.85); } .cst { color: rgba(134,239,172,0.75); }
 
 /* Magazine Online */
 .shop-visual { display: flex; flex-direction: column; gap: 6px; }
 .shop-top { display: flex; gap: 6px; align-items: stretch; }
-.shop-cart-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(40,212,255,0.08); border: 1px solid rgba(40,212,255,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.shop-cart-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(248,69,3,0.08); border: 1px solid rgba(248,69,3,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .shop-cart-icon svg { width: 16px; height: 16px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
 .shop-stats { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .shop-stat { background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft); border-radius: 6px; padding: 5px 7px; }
@@ -179,7 +177,7 @@
 .shop-stat .sl { font-size: 0.5rem; color: rgba(232,237,245,0.4); margin-top: 1px; }
 .shop-products { display: flex; gap: 5px; }
 .shop-product { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--border-soft); border-radius: 7px; padding: 6px 7px; }
-.shop-product .sp-img { height: 22px; border-radius: 4px; background: rgba(40,212,255,0.07); border: 1px solid rgba(40,212,255,0.1); margin-bottom: 4px; }
+.shop-product .sp-img { height: 22px; border-radius: 4px; background: rgba(248,69,3,0.07); border: 1px solid rgba(248,69,3,0.1); margin-bottom: 4px; }
 .shop-product .sp-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); margin-bottom: 3px; }
 .shop-product .sp-line.w7 { width: 70%; }
 .shop-product .sp-price { font-family: var(--font-mono); font-size: 0.55rem; color: var(--accent); }
@@ -203,11 +201,11 @@
 .ph-notch { width: 22px; height: 4px; border-radius: 3px; background: rgba(255,255,255,0.12); margin: 6px auto 8px; }
 .ph-notch--sm { margin: 5px auto 6px; }
 .ph-sc { padding: 0 5px; }
-.ph-bar { height: 8px; border-radius: 3px; background: rgba(40,212,255,0.18); margin-bottom: 5px; }
+.ph-bar { height: 8px; border-radius: 3px; background: rgba(248,69,3,0.18); margin-bottom: 5px; }
 .ph-bar--sm { height: 7px; margin-bottom: 4px; }
 .ph-card { height: 28px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-soft); margin-bottom: 4px; display: flex; align-items: center; gap: 5px; padding: 0 6px; }
 .ph-card--sm { height: 22px; }
-.ph-cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(40,212,255,0.35); flex-shrink: 0; }
+.ph-cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(248,69,3,0.35); flex-shrink: 0; }
 .ph-cdot--dim { background: rgba(255, 255, 255, 0.15); }
 .ph-clines { flex: 1; display: flex; flex-direction: column; gap: 3px; }
 .ph-cline { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.1); }
@@ -219,7 +217,7 @@
 .pill--lg { font-size: 0.8rem; padding: 6px 12px; }
 
 /* SEO */
-.seo-ring { width: 78px; height: 78px; border-radius: 50%; border: 2px solid rgba(40,212,255,0.25); background: rgba(40,212,255,0.04); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 9px; box-shadow: 0 0 26px rgba(40,212,255,0.09); }
+.seo-ring { width: 78px; height: 78px; border-radius: 50%; border: 2px solid rgba(248,69,3,0.25); background: rgba(248,69,3,0.04); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 9px; box-shadow: 0 0 26px rgba(248,69,3,0.09); }
 .seo-ring--sm { width: 64px; height: 64px; flex-shrink: 0; margin: 0; }
 .seo-num { font-weight: var(--weight-extrabold); font-size: 1.5rem; color: var(--accent); line-height: 1; }
 .seo-num--sm { font-size: 1.25rem; }
@@ -235,14 +233,14 @@
 .strat-list { display: flex; flex-direction: column; gap: 7px; }
 .strat-list.strat-centered { gap: 14px; justify-content: center; align-items: stretch; padding: 4px 0; }
 .strat-item { display: flex; align-items: flex-start; gap: 8px; }
-.strat-nd { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(40,212,255,0.3); background: rgba(40,212,255,0.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-mono); font-size: 0.5rem; color: rgba(40,212,255,0.8); line-height: 1; }
+.strat-nd { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(248,69,3,0.3); background: rgba(248,69,3,0.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-mono); font-size: 0.5rem; color: rgba(248,69,3,0.8); line-height: 1; }
 .strat-nd--sm { width: 20px; height: 20px; font-size: 0.5rem; }
 .strat-info { flex: 1; }
 .strat-label { font-size: 0.6875rem; font-weight: var(--weight-semibold); color: rgba(232,237,245,0.9); line-height: 1.3; }
 .strat-sub { font-size: 0.5625rem; color: var(--muted-2); margin-top: 2px; }
 .strat-prog { height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; margin-top: 4px; }
 .strat-prog--tight { margin-top: 3px; }
-.strat-fill { height: 3px; border-radius: 2px; background: rgba(40,212,255,0.7); }
+.strat-fill { height: 3px; border-radius: 2px; background: rgba(248,69,3,0.7); }
 .strat-fill--90 { width: 90%; }
 .strat-fill--68 { width: 68%; }
 .strat-fill--65 { width: 65%; }
@@ -318,7 +316,7 @@
 .meto-step::before {
   content: ''; position: absolute;
   top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, rgba(40,212,255,0.5), transparent);
+  background: linear-gradient(90deg, rgba(248,69,3,0.5), transparent);
   opacity: 0; transition: opacity var(--transition-fx);
 }
 .meto-step:hover::before { opacity: 1; }
@@ -326,11 +324,11 @@
 .meto-num {
   font-family: var(--font-mono); font-size: 2.75rem;
   font-weight: var(--weight-semibold);
-  color: rgba(40,212,255,0.07); line-height: 1;
+  color: rgba(248,69,3,0.07); line-height: 1;
   display: block; margin-bottom: var(--space-4);
   letter-spacing: -0.02em; transition: color var(--transition-fx);
 }
-.meto-step:hover .meto-num { color: rgba(40,212,255,0.13); }
+.meto-step:hover .meto-num { color: rgba(248,69,3,0.13); }
 .meto-step h3 {
   font-size: var(--text-lg); font-weight: var(--weight-semibold);
   color: var(--text); margin-bottom: var(--space-2);
@@ -357,7 +355,7 @@
 .dce-marker {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent); margin-top: 10px;
-  box-shadow: 0 0 8px rgba(40,212,255,0.45);
+  box-shadow: 0 0 8px rgba(248,69,3,0.45);
 }
 .dce-title {
   font-size: var(--text-base); font-weight: var(--weight-semibold);
@@ -383,7 +381,7 @@
   transition: border-color var(--transition-ui), box-shadow var(--transition-ui), transform var(--transition-fx);
 }
 .proj-card:hover {
-  border-color: rgba(40,212,255,0.16);
+  border-color: rgba(248,69,3,0.16);
   box-shadow: 0 20px 60px rgba(0,0,0,0.55);
   transform: translateY(-3px);
 }
@@ -412,8 +410,8 @@
 .proj-result {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--font-mono); font-size: var(--text-xs);
-  color: var(--accent); background: rgba(40,212,255,0.06);
-  border: 1px solid rgba(40,212,255,0.14);
+  color: var(--accent); background: rgba(248,69,3,0.06);
+  border: 1px solid rgba(248,69,3,0.14);
   border-radius: var(--radius-full); padding: 4px 11px;
 }
 .proj-result::before {
@@ -451,8 +449,8 @@
 }
 .faq-icon svg { width: 10px; height: 10px; stroke: var(--muted-2); stroke-linecap: round; transition: stroke var(--transition-ui); }
 .faq-item.is-open .faq-icon {
-  border-color: rgba(40,212,255,0.28); transform: rotate(45deg);
-  background: rgba(40,212,255,0.05);
+  border-color: rgba(248,69,3,0.28); transform: rotate(45deg);
+  background: rgba(248,69,3,0.05);
 }
 .faq-item.is-open .faq-icon svg { stroke: var(--accent); }
 .faq-a-wrap { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
@@ -470,13 +468,13 @@
   transform: translate(-50%, -50%);
   width: 800px; height: 500px;
   background: radial-gradient(ellipse at center,
-    rgba(20,80,200,0.09) 0%, rgba(40,212,255,0.025) 40%, transparent 70%);
+    rgba(12,112,220,0.10) 0%, rgba(248,69,3,0.04) 40%, transparent 70%);
   pointer-events: none;
 }
 .cta-border-top {
   position: absolute; top: 0;
   left: var(--container-pad); right: var(--container-pad); height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(40,212,255,0.16), transparent);
+  background: linear-gradient(90deg, transparent, rgba(248,69,3,0.16), transparent);
 }
 .cta-title {
   font-size: clamp(1.9rem, 4vw, 2.9rem);
@@ -580,17 +578,17 @@
   <!-- ════ DESKTOP FAN ════ -->
   <div class="fan-wrap">
 
-    <!-- C1: Infrastructură Rețea -->
+    <!-- C1: Infrastructura Rețelei -->
     <a href="servicii.html#infrastructura-retea" class="card c1">
       <div class="card-header">
-        <div class="card-service-name">Infrastructură<br>Rețea</div>
-        <div class="card-service-tag">// networking</div>
+        <div class="card-service-name">Infrastructura<br>Rețelei</div>
+        <div class="card-service-tag">// networking + date</div>
       </div>
       <div class="card-visual card-visual--center">
         <div class="brand-square-wrap">
           <div class="brand-col">
             <div class="brand-square">
-              <span class="brand-square-text">lup</span>
+              <span class="brand-square-text">IS</span>
             </div>
             <div class="palette-row palette-row--flush">
               <div class="swatch swatch-cyan"></div>
@@ -598,17 +596,17 @@
               <div class="swatch swatch-light"></div>
               <div class="swatch swatch-dark"></div>
             </div>
-            <div class="brand-caption">Sistem de design complet</div>
+            <div class="brand-caption">LAN · WAN · Fibră optică</div>
           </div>
         </div>
       </div>
     </a>
 
-    <!-- C2: Sisteme Supraveghere -->
-    <a href="servicii.html#sisteme-supraveghere" class="card c2">
+    <!-- C2: Servicii IT -->
+    <a href="servicii.html#servicii-it" class="card c2">
       <div class="card-header">
-        <div class="card-service-name">Sisteme<br>Supraveghere</div>
-        <div class="card-service-tag">// cctv + securitate</div>
+        <div class="card-service-name">Servicii<br>IT</div>
+        <div class="card-service-tag">// it services</div>
       </div>
       <div class="card-visual">
         <div class="wc-browser">
@@ -616,133 +614,68 @@
             <div class="wc-dot r"></div><div class="wc-dot y"></div><div class="wc-dot g"></div>
           </div>
           <div class="wc-body">
-            <div class="wc-hero-block"><div class="wc-hero-text">hero section</div></div>
+            <div class="wc-hero-block"><div class="wc-hero-text">network status</div></div>
             <div class="wc-row"><div class="wc-row-block lit"></div><div class="wc-row-block"></div></div>
             <div class="wc-row"><div class="wc-row-block wc-row-block--narrow"></div></div>
           </div>
         </div>
         <div class="code-snip">
-<span class="ck">const</span> <span class="cfn">site</span> = <span class="cfn">build</span>({<br>
-&nbsp;&nbsp;perf: <span class="cst">99</span>, seo: <span class="cst">true</span><br>
-})
+<span class="ck">status</span> <span class="cfn">network</span> = {<br>
+&nbsp;&nbsp;uptime: <span class="cst">99.9%</span>, sec: <span class="cst">on</span><br>
+}
         </div>
       </div>
     </a>
 
-    <!-- C3: Telecomunicații & Date -->
-    <a href="servicii.html#telecomunicatii-date" class="card c3">
+    <!-- C3: Securitate Video & Control Acces -->
+    <a href="servicii.html#securitate-video" class="card c3">
       <div class="card-header">
-        <div class="card-service-name">Telecomunicații<br>&amp; Date</div>
-        <div class="card-service-tag">// telecom + date</div>
-      </div>
-      <div class="card-visual">
-        <div class="phone-outer">
-          <div class="ph-shell">
-            <div class="ph-notch"></div>
-            <div class="ph-sc">
-              <div class="ph-bar"></div>
-              <div class="ph-card">
-                <div class="ph-cdot"></div>
-                <div class="ph-clines"><div class="ph-cline"></div><div class="ph-cline s"></div></div>
-              </div>
-              <div class="ph-card ph-card--sm">
-                <div class="ph-cdot ph-cdot--dim"></div>
-                <div class="ph-clines"><div class="ph-cline"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pills-row">
-          <div class="pill">iOS</div>
-          <div class="pill">Android</div>
-          <div class="pill">Web</div>
-        </div>
-      </div>
-    </a>
-
-    <!-- C4: Securitate IT -->
-    <a href="servicii.html#securitate-it" class="card c4">
-      <div class="card-header">
-        <div class="card-service-name">Securitate<br>IT</div>
-        <div class="card-service-tag">// it security</div>
-      </div>
-      <div class="card-visual">
-        <div class="shop-visual">
-          <div class="shop-top">
-            <div class="shop-cart-icon">
-              <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            </div>
-            <div class="shop-stats">
-              <div class="shop-stat"><div class="sv">+340%</div><div class="sl">Conversii</div></div>
-              <div class="shop-stat"><div class="sv">99ms</div><div class="sl">Load time</div></div>
-              <div class="shop-stat"><div class="sv">4.9★</div><div class="sl">UX Score</div></div>
-              <div class="shop-stat"><div class="sv">24/7</div><div class="sl">Automat</div></div>
-            </div>
-          </div>
-          <div class="shop-products">
-            <div class="shop-product"><div class="sp-img"></div><div class="sp-line"></div><div class="sp-line w7"></div><div class="sp-price">199 RON</div></div>
-            <div class="shop-product"><div class="sp-img"></div><div class="sp-line"></div><div class="sp-line w7"></div><div class="sp-price">349 RON</div></div>
-            <div class="shop-product"><div class="sp-img"></div><div class="sp-line"></div><div class="sp-line w7"></div><div class="sp-price">89 RON</div></div>
-          </div>
-          <div class="card-tag-footer">
-            <div class="tag tag-green tag--xs">
-              <div class="tag-dot"></div>
-              Plăți integrate · Stoc · SEO
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <!-- C5: Acces & Control -->
-    <a href="servicii.html#acces-control" class="card c5">
-      <div class="card-header">
-        <div class="card-service-name">Acces &amp;<br>Control</div>
-        <div class="card-service-tag">// acces + alarmare</div>
+        <div class="card-service-name">Securitate Video<br>&amp; Control Acces</div>
+        <div class="card-service-tag">// cctv + acces</div>
       </div>
       <div class="card-visual">
         <div class="seo-ring">
-          <div class="seo-num">99</div>
-          <div class="seo-sublbl">Scor</div>
+          <div class="seo-num">24/7</div>
+          <div class="seo-sublbl">Monitor</div>
         </div>
         <div class="seo-grid">
-          <div class="seo-cell"><div class="sv">#1</div><div class="sl">Google</div></div>
-          <div class="seo-cell"><div class="sv">↑87%</div><div class="sl">Trafic</div></div>
-          <div class="seo-cell"><div class="sv">3x</div><div class="sl">ROI mediu</div></div>
-          <div class="seo-cell"><div class="sv">CWV</div><div class="sl">Core Vitals ✓</div></div>
+          <div class="seo-cell"><div class="sv">HD</div><div class="sl">Rezoluție</div></div>
+          <div class="seo-cell"><div class="sv">IR</div><div class="sl">Noapte</div></div>
+          <div class="seo-cell"><div class="sv">✓</div><div class="sl">Acces remote</div></div>
+          <div class="seo-cell"><div class="sv">DVR</div><div class="sl">Înregistrare</div></div>
         </div>
       </div>
     </a>
 
-    <!-- C6: Mentenanță & Suport -->
-    <a href="servicii.html#mentenanta-suport" class="card c6">
+    <!-- C4: Sisteme Videoconferință -->
+    <a href="servicii.html#sisteme-videoconferinta" class="card c4">
       <div class="card-header">
-        <div class="card-service-name">Mentenanță<br>&amp; Suport</div>
-        <div class="card-service-tag">// support</div>
+        <div class="card-service-name">Sisteme<br>Videoconferință</div>
+        <div class="card-service-tag">// videoconf</div>
       </div>
       <div class="card-visual card-visual--justify">
         <div class="strat-list strat-centered">
           <div class="strat-item">
-            <div class="strat-nd">01</div>
+            <div class="strat-nd">HD</div>
             <div class="strat-info">
-              <div class="strat-label">Audit &amp; Cercetare</div>
-              <div class="strat-sub">Date reale, nu presupuneri</div>
+              <div class="strat-label">Video de înaltă calitate</div>
+              <div class="strat-sub">Imagine clară, fără întreruperi</div>
               <div class="strat-prog"><div class="strat-fill strat-fill--90"></div></div>
             </div>
           </div>
           <div class="strat-item">
-            <div class="strat-nd">02</div>
+            <div class="strat-nd">📡</div>
             <div class="strat-info">
-              <div class="strat-label">Plan de Acțiune</div>
-              <div class="strat-sub">Priorități și milestones</div>
+              <div class="strat-label">Conectivitate stabilă</div>
+              <div class="strat-sub">VoIP, conferință, colaborare</div>
               <div class="strat-prog"><div class="strat-fill strat-fill--68"></div></div>
             </div>
           </div>
           <div class="strat-item">
-            <div class="strat-nd">03</div>
+            <div class="strat-nd">⚙</div>
             <div class="strat-info">
-              <div class="strat-label">Execuție &amp; Scalare</div>
-              <div class="strat-sub">Sistem, nu campanie</div>
+              <div class="strat-label">Soluții personalizate</div>
+              <div class="strat-sub">Birou, sală de ședință, remote</div>
               <div class="strat-prog"><div class="strat-fill strat-fill--48"></div></div>
             </div>
           </div>
@@ -752,18 +685,18 @@
 
   </div><!-- /fan-wrap -->
 
-  <!-- ════ TABLET GRID 2×3 ════ -->
+  <!-- ════ TABLET GRID 2×2 ════ -->
   <div class="cards-grid">
 
     <a href="servicii.html#infrastructura-retea" class="card-flat">
       <div class="card-header">
-        <div class="card-service-name">Infrastructură Rețea</div>
-        <div class="card-service-tag">// networking</div>
+        <div class="card-service-name">Infrastructura Rețelei</div>
+        <div class="card-service-tag">// networking + date</div>
       </div>
       <div class="card-visual card-visual--center">
         <div class="brand-col">
           <div class="brand-square brand-square--sm">
-            <span class="brand-square-text">lup</span>
+            <span class="brand-square-text">IS</span>
           </div>
           <div class="palette-row palette-row--flush">
             <div class="swatch swatch-cyan swatch--sm"></div>
@@ -775,96 +708,51 @@
       </div>
     </a>
 
-    <a href="servicii.html#sisteme-supraveghere" class="card-flat">
+    <a href="servicii.html#servicii-it" class="card-flat">
       <div class="card-header">
-        <div class="card-service-name">Sisteme Supraveghere</div>
-        <div class="card-service-tag">// cctv + securitate</div>
+        <div class="card-service-name">Servicii IT</div>
+        <div class="card-service-tag">// it services</div>
       </div>
       <div class="card-visual">
         <div class="wc-browser">
           <div class="wc-bar"><div class="wc-dot r"></div><div class="wc-dot y"></div><div class="wc-dot g"></div></div>
           <div class="wc-body">
-            <div class="wc-hero-block wc-hero-block--sm"><div class="wc-hero-text">hero section</div></div>
+            <div class="wc-hero-block wc-hero-block--sm"><div class="wc-hero-text">network status</div></div>
             <div class="wc-row"><div class="wc-row-block lit"></div><div class="wc-row-block"></div></div>
           </div>
         </div>
       </div>
     </a>
 
-    <a href="servicii.html#telecomunicatii-date" class="card-flat">
+    <a href="servicii.html#securitate-video" class="card-flat">
       <div class="card-header">
-        <div class="card-service-name">Telecomunicații &amp; Date</div>
-        <div class="card-service-tag">// telecom + date</div>
-      </div>
-      <div class="card-visual card-visual--row">
-        <div class="ph-shell ph-shell--sm">
-          <div class="ph-notch ph-notch--sm"></div>
-          <div class="ph-sc">
-            <div class="ph-bar ph-bar--sm"></div>
-            <div class="ph-card ph-card--sm"><div class="ph-cdot"></div><div class="ph-clines"><div class="ph-cline"></div></div></div>
-          </div>
-        </div>
-        <div class="pill-col">
-          <div class="pill-row">
-            <div class="pill pill--lg">iOS</div>
-            <div class="pill pill--lg">Android</div>
-          </div>
-          <div class="pill pill--lg">Web App</div>
-        </div>
-      </div>
-    </a>
-
-    <a href="servicii.html#securitate-it" class="card-flat">
-      <div class="card-header">
-        <div class="card-service-name">Securitate IT</div>
-        <div class="card-service-tag">// it security</div>
-      </div>
-      <div class="card-visual card-visual--row-sm">
-        <div class="ecom-grid">
-          <div class="seo-cell"><div class="sv sv--green">+340%</div><div class="sl">Conversii</div></div>
-          <div class="seo-cell"><div class="sv">99ms</div><div class="sl">Load</div></div>
-          <div class="seo-cell"><div class="sv">4.9★</div><div class="sl">UX Score</div></div>
-          <div class="seo-cell"><div class="sv">24/7</div><div class="sl">Automat</div></div>
-        </div>
-        <div class="ecom-side">
-          <div class="tag tag-green tag--xs tag--tight">Plăți · Stoc · SEO</div>
-          <div class="ecom-products">
-            <div class="ecom-product-thumb"></div>
-            <div class="ecom-product-thumb"></div>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <a href="servicii.html#acces-control" class="card-flat">
-      <div class="card-header">
-        <div class="card-service-name">Acces &amp; Control</div>
-        <div class="card-service-tag">// acces + alarmare</div>
+        <div class="card-service-name">Securitate Video &amp; Control Acces</div>
+        <div class="card-service-tag">// cctv + acces</div>
       </div>
       <div class="card-visual card-visual--row">
         <div class="seo-ring seo-ring--sm">
-          <div class="seo-num seo-num--sm">99</div>
-          <div class="seo-sublbl">Scor</div>
+          <div class="seo-num seo-num--sm">24/7</div>
+          <div class="seo-sublbl">Monitor</div>
         </div>
         <div class="seo-grid seo-grid--flex">
-          <div class="seo-cell"><div class="sv">#1</div><div class="sl">Google</div></div>
-          <div class="seo-cell"><div class="sv">↑87%</div><div class="sl">Trafic</div></div>
-          <div class="seo-cell"><div class="sv">3x</div><div class="sl">ROI</div></div>
-          <div class="seo-cell"><div class="sv">CWV</div><div class="sl">✓ Vitals</div></div>
+          <div class="seo-cell"><div class="sv">HD</div><div class="sl">Video</div></div>
+          <div class="seo-cell"><div class="sv">IR</div><div class="sl">Noapte</div></div>
+          <div class="seo-cell"><div class="sv">✓</div><div class="sl">Remote</div></div>
+          <div class="seo-cell"><div class="sv">DVR</div><div class="sl">Stocare</div></div>
         </div>
       </div>
     </a>
 
-    <a href="servicii.html#mentenanta-suport" class="card-flat">
+    <a href="servicii.html#sisteme-videoconferinta" class="card-flat">
       <div class="card-header">
-        <div class="card-service-name">Mentenanță &amp; Suport</div>
-        <div class="card-service-tag">// support</div>
+        <div class="card-service-name">Sisteme Videoconferință</div>
+        <div class="card-service-tag">// videoconf</div>
       </div>
       <div class="card-visual">
         <div class="strat-list">
-          <div class="strat-item"><div class="strat-nd strat-nd--sm">01</div><div class="strat-info"><div class="strat-label">Audit &amp; Cercetare</div><div class="strat-prog strat-prog--tight"><div class="strat-fill strat-fill--90"></div></div></div></div>
-          <div class="strat-item"><div class="strat-nd strat-nd--sm">02</div><div class="strat-info"><div class="strat-label">Plan de Acțiune</div><div class="strat-prog strat-prog--tight"><div class="strat-fill strat-fill--65"></div></div></div></div>
-          <div class="strat-item"><div class="strat-nd strat-nd--sm">03</div><div class="strat-info"><div class="strat-label">Execuție &amp; Scalare</div><div class="strat-prog strat-prog--tight"><div class="strat-fill strat-fill--44"></div></div></div></div>
+          <div class="strat-item"><div class="strat-nd strat-nd--sm">HD</div><div class="strat-info"><div class="strat-label">Video înaltă calitate</div><div class="strat-prog strat-prog--tight"><div class="strat-fill strat-fill--90"></div></div></div></div>
+          <div class="strat-item"><div class="strat-nd strat-nd--sm">VoIP</div><div class="strat-info"><div class="strat-label">Conectivitate stabilă</div><div class="strat-prog strat-prog--tight"><div class="strat-fill strat-fill--65"></div></div></div></div>
+          <div class="strat-item"><div class="strat-nd strat-nd--sm">⚙</div><div class="strat-info"><div class="strat-label">Soluții personalizate</div><div class="strat-prog strat-prog--tight"><div class="strat-fill strat-fill--44"></div></div></div></div>
         </div>
       </div>
     </a>
@@ -877,53 +765,35 @@
     <a href="servicii.html#infrastructura-retea" class="card-mobile-row">
       <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></div>
       <div class="card-mobile-text">
-        <div class="card-mobile-name">Infrastructură Rețea</div>
-        <div class="card-mobile-desc">Proiectare și implementare rețele LAN/WAN</div>
+        <div class="card-mobile-name">Infrastructura Rețelei</div>
+        <div class="card-mobile-desc">Proiectare și implementare rețele LAN/WAN, fibră optică, voce și date</div>
       </div>
       <div class="card-mobile-arrow">→</div>
     </a>
 
-    <a href="servicii.html#sisteme-supraveghere" class="card-mobile-row">
+    <a href="servicii.html#servicii-it" class="card-mobile-row">
       <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
       <div class="card-mobile-text">
-        <div class="card-mobile-name">Sisteme Supraveghere</div>
-        <div class="card-mobile-desc">CCTV, camere IP, sisteme de monitorizare</div>
+        <div class="card-mobile-name">Servicii IT</div>
+        <div class="card-mobile-desc">Management rețea, securitate IT, suport și mentenanță sisteme</div>
       </div>
       <div class="card-mobile-arrow">→</div>
     </a>
 
-    <a href="servicii.html#telecomunicatii-date" class="card-mobile-row">
-      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+    <a href="servicii.html#securitate-video" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><path d="M23 7 16 12 23 17V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
       <div class="card-mobile-text">
-        <div class="card-mobile-name">Telecomunicații &amp; Date</div>
-        <div class="card-mobile-desc">Rețele de fibră optică, voce și date</div>
+        <div class="card-mobile-name">Securitate Video &amp; Control Acces</div>
+        <div class="card-mobile-desc">CCTV, camere IP, control acces, supraveghere 24/7</div>
       </div>
       <div class="card-mobile-arrow">→</div>
     </a>
 
-    <a href="servicii.html#securitate-it" class="card-mobile-row">
-      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+    <a href="servicii.html#sisteme-videoconferinta" class="card-mobile-row">
+      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.89L15 14M3 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg></div>
       <div class="card-mobile-text">
-        <div class="card-mobile-name">Securitate IT</div>
-        <div class="card-mobile-desc">Firewall, VPN, protecție infrastructură</div>
-      </div>
-      <div class="card-mobile-arrow">→</div>
-    </a>
-
-    <a href="servicii.html#acces-control" class="card-mobile-row">
-      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
-      <div class="card-mobile-text">
-        <div class="card-mobile-name">Acces &amp; Control</div>
-        <div class="card-mobile-desc">Sisteme de control acces și alarmare</div>
-      </div>
-      <div class="card-mobile-arrow">→</div>
-    </a>
-
-    <a href="servicii.html#mentenanta-suport" class="card-mobile-row">
-      <div class="card-mobile-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <div class="card-mobile-text">
-        <div class="card-mobile-name">Mentenanță &amp; Suport</div>
-        <div class="card-mobile-desc">Monitorizare continuă și intervenții rapide</div>
+        <div class="card-mobile-name">Sisteme Videoconferință</div>
+        <div class="card-mobile-desc">Soluții complete pentru conferințe video și colaborare la distanță</div>
       </div>
       <div class="card-mobile-arrow">→</div>
     </a>
@@ -936,25 +806,25 @@
 <div class="proof-bar">
   <div class="proof-inner">
     <div class="proof-stat">
-      <div class="num">—</div>
-      <div class="lbl">Proiecte implementate</div>
+      <div class="num">2012</div>
+      <div class="lbl">Înființată în</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-stat">
-      <div class="num">—</div>
-      <div class="lbl">Sisteme stabile în producție</div>
+      <div class="num">10+</div>
+      <div class="lbl">Ani de experiență</div>
     </div>
     <div class="proof-divider"></div>
-    <p class="proof-text">Infrastructuri tehnice pentru companii care au nevoie de stabilitate și performanță.</p>
+    <p class="proof-text">Infrastructuri IT &amp; telecomunicații pentru companii care au nevoie de stabilitate și performanță.</p>
     <div class="proof-divider"></div>
     <div class="proof-stat">
-      <div class="num">—</div>
-      <div class="lbl">Rețele optimizate</div>
+      <div class="num">4</div>
+      <div class="lbl">Domenii de activitate</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-stat">
-      <div class="num">—</div>
-      <div class="lbl">Timp rapid de intervenție</div>
+      <div class="num">9+</div>
+      <div class="lbl">Tipuri de proiecte</div>
     </div>
   </div>
 </div>
@@ -1037,7 +907,7 @@
     <div>
       <span class="section-label">Portofoliu</span>
       <h2>Proiecte<br><em>realizate.</em></h2>
-      <p class="section-desc">Soluții implementate pentru diferite tipuri de business.</p>
+      <p class="section-desc">Soluții implementate pentru diferite tipuri de business, de la cablare structurată la sisteme complexe de securitate și videoconferință.</p>
     </div>
     <a href="proiecte.html" class="btn-ghost">
       <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
@@ -1048,42 +918,111 @@
   </div>
   <div class="proj-grid">
 
-    <!-- Project 1 -->
     <article class="proj-card reveal-item">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 72% 28%,rgba(40,212,255,0.13) 0%,rgba(4,9,26,1) 68%),linear-gradient(145deg,#060f22 0%,#030812 100%);"></div>
-        <span class="proj-visual-tag">// networking</span>
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 72% 28%,rgba(248,69,3,0.13) 0%,rgba(4,9,26,1) 68%),linear-gradient(145deg,#060f22 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// networking + date</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Infrastructură</span>
+        <h3 class="proj-name">Cablare structurată voce și date</h3>
+        <span class="proj-result">Rețea completă · certificată</span>
+      </div>
+    </article>
+
+    <article class="proj-card reveal-item">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 30% 70%,rgba(12,112,220,0.14) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#060f22 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// data center</span>
       </div>
       <div class="proj-body">
         <span class="proj-domain">Enterprise</span>
-        <h3 class="proj-name">Infrastructură rețea companie</h3>
-        <span class="proj-result">Rețea optimizată</span>
+        <h3 class="proj-name">Data Center</h3>
+        <span class="proj-result">Infrastructură server · redundanță</span>
       </div>
     </article>
 
-    <!-- Project 2 -->
     <article class="proj-card reveal-item">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 30% 70%,rgba(120,80,220,0.11) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#07050f 0%,#030812 100%);"></div>
-        <span class="proj-visual-tag">// cctv + securitate</span>
-      </div>
-      <div class="proj-body">
-        <span class="proj-domain">Retail &amp; Office</span>
-        <h3 class="proj-name">Sistem supraveghere video</h3>
-        <span class="proj-result">Sistem funcțional 24/7</span>
-      </div>
-    </article>
-
-    <!-- Project 3 -->
-    <article class="proj-card reveal-item">
-      <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 50% 20%,rgba(30,100,180,0.15) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#040c1e 0%,#030812 100%);"></div>
-        <span class="proj-visual-tag">// telecom + date</span>
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 50% 20%,rgba(248,69,3,0.10) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#040c1e 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// mdf · distribuție</span>
       </div>
       <div class="proj-body">
         <span class="proj-domain">Telecomunicații</span>
-        <h3 class="proj-name">Rețea telecom &amp; date</h3>
-        <span class="proj-result">Infrastructură scalabilă</span>
+        <h3 class="proj-name">Main Distribution Frames</h3>
+        <span class="proj-result">Distribuție voce &amp; date</span>
+      </div>
+    </article>
+
+    <article class="proj-card reveal-item">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 65% 35%,rgba(12,112,220,0.16) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#060f22 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// cctv + control acces</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Securitate</span>
+        <h3 class="proj-name">Securitate video și control-acces</h3>
+        <span class="proj-result">Supraveghere 24/7 · acces controlat</span>
+      </div>
+    </article>
+
+    <article class="proj-card reveal-item">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 40% 60%,rgba(248,69,3,0.12) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#040c1e 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// videoconferință</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Comunicații</span>
+        <h3 class="proj-name">Sisteme de videoconferință</h3>
+        <span class="proj-result">Conferință HD · colaborare remote</span>
+      </div>
+    </article>
+
+    <article class="proj-card reveal-item">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 55% 45%,rgba(12,112,220,0.12) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#060f22 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// securitate + alarmare</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Securitate</span>
+        <h3 class="proj-name">Securitate acces și alarmare</h3>
+        <span class="proj-result">Sistem integrat · monitorizare</span>
+      </div>
+    </article>
+
+    <article class="proj-card reveal-item">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 30% 50%,rgba(248,69,3,0.11) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#040c1e 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// office it</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Birouri</span>
+        <h3 class="proj-name">Offices</h3>
+        <span class="proj-result">Infrastructură completă birou</span>
+      </div>
+    </article>
+
+    <article class="proj-card reveal-item">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 70% 30%,rgba(12,112,220,0.14) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#060f22 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// logistică · depozit</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Logistică</span>
+        <h3 class="proj-name">Warehouses</h3>
+        <span class="proj-result">Rețea &amp; securitate depozit</span>
+      </div>
+    </article>
+
+    <article class="proj-card reveal-item">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background:radial-gradient(ellipse 80% 80% at 50% 20%,rgba(248,69,3,0.14) 0%,rgba(4,9,26,1) 65%),linear-gradient(145deg,#040c1e 0%,#030812 100%);"></div>
+        <span class="proj-visual-tag">// tempest · radiocomunicații</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Telecomunicații speciale</span>
+        <h3 class="proj-name">Tempest și Radiocomunicații</h3>
+        <span class="proj-result">Sistem protejat · comunicații securizate</span>
       </div>
     </article>
 
@@ -1345,7 +1284,7 @@
 
 /* ── Magic Bento — spotlight glow + border glow + click ripple ── */
 (function () {
-  const GLOW_COLOR  = '40,212,255';
+  const GLOW_COLOR  = '248,69,3';
   const SPOTLIGHT_R = 340;
   const proximity   = SPOTLIGHT_R * 0.5;
   const fadeDist    = SPOTLIGHT_R * 0.75;

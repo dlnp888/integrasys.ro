@@ -37,7 +37,7 @@
   transform: translate(-50%, -55%);
   width: 900px; height: 600px;
   background: radial-gradient(ellipse at center,
-    rgba(20, 80, 200, 0.10) 0%, rgba(40, 212, 255, 0.03) 45%, transparent 70%);
+    rgba(12, 112, 220, 0.10) 0%, rgba(248, 69, 3, 0.03) 45%, transparent 70%);
   pointer-events: none;
 }
 .ctc-hero-grid {
@@ -108,7 +108,7 @@
   content: ''; position: absolute;
   top: -120px; left: -120px;
   width: 360px; height: 360px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(40,212,255,0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(248,69,3,0.04) 0%, transparent 70%);
   pointer-events: none;
 }
 .ctc-form-tag {
@@ -158,9 +158,9 @@
 .ctc-input:focus,
 .ctc-select:focus,
 .ctc-textarea:focus {
-  border-color: rgba(40,212,255,0.38);
-  background: rgba(40,212,255,0.04);
-  box-shadow: 0 0 0 3px rgba(40,212,255,0.08);
+  border-color: rgba(248,69,3,0.38);
+  background: rgba(248,69,3,0.04);
+  box-shadow: 0 0 0 3px rgba(248,69,3,0.08);
 }
 
 /* Select arrow */
@@ -199,7 +199,7 @@
   transition: border-color var(--transition-ui), background var(--transition-ui);
 }
 .ctc-checkbox:checked {
-  background: rgba(40,212,255,0.18); border-color: rgba(40,212,255,0.5);
+  background: rgba(248,69,3,0.18); border-color: rgba(248,69,3,0.5);
 }
 .ctc-checkbox:checked::after {
   content: ''; display: block;
@@ -261,7 +261,7 @@
 .ctc-contact-item { display: flex; align-items: flex-start; gap: 14px; }
 .ctc-contact-icon {
   width: 36px; height: 36px; border-radius: 9px;
-  background: rgba(40,212,255,0.06); border: 1px solid rgba(40,212,255,0.14);
+  background: rgba(248,69,3,0.06); border: 1px solid rgba(248,69,3,0.14);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .ctc-contact-icon svg { width: 15px; height: 15px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
@@ -285,9 +285,9 @@
 .ctc-step:first-child { border-top: 1px solid var(--border-soft); }
 .ctc-step-num {
   width: 28px; height: 28px; border-radius: 50%;
-  border: 1px solid rgba(40,212,255,0.25); background: rgba(40,212,255,0.05);
+  border: 1px solid rgba(248,69,3,0.25); background: rgba(248,69,3,0.05);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  font-family: var(--font-mono); font-size: 0.55rem; color: rgba(40,212,255,0.8);
+  font-family: var(--font-mono); font-size: 0.55rem; color: rgba(248,69,3,0.8);
 }
 .ctc-step-label {
   font-size: var(--text-sm); font-weight: var(--weight-semibold);
@@ -297,19 +297,19 @@
 
 /* Programează card */
 .ctc-schedule-card {
-  border-radius: var(--radius-lg); border: 1px solid rgba(40,212,255,0.12);
-  background: rgba(40,212,255,0.04);
+  border-radius: var(--radius-lg); border: 1px solid rgba(248,69,3,0.12);
+  background: rgba(248,69,3,0.04);
   padding: var(--space-5); text-align: center;
   position: relative; overflow: hidden;
 }
 .ctc-schedule-card::before {
   content: ''; position: absolute;
   top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(40,212,255,0.25), transparent);
+  background: linear-gradient(90deg, transparent, rgba(248,69,3,0.25), transparent);
 }
 .ctc-schedule-icon {
   width: 48px; height: 48px; border-radius: 12px;
-  background: rgba(40,212,255,0.08); border: 1px solid rgba(40,212,255,0.18);
+  background: rgba(248,69,3,0.08); border: 1px solid rgba(248,69,3,0.18);
   display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-3);
 }
 .ctc-schedule-icon svg { width: 22px; height: 22px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
@@ -327,17 +327,17 @@
   border-radius: var(--radius-md);
   font-family: var(--font-sans); font-size: var(--text-sm); font-weight: var(--weight-medium);
   color: var(--accent); cursor: pointer; white-space: nowrap;
-  box-shadow: inset 0 0 0 1px rgba(40,212,255,0.28);
+  box-shadow: inset 0 0 0 1px rgba(248,69,3,0.28);
   background:
-    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,0.10) 0%, rgba(40,212,255,0) 100%),
-    rgba(40,212,255,0.07);
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(248,69,3,0.10) 0%, rgba(248,69,3,0) 100%),
+    rgba(248,69,3,0.07);
   transition: all 0.2s ease-out; position: relative; overflow: hidden;
 }
 .ctc-schedule-btn:hover {
-  box-shadow: inset 0 0 0 1px rgba(40,212,255,0.45), var(--shadow-glow);
+  box-shadow: inset 0 0 0 1px rgba(248,69,3,0.45), var(--shadow-glow);
   background:
-    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(40,212,255,0.16) 0%, rgba(40,212,255,0) 100%),
-    rgba(40,212,255,0.12);
+    radial-gradient(31.2% 40.91% at 50% 151.14%, rgba(248,69,3,0.16) 0%, rgba(248,69,3,0) 100%),
+    rgba(248,69,3,0.12);
 }
 .ctc-schedule-btn svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 1.5; fill: none; }
 .ctc-schedule-note {
