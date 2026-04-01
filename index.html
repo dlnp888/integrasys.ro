@@ -28,10 +28,10 @@
     <!-- Fonturi -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Cascadia+Code:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+    
+    
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" /></noscript>
 
     <!-- Design system global -->
     <link rel="stylesheet" href="lupvision.ro-global.css" />
@@ -118,17 +118,17 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-        background: rgba(2, 8, 20, 0.76);
+        background: rgba(2, 6, 16, 0.55);
       }
       .lg-vignette-center {
         position: absolute;
         inset: 0;
         pointer-events: none;
         background: radial-gradient(
-          ellipse 65% 60% at 50% 44%,
-          rgba(2, 8, 20, 0.92) 0%,
-          rgba(2, 8, 20, 0.60) 50%,
-          rgba(2, 8, 20, 0) 80%
+          ellipse 70% 65% at 50% 48%,
+          rgba(2, 6, 16, 0.82) 0%,
+          rgba(2, 6, 16, 0.50) 45%,
+          rgba(2, 6, 16, 0) 75%
         );
       }
       .hero-sub {
@@ -162,25 +162,24 @@
       }
 
       /* Fan card positions — 4 cards, 300px wide */
-      /* Total spread: ~640px centered. Each step ~160px apart. */
       .c1 {
         left: 50%; margin-left: -476px;
-        top: 24px; z-index: 1;
+        top: 0px; z-index: 1;
         transform: rotate(-12deg);
       }
       .c2 {
         left: 50%; margin-left: -258px;
-        top: 8px; z-index: 2;
+        top: -16px; z-index: 2;
         transform: rotate(-4deg);
       }
       .c3 {
         left: 50%; margin-left: -42px;
-        top: 8px; z-index: 2;
+        top: -16px; z-index: 2;
         transform: rotate(4deg);
       }
       .c4 {
         left: 50%; margin-left: 178px;
-        top: 24px; z-index: 1;
+        top: 0px; z-index: 1;
         transform: rotate(12deg);
       }
 
@@ -204,26 +203,23 @@
       }
       .card .card-photo::after {
         background:
-          linear-gradient(to top,
-            rgba(3, 6, 18, 0.98) 0%,
-            rgba(3, 6, 18, 0.85) 25%,
-            rgba(3, 6, 18, 0.40) 55%,
-            rgba(3, 6, 18, 0.10) 80%,
+          linear-gradient(to bottom,
+            rgba(3, 8, 30, 0.95) 0%,
+            rgba(5, 18, 50, 0.72) 22%,
+            rgba(3, 8, 22, 0.20) 55%,
             transparent 100%),
           linear-gradient(135deg,
-            rgba(12, 85, 176, 0.22) 0%,
-            transparent 50%);
+            rgba(12, 85, 176, 0.28) 0%,
+            transparent 55%);
         z-index: 2;
       }
       .card .card-header {
         position: absolute;
-        bottom: 0; left: 0; right: 0;
+        top: 0; left: 0; right: 0;
         z-index: 5;
         border: none;
-        background: linear-gradient(to top,
-          rgba(3, 8, 22, 0.82) 0%,
-          rgba(3, 8, 22, 0.0) 100%);
-        padding: 32px 20px 22px;
+        background: transparent;
+        padding: 22px 20px 20px;
         display: flex;
         flex-direction: column;
         gap: 6px;
@@ -921,7 +917,7 @@
         border-top: 1px solid var(--border-soft);
         border-bottom: 1px solid var(--border-soft);
         background: rgba(3, 7, 18, 0.96);
-        padding: 22px var(--container-pad);
+        padding: 56px var(--container-pad);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -929,6 +925,7 @@
       .proof-inner {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 40px;
         max-width: 940px;
         width: 100%;
@@ -1116,52 +1113,105 @@
       /* ══════════════════════════════════════════
    DE CE LUP VISION
 ══════════════════════════════════════════ */
-      .dce-wrap {
+      .despre-wrap {
         display: grid;
-        grid-template-columns: 2fr 3fr;
+        grid-template-columns: 1fr 1fr;
         gap: var(--space-10);
-        align-items: start;
+        align-items: stretch;
       }
-      .dce-sticky {
-        position: sticky;
-        top: 110px;
+      .despre-img-wrap {
+        position: relative;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 0.5px solid rgba(248, 69, 3, 0.22);
+        min-height: 320px;
       }
-      .dce-items {
+      .despre-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .despre-img-wrap::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(135deg, rgba(12, 85, 176, 0.18) 0%, transparent 55%),
+          linear-gradient(to top, rgba(3, 8, 30, 0.45) 0%, transparent 50%);
+        pointer-events: none;
+      }
+      .despre-content {
         display: flex;
         flex-direction: column;
-        list-style: none;
-        padding: 0;
+        gap: var(--space-4);
       }
-      .dce-item {
-        display: grid;
-        grid-template-columns: 14px 1fr;
-        gap: 0 var(--space-3);
-        padding: var(--space-5) 0;
-        border-bottom: 1px solid var(--border-soft);
-        align-items: start;
+      .despre-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
       }
-      .dce-item:first-child {
-        border-top: 1px solid var(--border-soft);
-      }
-      .dce-marker {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--accent);
-        margin-top: 10px;
-        box-shadow: 0 0 8px rgba(248, 69, 3, 0.45);
-      }
-      .dce-title {
+      .despre-body p {
         font-size: var(--text-base);
-        font-weight: var(--weight-semibold);
         color: var(--text);
-        margin-bottom: 6px;
-        line-height: 1.4;
+        line-height: var(--leading-body);
       }
-      .dce-text {
+
+      /* ══════════════════════════════════════════
+   SERVICII
+══════════════════════════════════════════ */
+      .srv-header {
+        margin-bottom: var(--space-8);
+      }
+      .srv-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-3);
+      }
+      .srv-card {
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border-color var(--transition-ui), box-shadow var(--transition-ui);
+      }
+      .srv-card:hover {
+        border-color: rgba(248, 69, 3, 0.22);
+        box-shadow: 0 20px 56px rgba(0, 0, 0, 0.5);
+      }
+      .srv-card-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+        flex-shrink: 0;
+      }
+      .srv-card-body {
+        padding: 28px 24px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+      }
+      .srv-card-num {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--accent);
+        letter-spacing: 0.1em;
+      }
+      .srv-card-title {
+        font-size: 1.18rem;
+        font-weight: var(--weight-bold);
+        color: var(--text);
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+      }
+      .srv-card-desc {
         font-size: var(--text-sm);
         color: var(--muted);
-        line-height: var(--leading-body);
+        line-height: 1.65;
       }
 
       /* ══════════════════════════════════════════
@@ -1174,6 +1224,9 @@
         margin-bottom: var(--space-8);
         gap: var(--space-5);
       }
+      .proj-header .section-desc {
+        max-width: 680px;
+      }
       .proj-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -1184,15 +1237,37 @@
         border: 1px solid var(--border);
         background: var(--bg-card);
         overflow: hidden;
+        position: relative;
         transition:
           border-color var(--transition-ui),
-          box-shadow var(--transition-ui),
-          transform var(--transition-fx);
+          box-shadow var(--transition-ui);
+        --glow-x: 50%;
+        --glow-y: 50%;
+        --glow-intensity: 0;
+        --glow-radius: 280px;
+      }
+      .proj-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        padding: 1.5px;
+        background: radial-gradient(
+          var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+          rgba(248, 69, 3, calc(var(--glow-intensity) * 0.9)) 0%,
+          rgba(248, 69, 3, calc(var(--glow-intensity) * 0.4)) 35%,
+          transparent 65%
+        );
+        border-radius: inherit;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: 2;
       }
       .proj-card:hover {
-        border-color: rgba(248, 69, 3, 0.16);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
-        transform: translateY(-3px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(248, 69, 3, 0.22);
+        border-color: rgba(248, 69, 3, 0.22);
       }
       .proj-visual {
         height: 190px;
@@ -1202,6 +1277,8 @@
       .proj-visual-bg {
         position: absolute;
         inset: 0;
+        background-size: cover;
+        background-position: center;
       }
       .proj-visual-tag {
         position: absolute;
@@ -1369,19 +1446,6 @@
         );
         pointer-events: none;
       }
-      .cta-border-top {
-        position: absolute;
-        top: 0;
-        left: var(--container-pad);
-        right: var(--container-pad);
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(248, 69, 3, 0.16),
-          transparent
-        );
-      }
       .cta-title {
         font-size: clamp(1.9rem, 4vw, 2.9rem);
         font-weight: var(--weight-extrabold);
@@ -1419,42 +1483,30 @@
         background: #030814;
       }
 
-      /* Orange pulse separator line on top of each section */
+      /* White static separator line on top of each section */
       .proof-bar::before,
       .section:not(.hero)::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 1px;
-        background:
-          /* base orange line, always visible */
-          linear-gradient(90deg,
-            transparent 0%,
-            rgba(248, 69, 3, 0.28) 15%,
-            rgba(248, 69, 3, 0.18) 85%,
-            transparent 100%),
-          /* travelling bright spot */
-          linear-gradient(90deg,
-            transparent 0%,
-            transparent 40%,
-            rgba(248, 69, 3, 0.70) 50%,
-            transparent 60%,
-            transparent 100%);
-        background-size: 100% 100%, 300% 100%;
-        background-position: 0 0, -100% 0;
-        animation: section-line-travel 60s linear infinite;
+        background: linear-gradient(90deg,
+          transparent 0%,
+          rgba(232, 237, 245, 0.18) 15%,
+          rgba(232, 237, 245, 0.18) 85%,
+          transparent 100%);
         pointer-events: none;
         z-index: 1;
       }
 
       /* ── Responsive — secțiuni noi ── */
       @media (max-width: 1099px) {
-        .dce-wrap {
+        .despre-wrap {
           grid-template-columns: 1fr;
           gap: var(--space-7);
         }
-        .dce-sticky {
-          position: static;
+        .srv-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
         .proj-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -1496,6 +1548,38 @@
         transition-delay: 0.24s;
       }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Integrasys",
+      "url": "https://integrasys.ro",
+      "logo": "https://integrasys.ro/brand_assets/IntegraSys%20-%20logo.png",
+      "email": "info@integrasys.ro",
+      "telephone": "+40722474455",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Str. Avram Iancu, 23",
+        "addressLocality": "Bacău",
+        "postalCode": "600260",
+        "addressCountry": "RO"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "09:00",
+          "closes": "17:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday"],
+          "opens": "09:00",
+          "closes": "14:30"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <a href="#main" class="sr-only">Sari la conținut</a>
@@ -1780,11 +1864,6 @@
             <div class="lbl">Ani de experiență</div>
           </div>
           <div class="proof-divider"></div>
-          <p class="proof-text">
-            Infrastructuri IT &amp; telecomunicații pentru companii care au
-            nevoie de stabilitate și performanță.
-          </p>
-          <div class="proof-divider"></div>
           <div class="proof-stat">
             <div class="num">4</div>
             <div class="lbl">Domenii de activitate</div>
@@ -1797,101 +1876,74 @@
         </div>
       </div>
 
-      <!-- ══════════ METODOLOGIE ══════════ -->
-      <section id="metodologie" class="section">
-        <div class="meto-header reveal">
-          <span class="section-label">Metodologie</span>
-          <h2>Un sistem clar.<br /><em>Fără improvizații.</em></h2>
-          <p class="section-desc">
-            Fiecare proiect este construit pe o structură bine definită, de la
-            analiză și proiectare până la implementare și mentenanță.
-          </p>
-        </div>
-        <div class="meto-grid">
-          <div class="meto-step reveal-item">
-            <span class="meto-num" aria-hidden="true">01</span>
-            <h3>Strategie &amp; Analiză</h3>
-            <p>
-              Evaluăm nevoile infrastructurii și definim soluția optimă pentru
-              fiecare client în parte.
-            </p>
+      <!-- ══════════ DESPRE NOI ══════════ -->
+      <section class="section">
+        <div class="despre-wrap">
+          <div class="despre-img-wrap reveal">
+            <img
+              src="images/Servicii/Despre IntegraSys.webp"
+              alt="Echipa IntegraSys la lucru"
+              loading="lazy"
+            />
           </div>
-          <div class="meto-step reveal-item">
-            <span class="meto-num" aria-hidden="true">02</span>
-            <h3>Proiectare tehnică</h3>
-            <p>
-              Construim arhitectura rețelelor și sistemelor înainte de orice
-              instalare fizică.
-            </p>
-          </div>
-          <div class="meto-step reveal-item">
-            <span class="meto-num" aria-hidden="true">03</span>
-            <h3>Implementare</h3>
-            <p>
-              Instalare, configurare și integrare completă — fără compromisuri
-              și fără improvizații.
-            </p>
-          </div>
-          <div class="meto-step reveal-item">
-            <span class="meto-num" aria-hidden="true">04</span>
-            <h3>Mentenanță &amp; Optimizare</h3>
-            <p>
-              Monitorizare continuă și intervenții rapide. Sistemele rămân
-              funcționale pe termen lung.
-            </p>
+          <div class="despre-content reveal">
+            <div>
+              <span class="section-label">Despre noi</span>
+              <h2>Cine suntem<br />și <em>ce facem?</em></h2>
+            </div>
+            <div class="despre-body">
+              <p>Înființată în anul 2012, IntegraSys este o societate ce activează cu succes în domeniul tehnologiei informației și comunicațiilor, dezvoltând relații de afaceri cu firme de prestigiu din România și din străinătate.</p>
+              <p>Principiile de afaceri ale firmei noastre fac să avem o bază stabilă de parteneri care au încredere în noi.</p>
+              <p>Strategia noastră de dezvoltare implică pregătirea continuă a membrilor echipei pentru cunoașterea și implementarea celor mai noi tehnologii, echipamente și servicii din domeniile IT&amp;C, pentru a putea oferi partenerilor noștri posibilitatea alegerii celor mai optime soluții pentru afacerea lor.</p>
+              <p>În anul 2016, am extins gama de servicii oferite și am început să furnizăm soluții complete pentru instalarea echipamentelor de supraveghere video și securitate control-acces — societatea noastră deține autorizație de la IGPR și IGSU.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ══════════ DE CE LUP VISION ══════════ -->
+      <!-- ══════════ SERVICII ══════════ -->
       <section class="section">
-        <div class="dce-wrap">
-          <div class="dce-sticky reveal">
-            <span class="section-label">Diferențiatori</span>
-            <h2>De ce aleg companiile<br />care vor <em>stabilitate.</em></h2>
+        <div class="srv-header reveal">
+          <span class="section-label">Ce facem</span>
+          <h2>Serviciile noastre</h2>
+        </div>
+        <div class="srv-grid">
+
+          <div class="srv-card reveal-item">
+            <img class="srv-card-img" src="images/Servicii/servicii-it.webp" alt="Servicii IT" loading="lazy" />
+            <div class="srv-card-body">
+              <p class="srv-card-title">Servicii IT</p>
+              <p class="srv-card-desc">Serviciile noastre IT pot ajuta companiile să își optimizeze infrastructura IT și să reducă timpul de nefuncționare. Oferim o gamă largă de servicii IT, inclusiv managementul rețelei și managementul securității.</p>
+            </div>
           </div>
-          <ul class="dce-items">
-            <li class="dce-item reveal-item">
-              <div class="dce-marker" aria-hidden="true"></div>
-              <div>
-                <p class="dce-title">Soluții tehnice testate în practică</p>
-                <p class="dce-text">
-                  Implementăm cu grijă fiecare detaliu tehnic, fără scurtături
-                  și fără compromisuri.
-                </p>
-              </div>
-            </li>
-            <li class="dce-item reveal-item">
-              <div class="dce-marker" aria-hidden="true"></div>
-              <div>
-                <p class="dce-title">Implementare corectă, fără compromisuri</p>
-                <p class="dce-text">
-                  Fiecare sistem este instalat și configurat conform
-                  standardelor tehnice în vigoare.
-                </p>
-              </div>
-            </li>
-            <li class="dce-item reveal-item">
-              <div class="dce-marker" aria-hidden="true"></div>
-              <div>
-                <p class="dce-title">Suport rapid și eficient</p>
-                <p class="dce-text">
-                  Intervenție promptă la orice incident, cu timp minim de
-                  nefuncționare.
-                </p>
-              </div>
-            </li>
-            <li class="dce-item reveal-item">
-              <div class="dce-marker" aria-hidden="true"></div>
-              <div>
-                <p class="dce-title">Comunicare directă și clară</p>
-                <p class="dce-text">
-                  Lucrezi direct cu echipa tehnică. Fără intermediari, fără
-                  ambiguități.
-                </p>
-              </div>
-            </li>
-          </ul>
+
+          <div class="srv-card reveal-item">
+            <img class="srv-card-img" src="images/Servicii/infrastructura-retelei.webp" alt="Infrastructura rețelei" loading="lazy" />
+            <div class="srv-card-body">
+
+              <p class="srv-card-title">Infrastructura rețelei</p>
+              <p class="srv-card-desc">Oferim servicii de infrastructură de rețea voce și date ce includ o gamă largă de activități care vizează proiectarea, implementarea, întreținerea și dezvoltarea rețelelor de voce și date.</p>
+            </div>
+          </div>
+
+          <div class="srv-card reveal-item">
+            <img class="srv-card-img" src="images/Servicii/securitate-video.webp" alt="Securitate video și control acces" loading="lazy" />
+            <div class="srv-card-body">
+
+              <p class="srv-card-title">Securitate video și control acces</p>
+              <p class="srv-card-desc">Suntem specializați în furnizarea de sisteme de securitate și securitate tehnică pentru afaceri. Serviciile noastre includ măsuri pentru efracție, control acces, supraveghere video si alarma de incendiu.</p>
+            </div>
+          </div>
+
+          <div class="srv-card reveal-item">
+            <img class="srv-card-img" src="images/Servicii/sisteme-videoconferinta.jpg" alt="Sisteme de videoconferință" loading="lazy" />
+            <div class="srv-card-body">
+
+              <p class="srv-card-title">Sisteme de videoconferință</p>
+              <p class="srv-card-desc">Sistemul de videoconferință aduce întâlnirea de lucru la birou sau acasă la dumneavoastră, permițându-vă să mențineți contactul cu persoane importante. Noi vă oferim soluții personalizate cu instrumentele și resursele care vă fac munca mai ușoară.</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -1900,7 +1952,7 @@
         <div class="proj-header reveal">
           <div>
             <span class="section-label">Portofoliu</span>
-            <h2>Proiecte<br /><em>realizate.</em></h2>
+            <h2>Proiecte <em>realizate</em></h2>
             <p class="section-desc">
               Soluții implementate pentru diferite tipuri de business, de la
               cablare structurată la sisteme complexe de securitate și
@@ -2154,7 +2206,7 @@
                 aria-expanded="false"
                 aria-controls="faq-a-1"
               >
-                Cât durează implementarea unui sistem?
+                Ce servicii oferiți?
                 <span class="faq-icon" aria-hidden="true"
                   ><svg viewBox="0 0 12 12" fill="none">
                     <path d="M6 2v8M2 6h8" stroke-linecap="round" /></svg
@@ -2162,11 +2214,10 @@
               </button>
               <div class="faq-a-wrap" id="faq-a-1">
                 <p class="faq-a">
-                  Depinde de complexitatea proiectului. Un sistem de
-                  supraveghere sau o rețea de bază poate fi implementat în 1–2
-                  săptămâni. Proiectele de infrastructură mai complexe necesită
-                  4–8 săptămâni. Stabilim un calendar clar la evaluarea
-                  inițială.
+                  Oferim servicii de infrastructură pentru rețelele de comunicații voce și date,
+                  instalare echipamente de supraveghere video, securitate și control acces,
+                  sisteme de videoconferință, tempest și radiocomunicații, managementul
+                  clădirilor și servicii IT.
                 </p>
               </div>
             </div>
@@ -2177,7 +2228,7 @@
                 aria-expanded="false"
                 aria-controls="faq-a-2"
               >
-                Oferiți mentenanță după instalare?
+                Care sunt costurile pentru serviciile oferite?
                 <span class="faq-icon" aria-hidden="true"
                   ><svg viewBox="0 0 12 12" fill="none">
                     <path d="M6 2v8M2 6h8" stroke-linecap="round" /></svg
@@ -2185,9 +2236,8 @@
               </button>
               <div class="faq-a-wrap" id="faq-a-2">
                 <p class="faq-a">
-                  Da. Oferim contracte de mentenanță care includ monitorizare
-                  continuă, intervenții la incident și actualizări tehnice
-                  periodice. Nu lăsăm un sistem în derivă după instalare.
+                  Costul serviciilor noastre variază în funcție de nevoile și cerințele
+                  dumneavoastră. Vă rugăm să ne contactați pentru a primi o ofertă personalizată.
                 </p>
               </div>
             </div>
@@ -2198,7 +2248,7 @@
                 aria-expanded="false"
                 aria-controls="faq-a-3"
               >
-                Ce tipuri de sisteme instalați?
+                Ce experiență aveți în domeniu?
                 <span class="faq-icon" aria-hidden="true"
                   ><svg viewBox="0 0 12 12" fill="none">
                     <path d="M6 2v8M2 6h8" stroke-linecap="round" /></svg
@@ -2206,10 +2256,13 @@
               </button>
               <div class="faq-a-wrap" id="faq-a-3">
                 <p class="faq-a">
-                  Instalăm și configurăm rețele LAN/WAN, sisteme CCTV, control
-                  acces, infrastructuri de fibră optică, sisteme telefonice VoIP
-                  și soluții de securitate IT. Adaptăm soluția la nevoile
-                  concrete ale fiecărui client.
+                  Avem o experiență de peste un deceniu în furnizarea de servicii de infrastructură
+                  pentru rețelele de comunicații, instalare echipamente de supraveghere video,
+                  securitate și control acces, sisteme de videoconferință, tempest și
+                  radiocomunicații, managementul clădirilor și servicii IT. Misiunea noastră este
+                  să transformăm modul în care oamenii comunică, făcând tehnologia mai accesibilă
+                  și mai ușor de utilizat. Încrederea și satisfacția clienților sunt valorile
+                  fundamentale ale operațiunilor noastre.
                 </p>
               </div>
             </div>
@@ -2220,7 +2273,7 @@
                 aria-expanded="false"
                 aria-controls="faq-a-4"
               >
-                Lucrați cu echipamente existente?
+                Cum pot beneficia de serviciile Dvs.?
                 <span class="faq-icon" aria-hidden="true"
                   ><svg viewBox="0 0 12 12" fill="none">
                     <path d="M6 2v8M2 6h8" stroke-linecap="round" /></svg
@@ -2228,52 +2281,8 @@
               </button>
               <div class="faq-a-wrap" id="faq-a-4">
                 <p class="faq-a">
-                  Da. Evaluăm infrastructura existentă și integrăm echipamentele
-                  noi cu cele existente, acolo unde este tehnic posibil și
-                  oportun. Înlocuim doar ce este cu adevărat necesar.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item reveal-item">
-              <button
-                class="faq-q"
-                aria-expanded="false"
-                aria-controls="faq-a-5"
-              >
-                Oferiți consultanță înainte de proiect?
-                <span class="faq-icon" aria-hidden="true"
-                  ><svg viewBox="0 0 12 12" fill="none">
-                    <path d="M6 2v8M2 6h8" stroke-linecap="round" /></svg
-                ></span>
-              </button>
-              <div class="faq-a-wrap" id="faq-a-5">
-                <p class="faq-a">
-                  Da. Fiecare proiect începe cu o evaluare tehnică a nevoilor și
-                  o propunere de soluție adaptată. Consultanța inițială este
-                  parte din procesul nostru standard — nu lucrăm fără să
-                  înțelegem mai întâi contextul.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item reveal-item">
-              <button
-                class="faq-q"
-                aria-expanded="false"
-                aria-controls="faq-a-6"
-              >
-                Ce zone geografice acoperiți?
-                <span class="faq-icon" aria-hidden="true"
-                  ><svg viewBox="0 0 12 12" fill="none">
-                    <path d="M6 2v8M2 6h8" stroke-linecap="round" /></svg
-                ></span>
-              </button>
-              <div class="faq-a-wrap" id="faq-a-6">
-                <p class="faq-a">
-                  Acoperim proiecte la nivel național. Pentru proiecte cu
-                  locații multiple sau cu cerințe speciale de amplasare,
-                  contactați-ne pentru a evalua fezabilitatea și logistica.
+                  Pentru a beneficia de serviciile noastre, vă rugăm să ne contactați prin
+                  formularul de contact, email sau prin telefon.
                 </p>
               </div>
             </div>
@@ -2284,7 +2293,6 @@
       <!-- ══════════ CTA FINAL ══════════ -->
       <section class="section cta-section">
         <div class="cta-glow" aria-hidden="true"></div>
-        <div class="cta-border-top" aria-hidden="true"></div>
         <span class="section-label reveal">Contactează-ne</span>
         <h2 class="cta-title reveal">
           Ai nevoie de o infrastructură<br />care chiar <em>funcționează?</em>
@@ -2322,10 +2330,19 @@
               width="122"
               height="56"
           /></a>
-          <p class="footer-desc">
-            Proiectăm, instalăm și mentenăm infrastructuri IT și telecomunicații
-            pentru companii care au nevoie de stabilitate și performanță.
-          </p>
+          <address class="footer-desc" style="font-style:normal; line-height:1.7;"
+            itemscope itemtype="https://schema.org/LocalBusiness">
+            <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+              <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+              Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
+            </span><br />
+            <br />
+            Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
+            Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br />
+            <br />
+            <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+            <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+          </address>
           <div class="footer-social">
             <a href="#" class="footer-social-link" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24">
@@ -2356,20 +2373,10 @@
         <nav class="footer-nav" aria-label="Navigare footer">
           <div class="footer-nav-col">
             <span class="footer-nav-title">Servicii</span>
-            <a href="servicii.html#infrastructura-retea"
-              >Infrastructură Rețea</a
-            >
-            <a href="servicii.html#sisteme-supraveghere"
-              >Sisteme Supraveghere</a
-            >
-            <a href="servicii.html#telecomunicatii-date"
-              >Telecomunicații &amp; Date</a
-            >
-            <a href="servicii.html#securitate-it">Securitate IT</a>
-            <a href="servicii.html#acces-control">Acces &amp; Control</a>
-            <a href="servicii.html#mentenanta-suport"
-              >Mentenanță &amp; Suport</a
-            >
+            <a href="servicii.html#servicii-it">Servicii IT</a>
+            <a href="servicii.html#infrastructura-retea">Infrastructura rețelei</a>
+            <a href="servicii.html#securitate-video">Securitate video &amp; control acces</a>
+            <a href="servicii.html#sisteme-videoconferinta">Sisteme de videoconferință</a>
           </div>
           <div class="footer-nav-col">
             <span class="footer-nav-title">Companie</span>
@@ -2392,15 +2399,6 @@
         <span class="footer-copy"
           >© 2026 Integrasys. Toate drepturile rezervate.</span
         >
-        <span class="footer-tagline"
-          >Infrastructuri tehnice de comunicații și securitate pentru
-          companii.</span
-        >
-        <nav class="footer-legal" aria-label="Navigare legală">
-          <a href="confidentialitate.html">Confidențialitate</a>
-          <a href="termeni.html">Termeni</a>
-          <a href="cookies.html">Cookies</a>
-        </nav>
       </div>
     </footer>
 
@@ -2597,7 +2595,7 @@
 
         function resetAll() {
           document
-            .querySelectorAll(".card-flat, .card-mobile-row, .fan-wrap .card")
+            .querySelectorAll(".card-flat, .card-mobile-row, .fan-wrap .card, .proj-card")
             .forEach((card) => {
               const sp = card.querySelector(".bento-spotlight");
               if (sp) sp.style.opacity = "0";
@@ -2696,9 +2694,53 @@
 
         document.addEventListener("mouseleave", resetAll);
 
+        function bindProjCards() {
+          const grid = document.querySelector(".proj-grid");
+          if (!grid) return;
+          const cards = Array.from(grid.querySelectorAll(".proj-card"));
+          ensureSpotlights(cards);
+          grid.addEventListener("mousemove", (e) => {
+            const onCard = cards.some((card) => {
+              const r = card.getBoundingClientRect();
+              return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+            });
+            if (!onCard) {
+              cards.forEach(c => {
+                c.style.setProperty("--glow-intensity", "0");
+                const sp = c.querySelector(".bento-spotlight");
+                if (sp) sp.style.opacity = "0";
+              });
+              return;
+            }
+            cards.forEach((card) => {
+              const r = card.getBoundingClientRect();
+              const rx = e.clientX - r.left;
+              const ry = e.clientY - r.top;
+              const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
+              const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
+              const dist = Math.hypot(dx, dy);
+              let intensity = dist <= proximity ? 1 : dist <= fadeDist ? (fadeDist - dist) / (fadeDist - proximity) : 0;
+              card.style.setProperty("--glow-x", `${((rx / r.width) * 100).toFixed(1)}%`);
+              card.style.setProperty("--glow-y", `${((ry / r.height) * 100).toFixed(1)}%`);
+              card.style.setProperty("--glow-intensity", intensity.toFixed(3));
+              const sp = card.querySelector(".bento-spotlight");
+              if (sp) {
+                sp.style.left = rx + "px";
+                sp.style.top = ry + "px";
+                sp.style.opacity = intensity.toFixed(3);
+              }
+            });
+          });
+          grid.addEventListener("mouseleave", () => cards.forEach(c => {
+            c.style.setProperty("--glow-intensity", "0");
+            const sp = c.querySelector(".bento-spotlight");
+            if (sp) sp.style.opacity = "0";
+          }));
+        }
+
         if (document.readyState === "loading")
-          document.addEventListener("DOMContentLoaded", bindFanCards);
-        else bindFanCards();
+          document.addEventListener("DOMContentLoaded", () => { bindFanCards(); bindProjCards(); });
+        else { bindFanCards(); bindProjCards(); }
 
         /* Click ripple */
         document.addEventListener("click", (e) => {
@@ -2806,20 +2848,25 @@
       /* ── Letter Glitch Hero ── */
       (function () {
         var COLORS = [
-          "#030e22",
-          "#062050",
-          "#0b3a8a",
-          "#0c70dc",
-          "#1a8cf0",
-          "#3fa8f5",
-          "#0c55b0",
+          "#020810",
+          "#030d20",
+          "#051530",
+          "#071d42",
+          "#0a2555",
+          "#0d3068",
+          "#0f3a7a",
+          "#122880",
+          "#0c4090",
+          "#1a4a80",
+          "#2a5e9a",
+          "#3a6aaa",
         ];
         var SPEED = 50; /* ms between glitch ticks */
-        var LERP_STEP = 0.06; /* smooth color transition speed */
-        var UPDATE_FRAC = 0.05; /* fraction of chars updated per tick */
-        var CHAR_W = 7;
-        var CHAR_H = 14;
-        var FONT_SIZE = 11;
+        var LERP_STEP = 0.05; /* smooth color transition speed */
+        var UPDATE_FRAC = 0.04; /* fraction of chars updated per tick */
+        var CHAR_W = 9;
+        var CHAR_H = 17;
+        var FONT_SIZE = 13;
         var CHARS =
           "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&*()-_+=/[]{};:<>.,0123456789";
 
@@ -2997,6 +3044,11 @@
           });
         });
       })();
+    </script>
+    <script>
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') e.preventDefault();
+      });
     </script>
   </body>
 </html>

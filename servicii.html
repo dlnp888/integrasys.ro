@@ -13,9 +13,12 @@
   <style>html, body { background: #030812; }</style>
 
   <!-- Fonturi -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Cascadia+Code:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+  
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" /></noscript>
 
   <!-- Design system global -->
   <link rel="stylesheet" href="lupvision.ro-global.css">
@@ -94,8 +97,7 @@
 
 /* ── QUICK NAV PILLS ── */
 .srv-quicknav {
-  max-width: var(--container-max); margin: 0 auto;
-  padding: 0 var(--container-pad) var(--space-9);
+  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-9);
   display: flex; gap: 8px; flex-wrap: wrap;
 }
 .srv-qlink {
@@ -116,9 +118,12 @@
 }
 
 /* ── SERVICE DETAIL SECTIONS ── */
+#servicii-it, #infrastructura-retea, #securitate-video,
+#sisteme-videoconferinta, #plan-implementare {
+  scroll-margin-top: 120px;
+}
 .srv-section-sep {
-  max-width: var(--container-max); margin: 0 auto;
-  padding: 0 var(--container-pad);
+  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
   border-top: 1px solid var(--border-soft);
 }
 .srv-detail {
@@ -160,6 +165,28 @@
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-full); padding: 4px 13px;
   letter-spacing: 0.04em;
+}
+
+/* ── IMAGE PANEL ── */
+.srv-img-panel {
+  border-radius: var(--radius-xl);
+  border: 0.5px solid rgba(248, 69, 3, 0.22);
+  overflow: hidden;
+  position: relative;
+  min-height: 380px;
+}
+.srv-img-panel img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  position: absolute; inset: 0;
+}
+.srv-img-panel::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(135deg, rgba(12, 85, 176, 0.15) 0%, transparent 55%),
+    linear-gradient(to top, rgba(3, 8, 30, 0.4) 0%, transparent 55%);
+  pointer-events: none;
 }
 
 /* ── VISUAL PANEL BASE ── */
@@ -588,315 +615,113 @@
 
 <!-- ══════════ QUICK NAV ══════════ -->
 <nav class="srv-quicknav" aria-label="Navigare servicii">
-  <a href="#infrastructura-retea" class="srv-qlink">networking</a>
-  <a href="#sisteme-supraveghere" class="srv-qlink">cctv + securitate</a>
-  <a href="#suport-mentenanta" class="srv-qlink">suport IT</a>
-  <a href="#consultanta-tehnica" class="srv-qlink">consultanță</a>
-  <a href="#integrare-sisteme" class="srv-qlink">integrare sisteme</a>
+  <a href="#servicii-it" class="srv-qlink">servicii IT</a>
+  <a href="#infrastructura-retea" class="srv-qlink">infrastructura rețelei</a>
+  <a href="#securitate-video" class="srv-qlink">securitate video &amp; control acces</a>
+  <a href="#sisteme-videoconferinta" class="srv-qlink">sisteme videoconferință</a>
   <a href="#plan-implementare" class="srv-qlink">implementare</a>
 </nav>
 
-<!-- ══════════ 1. INFRASTRUCTURĂ REȚELE ══════════ -->
+<!-- ══════════ 1. SERVICII IT ══════════ -->
+<div class="srv-section-sep" aria-hidden="true"></div>
+<section id="servicii-it" class="section">
+  <div class="srv-detail">
+
+    <div class="srv-detail-content reveal">
+      <span class="section-label">Servicii IT</span>
+      <h2>Managementul<br><em>infrastructurii IT.</em></h2>
+      <p class="srv-detail-desc">Serviciile noastre IT pot ajuta companiile să își optimizeze infrastructura IT și să reducă timpul de nefuncționare. Oferim o gamă largă de servicii IT, inclusiv managementul rețelei și managementul securității.</p>
+      <ul class="srv-includes">
+        <li class="srv-include-item">Managementul rețelei</li>
+        <li class="srv-include-item">Managementul securității IT</li>
+        <li class="srv-include-item">Optimizare infrastructură</li>
+        <li class="srv-include-item">Reducerea timpului de nefuncționare</li>
+        <li class="srv-include-item">Suport tehnic dedicat</li>
+      </ul>
+    </div>
+
+    <div class="srv-img-panel reveal">
+      <img src="images/Servicii/servicii-it.webp" alt="Servicii IT" loading="lazy" />
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 2. INFRASTRUCTURA REȚELEI ══════════ -->
 <div class="srv-section-sep" aria-hidden="true"></div>
 <section id="infrastructura-retea" class="section">
-  <div class="srv-detail">
-
-    <div class="srv-detail-content reveal">
-      <span class="section-label">Networking</span>
-      <h2>Infrastructură rețele<br><em>voce &amp; date.</em></h2>
-      <p class="srv-detail-desc">Proiectăm și implementăm rețele de comunicații adaptate nevoilor companiei, asigurând stabilitate, securitate și performanță.</p>
-      <ul class="srv-includes">
-        <li class="srv-include-item">Proiectare rețele LAN / WAN</li>
-        <li class="srv-include-item">Configurare echipamente rețea</li>
-        <li class="srv-include-item">Optimizare trafic și performanță</li>
-        <li class="srv-include-item">Extindere infrastructură existentă</li>
-        <li class="srv-include-item">Integrare sisteme de comunicații</li>
-      </ul>
-      <div class="srv-tech">
-        <span class="srv-tech-tag">Cisco</span>
-        <span class="srv-tech-tag">Mikrotik</span>
-        <span class="srv-tech-tag">Ubiquiti</span>
-        <span class="srv-tech-tag">Fibră optică</span>
-      </div>
-    </div>
-
-    <div class="srv-visual-panel reveal">
-      <div class="srv-vis-tag">// network topology</div>
-      <div class="srv-brand-display">
-        <div class="srv-brand-mark">
-          <span class="srv-brand-mark-text">lup</span>
-        </div>
-        <div class="srv-palette">
-          <div class="srv-swatch srv-swatch-1"></div>
-          <div class="srv-swatch srv-swatch-2"></div>
-          <div class="srv-swatch srv-swatch-3"></div>
-          <div class="srv-swatch srv-swatch-4"></div>
-        </div>
-        <div class="srv-typo-sample">
-          <div class="srv-typo-line srv-typo-line--h"></div>
-          <div class="srv-typo-line srv-typo-line--b"></div>
-          <div class="srv-typo-line srv-typo-line--c"></div>
-        </div>
-        <div class="srv-brand-badge">Rețea configurată &amp; testată ✓</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════ 2. SISTEME SUPRAVEGHERE ══════════ -->
-<div class="srv-section-sep" aria-hidden="true"></div>
-<section id="sisteme-supraveghere" class="section">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
-      <span class="section-label">CCTV + Securitate</span>
-      <h2>Sisteme de<br><em>supraveghere video.</em></h2>
-      <p class="srv-detail-desc">Instalăm și configurăm sisteme moderne de monitorizare pentru protecția spațiilor și controlul operațional.</p>
+      <span class="section-label">Infrastructura rețelei</span>
+      <h2>Rețele de comunicații<br><em>voce &amp; date.</em></h2>
+      <p class="srv-detail-desc">Oferim servicii de infrastructură de rețea voce și date ce includ o gamă largă de activități care vizează proiectarea, implementarea, întreținerea și dezvoltarea rețelelor de voce și date.</p>
       <ul class="srv-includes">
-        <li class="srv-include-item">Instalare camere video</li>
-        <li class="srv-include-item">Configurare DVR / NVR</li>
-        <li class="srv-include-item">Acces remote și monitorizare</li>
-        <li class="srv-include-item">Integrare cu alte sisteme de securitate</li>
-        <li class="srv-include-item">Mentenanță și suport</li>
+        <li class="srv-include-item">Proiectarea rețelelor de voce și date</li>
+        <li class="srv-include-item">Implementare și configurare echipamente</li>
+        <li class="srv-include-item">Întreținerea infrastructurii existente</li>
+        <li class="srv-include-item">Dezvoltarea rețelelor de voce și date</li>
       </ul>
-      <div class="srv-tech">
-        <span class="srv-tech-tag">Hikvision</span>
-        <span class="srv-tech-tag">Dahua</span>
-        <span class="srv-tech-tag">IP Camera</span>
-        <span class="srv-tech-tag">NVR / DVR</span>
-        <span class="srv-tech-tag">Acces remote</span>
-      </div>
     </div>
 
-    <div class="srv-visual-panel reveal">
-      <div class="srv-vis-tag">// system status</div>
-      <div class="srv-browser">
-        <div class="srv-browser-bar">
-          <div class="srv-bdot r"></div>
-          <div class="srv-bdot y"></div>
-          <div class="srv-bdot g"></div>
-          <div class="srv-browser-url"></div>
-        </div>
-        <div class="srv-browser-body">
-          <div class="srv-browser-hero"><div class="srv-browser-hero-text">hero section</div></div>
-          <div class="srv-browser-row">
-            <div class="srv-browser-blk lit"></div>
-            <div class="srv-browser-blk"></div>
-            <div class="srv-browser-blk"></div>
-          </div>
-          <div class="srv-browser-cards">
-            <div class="srv-browser-card"></div>
-            <div class="srv-browser-card"></div>
-            <div class="srv-browser-card"></div>
-          </div>
-        </div>
-      </div>
-      <div class="srv-scores">
-        <div class="srv-score-cell">
-          <span class="srv-score-val">HD</span>
-          <div class="srv-score-lbl">Rezoluție</div>
-        </div>
-        <div class="srv-score-cell">
-          <span class="srv-score-val">24/7</span>
-          <div class="srv-score-lbl">Monitorizare</div>
-        </div>
-        <div class="srv-score-cell">
-          <span class="srv-score-val green">✓</span>
-          <div class="srv-score-lbl">Acces remote</div>
-        </div>
-        <div class="srv-score-cell">
-          <span class="srv-score-val">IR</span>
-          <div class="srv-score-lbl">Noapte</div>
-        </div>
-      </div>
+    <div class="srv-img-panel reveal">
+      <img src="images/Servicii/infrastructura-retelei.webp" alt="Infrastructura rețelei" loading="lazy" />
     </div>
 
   </div>
 </section>
 
-<!-- ══════════ 3. SUPORT & MENTENANȚĂ IT ══════════ -->
+<!-- ══════════ 3. SECURITATE VIDEO ══════════ -->
 <div class="srv-section-sep" aria-hidden="true"></div>
-<section id="suport-mentenanta" class="section">
+<section id="securitate-video" class="section">
   <div class="srv-detail">
 
     <div class="srv-detail-content reveal">
-      <span class="section-label">Suport IT</span>
-      <h2>Suport și<br><em>mentenanță IT.</em></h2>
-      <p class="srv-detail-desc">Asigurăm funcționarea continuă a sistemelor IT prin suport tehnic rapid și intervenții eficiente.</p>
+      <span class="section-label">Securitate video &amp; control acces</span>
+      <h2>Sisteme de securitate<br><em>și control acces.</em></h2>
+      <p class="srv-detail-desc">Suntem specializați în furnizarea de sisteme de securitate și securitate tehnică pentru afaceri. Serviciile noastre includ măsuri pentru efracție, control acces, supraveghere video si alarma de incendiu.</p>
       <ul class="srv-includes">
-        <li class="srv-include-item">Monitorizare sisteme IT</li>
-        <li class="srv-include-item">Intervenții remote și onsite</li>
-        <li class="srv-include-item">Diagnostic și rezolvare probleme</li>
-        <li class="srv-include-item">Actualizări și mentenanță</li>
-        <li class="srv-include-item">Suport utilizatori</li>
+        <li class="srv-include-item">Supraveghere video</li>
+        <li class="srv-include-item">Control acces</li>
+        <li class="srv-include-item">Măsuri anti-efracție</li>
+        <li class="srv-include-item">Alarmă de incendiu</li>
+        <li class="srv-include-item">Securitate tehnică pentru afaceri</li>
       </ul>
-      <div class="srv-tech">
-        <span class="srv-tech-tag">Remote access</span>
-        <span class="srv-tech-tag">Monitoring</span>
-        <span class="srv-tech-tag">Help Desk</span>
-        <span class="srv-tech-tag">Onsite</span>
-        <span class="srv-tech-tag">SLA</span>
-      </div>
     </div>
 
-    <div class="srv-visual-panel reveal">
-      <div class="srv-vis-tag">// support status</div>
-      <div class="srv-apps-display">
-        <div class="srv-phone">
-          <div class="srv-ph-notch"></div>
-          <div class="srv-ph-screen">
-            <div class="srv-ph-bar"></div>
-            <div class="srv-ph-card">
-              <div class="srv-ph-dot"></div>
-              <div class="srv-ph-lines">
-                <div class="srv-ph-line"></div>
-                <div class="srv-ph-line s"></div>
-              </div>
-            </div>
-            <div class="srv-ph-card" style="background:rgba(248,69,3,0.05);">
-              <div class="srv-ph-dot srv-ph-dot--dim"></div>
-              <div class="srv-ph-lines">
-                <div class="srv-ph-line"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="srv-platforms">
-          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>Remote support</div>
-          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>Onsite</div>
-          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>Monitorizare</div>
-          <div class="srv-platform-badge"><div class="srv-platform-dot"></div>SLA garantat</div>
-        </div>
-      </div>
+    <div class="srv-img-panel reveal">
+      <img src="images/Servicii/securitate-video.webp" alt="Securitate video și control acces" loading="lazy" />
     </div>
 
   </div>
 </section>
 
-<!-- ══════════ 4. CONSULTANȚĂ TEHNICĂ ══════════ -->
+<!-- ══════════ 4. SISTEME VIDEOCONFERINȚĂ ══════════ -->
 <div class="srv-section-sep" aria-hidden="true"></div>
-<section id="consultanta-tehnica" class="section">
+<section id="sisteme-videoconferinta" class="section">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
-      <span class="section-label">Consultanță</span>
-      <h2>Consultanță<br><em>tehnică.</em></h2>
-      <p class="srv-detail-desc">Oferim consultanță pentru alegerea și optimizarea infrastructurii IT și telecom, în funcție de cerințele business-ului.</p>
+      <span class="section-label">Sisteme de videoconferință</span>
+      <h2>Videoconferință<br><em>oriunde te afli.</em></h2>
+      <p class="srv-detail-desc">Sistemul de videoconferință aduce întâlnirea de lucru la birou sau acasă la dumneavoastră, permițându-vă să mențineți contactul cu persoane importante. Noi vă oferim soluții personalizate cu instrumentele și resursele care vă fac munca mai ușoară.</p>
       <ul class="srv-includes">
-        <li class="srv-include-item">Analiză infrastructură existentă</li>
-        <li class="srv-include-item">Recomandări tehnice</li>
-        <li class="srv-include-item">Planificare implementare</li>
-        <li class="srv-include-item">Optimizare costuri</li>
-        <li class="srv-include-item">Scalare sisteme</li>
+        <li class="srv-include-item">Soluții personalizate de videoconferință</li>
+        <li class="srv-include-item">Instalare și configurare sisteme</li>
+        <li class="srv-include-item">Menținerea contactului la distanță</li>
+        <li class="srv-include-item">Instrumente și resurse adaptate</li>
       </ul>
-      <div class="srv-tech">
-        <span class="srv-tech-tag">Audit tehnic</span>
-        <span class="srv-tech-tag">Proiectare</span>
-        <span class="srv-tech-tag">Planificare</span>
-        <span class="srv-tech-tag">ROI</span>
-      </div>
     </div>
 
-    <div class="srv-visual-panel reveal">
-      <div class="srv-vis-tag">// infrastructure audit</div>
-      <div class="srv-ecom-display">
-        <div class="srv-ecom-header">
-          <span class="srv-ecom-title">Infrastructure Audit</span>
-          <span class="srv-live-badge">
-            <span class="srv-live-dot"></span>
-            <span class="srv-live-text">Active</span>
-          </span>
-        </div>
-        <div class="srv-ecom-stats">
-          <div class="srv-ecom-stat">
-            <span class="val green">✓</span>
-            <span class="lbl">Rețea</span>
-          </div>
-          <div class="srv-ecom-stat">
-            <span class="val">OK</span>
-            <span class="lbl">Securitate</span>
-          </div>
-          <div class="srv-ecom-stat">
-            <span class="val">↑</span>
-            <span class="lbl">Scalare</span>
-          </div>
-          <div class="srv-ecom-stat">
-            <span class="val">–</span>
-            <span class="lbl">Costuri</span>
-          </div>
-        </div>
-        <div class="srv-ecom-products">
-          <div class="srv-ecom-product">
-            <div class="srv-ecom-product-img"></div>
-            <div class="srv-ecom-line"></div>
-            <div class="srv-ecom-line w7"></div>
-            <div class="srv-ecom-price">LAN/WAN</div>
-          </div>
-          <div class="srv-ecom-product">
-            <div class="srv-ecom-product-img"></div>
-            <div class="srv-ecom-line"></div>
-            <div class="srv-ecom-line w7"></div>
-            <div class="srv-ecom-price">Fibră</div>
-          </div>
-          <div class="srv-ecom-product">
-            <div class="srv-ecom-product-img"></div>
-            <div class="srv-ecom-line"></div>
-            <div class="srv-ecom-line w7"></div>
-            <div class="srv-ecom-price">VoIP</div>
-          </div>
-        </div>
-      </div>
+    <div class="srv-img-panel reveal">
+      <img src="images/Servicii/sisteme-videoconferinta.jpg" alt="Sisteme de videoconferință" loading="lazy" />
     </div>
 
   </div>
 </section>
 
-<!-- ══════════ 5. INTEGRARE SISTEME ══════════ -->
-<div class="srv-section-sep" aria-hidden="true"></div>
-<section id="integrare-sisteme" class="section">
-  <div class="srv-detail">
 
-    <div class="srv-detail-content reveal">
-      <span class="section-label">Integrare</span>
-      <h2>Integrare<br><em>sisteme.</em></h2>
-      <p class="srv-detail-desc">Conectăm și sincronizăm toate componentele infrastructurii pentru un sistem unitar și eficient.</p>
-      <ul class="srv-includes">
-        <li class="srv-include-item">Integrare rețele și echipamente</li>
-        <li class="srv-include-item">Conectare sisteme securitate</li>
-        <li class="srv-include-item">Automatizare procese</li>
-        <li class="srv-include-item">Sincronizare date</li>
-        <li class="srv-include-item">Testare și validare</li>
-      </ul>
-      <div class="srv-tech">
-        <span class="srv-tech-tag">API</span>
-        <span class="srv-tech-tag">VPN</span>
-        <span class="srv-tech-tag">VLAN</span>
-        <span class="srv-tech-tag">Firewall</span>
-        <span class="srv-tech-tag">Cloud</span>
-      </div>
-    </div>
-
-    <div class="srv-visual-panel reveal">
-      <div class="srv-vis-tag">// system integration</div>
-      <div class="srv-seo-display">
-        <div class="srv-seo-ring">
-          <div class="srv-seo-num">✓</div>
-          <div class="srv-seo-sublbl">Integrat</div>
-        </div>
-        <div class="srv-seo-grid">
-          <div class="srv-seo-cell"><span class="val">VPN</span><span class="lbl">Securizat</span></div>
-          <div class="srv-seo-cell"><span class="val">VLAN</span><span class="lbl">Segmentat</span></div>
-          <div class="srv-seo-cell"><span class="val">API</span><span class="lbl">Conectat</span></div>
-          <div class="srv-seo-cell"><span class="val">✓</span><span class="lbl">Testat</span></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════ 6. PLAN IMPLEMENTARE ══════════ -->
+<!-- ══════════ PLAN IMPLEMENTARE ══════════ -->
 <div class="srv-section-sep" aria-hidden="true"></div>
 <section id="plan-implementare" class="section">
   <div class="srv-detail srv-detail--flip">
@@ -1060,12 +885,10 @@
     <nav class="footer-nav" aria-label="Navigare footer">
       <div class="footer-nav-col">
         <span class="footer-nav-title">Servicii</span>
-        <a href="servicii.html#infrastructura-retea">Infrastructură Rețea</a>
-        <a href="servicii.html#sisteme-supraveghere">Sisteme Supraveghere</a>
-        <a href="servicii.html#suport-mentenanta">Suport &amp; Mentenanță IT</a>
-        <a href="servicii.html#consultanta-tehnica">Consultanță Tehnică</a>
-        <a href="servicii.html#integrare-sisteme">Integrare Sisteme</a>
-        <a href="servicii.html#plan-implementare">Plan Implementare</a>
+        <a href="servicii.html#servicii-it">Servicii IT</a>
+        <a href="servicii.html#infrastructura-retea">Infrastructura rețelei</a>
+        <a href="servicii.html#securitate-video">Securitate video &amp; control acces</a>
+        <a href="servicii.html#sisteme-videoconferinta">Sisteme de videoconferință</a>
       </div>
       <div class="footer-nav-col">
         <span class="footer-nav-title">Companie</span>
