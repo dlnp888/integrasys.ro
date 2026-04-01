@@ -30,9 +30,7 @@
   min-height: 70vh;
   display: flex; flex-direction: column;
   justify-content: flex-end;
-  padding: 160px var(--container-pad) var(--space-10);
-  max-width: var(--container-max);
-  margin: 0 auto;
+  padding: 186px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-10);
   position: relative; overflow: hidden;
 }
 .srv-hero-glow {
@@ -49,7 +47,7 @@
     linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 90% 70% at 40% 50%, black, transparent);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   pointer-events: none; z-index: 1;
 }
 .dv-container {
@@ -84,7 +82,7 @@
   animation: rise 0.7s ease 0.12s both;
 }
 .srv-hero-sub {
-  font-size: var(--text-md); color: rgba(232,237,245,0.58);
+  font-size: var(--text-md); color: rgba(232,237,245,0.82);
   line-height: var(--leading-body);
   max-width: 560px; margin-bottom: var(--space-5);
   animation: rise 0.7s ease 0.22s both;
@@ -157,7 +155,7 @@
 /* Tech tags */
 .srv-tech { display: flex; flex-wrap: wrap; gap: 6px; }
 .srv-tech-tag {
-  font-family: var(--font-mono); font-size: 0.6875rem;
+  font-family: var(--font-mono); font-size: 1rem;
   color: var(--muted-2); background: rgba(255,255,255,0.04);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-full); padding: 4px 13px;
@@ -181,7 +179,7 @@
   pointer-events: none;
 }
 .srv-vis-tag {
-  font-family: var(--font-mono); font-size: 0.625rem;
+  font-family: var(--font-mono); font-size: 1rem;
   color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase;
   flex-shrink: 0;
 }
@@ -221,7 +219,7 @@
 .srv-typo-line--b { width: 110px; height: 3px; }
 .srv-typo-line--c { width: 130px; height: 3px; }
 .srv-brand-badge {
-  font-family: var(--font-mono); font-size: 0.625rem;
+  font-family: var(--font-mono); font-size: 1rem;
   color: rgba(74,222,128,0.85); background: rgba(74,222,128,0.07);
   border: 1px solid rgba(74,222,128,0.16);
   border-radius: var(--radius-full); padding: 4px 14px;
@@ -333,7 +331,7 @@
   padding-bottom: var(--space-2); border-bottom: 1px solid var(--border-soft);
 }
 .srv-ecom-title {
-  font-family: var(--font-mono); font-size: 0.625rem;
+  font-family: var(--font-mono); font-size: 1rem;
   color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
 }
 .srv-live-badge { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; }
@@ -360,7 +358,7 @@
   color: var(--accent); line-height: 1; display: block;
 }
 .srv-ecom-stat .val.green { color: #4ade80; }
-.srv-ecom-stat .lbl { font-size: 0.6875rem; color: var(--muted); margin-top: 4px; display: block; }
+.srv-ecom-stat .lbl { font-size: 1rem; color: var(--muted); margin-top: 4px; display: block; }
 .srv-ecom-products { display: flex; gap: 6px; }
 .srv-ecom-product {
   flex: 1; background: rgba(255,255,255,0.03);
@@ -410,7 +408,7 @@
   font-weight: var(--weight-bold); font-size: var(--text-base);
   color: var(--accent); line-height: 1; display: block;
 }
-.srv-seo-cell .lbl { font-size: 0.625rem; color: var(--muted); margin-top: 4px; display: block; }
+.srv-seo-cell .lbl { font-size: 1rem; color: var(--muted); margin-top: 4px; display: block; }
 
 /* ── 6. STRATEGIE VISUAL ── */
 .srv-strat-display { flex: 1; display: flex; flex-direction: column; gap: 8px; }
@@ -436,7 +434,7 @@
 }
 .srv-strat-nd--active { background: rgba(248,69,3,0.12); border-color: rgba(248,69,3,0.5); }
 .srv-strat-label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--text); }
-.srv-strat-sub  { font-size: 0.6875rem; color: var(--muted-2); margin-top: 2px; }
+.srv-strat-sub  { font-size: 1rem; color: var(--muted-2); margin-top: 2px; }
 .srv-strat-prog { height: 2px; background: rgba(255,255,255,0.05); border-radius: 2px; margin-top: 6px; }
 .srv-strat-fill { height: 2px; border-radius: 2px; background: rgba(248,69,3,0.65); }
 
@@ -511,7 +509,7 @@
   .faq-left    { position: static; }
 }
 @media (max-width: 767px) {
-  .srv-hero          { padding: 120px var(--container-pad) var(--space-7); min-height: auto; }
+  .srv-hero          { padding: 146px var(--container-pad) var(--space-7); min-height: auto; }
   .srv-hero-actions  { flex-direction: column; align-items: stretch; }
   .srv-quicknav      { gap: 6px; }
   .srv-scores        { grid-template-columns: repeat(2, 1fr); }
@@ -528,7 +526,7 @@
 
 <!-- ══════════ HEADER ══════════ -->
 <header>
-  <a class="logo" href="index.html">&lt;integrasys&gt;</a>
+  <a class="logo" href="index.html"><img class="logo-color" src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="156" height="72"><img class="logo-white" src="brand_assets/IntegraSys%20-%20logo%20alb.png" alt="" width="156" height="72" aria-hidden="true"></a>
 
   <nav aria-label="Navigare principală">
     <a href="servicii.html" aria-current="page">Servicii</a>
@@ -1044,7 +1042,7 @@
   <div class="footer-inner">
 
     <div class="footer-brand">
-      <a class="footer-logo" href="index.html">&lt;integrasys&gt;</a>
+      <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
       <p class="footer-desc">Proiectăm, instalăm și mentenăm infrastructuri IT și telecomunicații pentru companii care au nevoie de stabilitate și performanță.</p>
       <div class="footer-social">
         <a href="#" class="footer-social-link" aria-label="LinkedIn">

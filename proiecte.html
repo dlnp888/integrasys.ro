@@ -25,8 +25,7 @@
 
 /* ── HERO ── */
 .prj-hero {
-  padding: 160px var(--container-pad) var(--space-8);
-  max-width: var(--container-max); margin: 0 auto;
+  padding: 186px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-8);
   position: relative; overflow: hidden;
   text-align: center;
 }
@@ -44,7 +43,7 @@
     linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   pointer-events: none;
 }
 .dv-container {
@@ -72,7 +71,7 @@
   animation: rise 0.7s ease 0.12s both;
 }
 .prj-hero-sub {
-  font-size: var(--text-md); color: rgba(232,237,245,0.58);
+  font-size: var(--text-md); color: rgba(232,237,245,0.82);
   line-height: var(--leading-body);
   animation: rise 0.7s ease 0.22s both;
 }
@@ -101,7 +100,7 @@
   background: rgba(248,69,3,0.07);
 }
 .prj-pill-count {
-  font-size: 0.6rem; background: rgba(255,255,255,0.08);
+  font-size: 0.875rem; background: rgba(255,255,255,0.08);
   border-radius: 99px; padding: 1px 6px; color: var(--muted-2);
   transition: background var(--transition-ui), color var(--transition-ui);
 }
@@ -131,11 +130,11 @@
 .proj-visual-bg { position: absolute; inset: 0; }
 .proj-visual-tag {
   position: absolute; top: 14px; left: 14px;
-  font-family: var(--font-mono); font-size: 0.625rem;
-  color: rgba(255,255,255,0.4);
-  background: rgba(0,0,0,0.45); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-full); padding: 3px 10px;
+  font-family: var(--font-mono); font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-full); padding: 4px 12px;
   letter-spacing: 0.06em; text-transform: uppercase;
 }
 .proj-body { padding: var(--space-4) var(--space-4) var(--space-5); }
@@ -210,7 +209,7 @@
   .proj-card--featured .proj-visual { height: 200px; }
 }
 @media (max-width: 767px) {
-  .prj-hero { padding: 120px var(--container-pad) var(--space-7); }
+  .prj-hero { padding: 146px var(--container-pad) var(--space-7); overflow: hidden; }
   .proj-grid { grid-template-columns: 1fr; }
   .proj-card--featured { grid-column: span 1; }
   .prj-cta-actions { flex-direction: column; align-items: stretch; }
@@ -223,7 +222,7 @@
 
 <!-- ══════════ HEADER ══════════ -->
 <header>
-  <a class="logo" href="index.html">&lt;integrasys&gt;</a>
+  <a class="logo" href="index.html"><img class="logo-color" src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="156" height="72"><img class="logo-white" src="brand_assets/IntegraSys%20-%20logo%20alb.png" alt="" width="156" height="72" aria-hidden="true"></a>
 
   <nav aria-label="Navigare principală">
     <a href="servicii.html">Servicii</a>
@@ -420,7 +419,7 @@
   <div class="footer-inner">
 
     <div class="footer-brand">
-      <a class="footer-logo" href="index.html">&lt;integrasys&gt;</a>
+      <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
       <p class="footer-desc">Instalații electrice, HVAC, sisteme de securitate și automatizări pentru industrie și sectorul rezidențial.</p>
       <div class="footer-social">
         <a href="#" class="footer-social-link" aria-label="LinkedIn">
