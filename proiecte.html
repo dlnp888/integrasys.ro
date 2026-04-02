@@ -16,8 +16,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
   
-  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" /></noscript>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" /></noscript>
 
   <link rel="stylesheet" href="lupvision.ro-global.css">
 
@@ -80,10 +80,31 @@
 }
 
 /* ── FILTER BAR ── */
+.prj-filter-outer {
+  position: sticky;
+  top: 116px;
+  z-index: 90;
+  background: rgba(4, 9, 26, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: box-shadow 0.3s ease;
+}
+.prj-filter-outer.is-stuck {
+  box-shadow: 0 4px 32px rgba(0,0,0,0.45);
+}
+.prj-filter-sep {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(232, 237, 245, 0.18) 15%,
+    rgba(232, 237, 245, 0.18) 85%,
+    transparent 100%);
+}
 .prj-filter-wrap {
-  max-width: var(--container-max); margin: 0 auto;
-  padding: 0 var(--container-pad) var(--space-8);
+  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
   display: flex; gap: 8px; flex-wrap: wrap;
+  height: 88px; align-items: center;
 }
 .prj-pill {
   display: inline-flex; align-items: center; gap: 6px;
@@ -110,27 +131,62 @@
 .prj-pill.is-active .prj-pill-count { background: rgba(248,69,3,0.15); color: var(--accent); }
 
 /* ── PROJECT CARD ── */
-/* Re-definit local — candidat de promovare la sync point */
 .proj-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
+  column-gap: var(--space-3); row-gap: var(--space-6);
 }
 .proj-card {
-  border-radius: var(--radius-lg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); border: none;
+  box-shadow: none;
   background: var(--bg-card); overflow: hidden;
-  transition: border-color var(--transition-ui), box-shadow var(--transition-ui), transform var(--transition-fx);
+  position: relative;
+  transition: box-shadow var(--transition-ui);
   cursor: pointer;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 280px;
+}
+.proj-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 0.5px rgba(248, 69, 3, 0.22);
+  pointer-events: none; z-index: 10;
+  transition: box-shadow var(--transition-ui);
+}
+.proj-card:hover::before {
+  box-shadow: inset 0 0 0 0.5px rgba(248, 69, 3, 0.55);
 }
 .proj-card:hover {
-  border-color: rgba(248,69,3,0.18);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
-  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.65);
+}
+.proj-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  padding: 1.5px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(248, 69, 3, calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(248, 69, 3, calc(var(--glow-intensity) * 0.4)) 35%,
+    transparent 65%
+  );
+  border-radius: inherit;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 12;
 }
 .proj-card.is-hidden {
   display: none;
 }
-.proj-visual { height: 200px; position: relative; overflow: hidden; }
-.proj-visual-bg { position: absolute; inset: 0; }
+.proj-visual { height: 200px; position: relative; z-index: 10; }
+.proj-visual-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+}
 .proj-visual-tag {
   position: absolute; top: 14px; left: 14px;
   font-family: var(--font-mono); font-size: 1rem;
@@ -189,8 +245,12 @@
 }
 .prj-cta-border {
   position: absolute; top: 0;
-  left: var(--container-pad); right: var(--container-pad); height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(248,69,3,0.16), transparent);
+  left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(232, 237, 245, 0.18) 15%,
+    rgba(232, 237, 245, 0.18) 85%,
+    transparent 100%);
 }
 .prj-cta-title {
   font-size: clamp(1.9rem, 4vw, 2.9rem);
@@ -270,119 +330,149 @@
   </div>
 </div>
 
+<!-- ══════════ FILTER + GRID WRAPPER (sticky boundary) ══════════ -->
+<div id="prj-sticky-scope">
+
 <!-- ══════════ FILTER ══════════ -->
-<div class="prj-filter-wrap" role="group" aria-label="Filtrare proiecte">
-  <button class="prj-pill is-active" data-filter="all">
-    Toate <span class="prj-pill-count">6</span>
-  </button>
-  <button class="prj-pill" data-filter="instalatii-electrice">
-    Instalații electrice <span class="prj-pill-count">2</span>
-  </button>
-  <button class="prj-pill" data-filter="hvac">
-    HVAC <span class="prj-pill-count">1</span>
-  </button>
-  <button class="prj-pill" data-filter="securitate">
-    Sisteme securitate <span class="prj-pill-count">1</span>
-  </button>
-  <button class="prj-pill" data-filter="automatizari">
-    Automatizări <span class="prj-pill-count">1</span>
-  </button>
-  <button class="prj-pill" data-filter="alte-lucrari">
-    Alte lucrări <span class="prj-pill-count">1</span>
-  </button>
+<div class="prj-filter-outer" id="prj-filter-outer">
+  <div class="prj-filter-wrap" role="group" aria-label="Filtrare proiecte">
+    <button class="prj-pill is-active" data-filter="all">
+      Toate <span class="prj-pill-count">9</span>
+    </button>
+    <button class="prj-pill" data-filter="infrastructura">
+      Infrastructură <span class="prj-pill-count">3</span>
+    </button>
+    <button class="prj-pill" data-filter="securitate">
+      Securitate <span class="prj-pill-count">2</span>
+    </button>
+    <button class="prj-pill" data-filter="comunicatii">
+      Comunicații <span class="prj-pill-count">2</span>
+    </button>
+    <button class="prj-pill" data-filter="logistica">
+      Logistică &amp; Birouri <span class="prj-pill-count">2</span>
+    </button>
+  </div>
 </div>
+<div class="prj-filter-sep" id="prj-filter-sep"></div>
 
 <!-- ══════════ GRID PROIECTE ══════════ -->
-<section class="section" style="padding-top:0;">
+<section class="section">
   <div class="proj-grid" id="proj-grid">
 
-    <!-- P1 — Instalații electrice featured -->
-    <article class="proj-card proj-card--featured reveal-item" data-category="instalatii-electrice">
+    <!-- P1 — Cablare structurată -->
+    <article class="proj-card reveal-item" data-category="infrastructura">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:
-          radial-gradient(ellipse 70% 80% at 75% 25%, rgba(248,69,3,0.15) 0%, rgba(4,9,26,1) 65%),
-          linear-gradient(145deg, #060f22 0%, #030812 100%);"></div>
-        <span class="proj-visual-tag">// instalații electrice</span>
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Cablare structurată voce și date.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// networking + date</span>
       </div>
       <div class="proj-body">
-        <span class="proj-domain">Industrial &amp; producție</span>
-        <h2 class="proj-name">Tablou electric hală industrială</h2>
-        <span class="proj-result">Instalație completă · 3.200 mp</span>
+        <span class="proj-domain">Infrastructură</span>
+        <h2 class="proj-name">Cablare structurată voce și date</h2>
+        <span class="proj-result">Rețea completă · certificată</span>
       </div>
     </article>
 
-    <!-- P2 — HVAC -->
-    <article class="proj-card reveal-item" data-category="hvac">
+    <!-- P2 — Data Center -->
+    <article class="proj-card reveal-item" data-category="infrastructura">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:
-          radial-gradient(ellipse 80% 80% at 30% 70%, rgba(120,80,220,0.13) 0%, rgba(4,9,26,1) 65%),
-          linear-gradient(145deg, #07050f 0%, #030812 100%);"></div>
-        <span class="proj-visual-tag">// hvac</span>
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Data Center.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// data center</span>
       </div>
       <div class="proj-body">
-        <span class="proj-domain">Comercial &amp; birouri</span>
-        <h2 class="proj-name">Climatizare clădire de birouri</h2>
-        <span class="proj-result">Sistem VRF · 14 unități interioare</span>
+        <span class="proj-domain">Enterprise</span>
+        <h2 class="proj-name">Data Center</h2>
+        <span class="proj-result">Infrastructură server · redundanță</span>
       </div>
     </article>
 
-    <!-- P3 — Securitate -->
+    <!-- P3 — Main Distribution Frames -->
+    <article class="proj-card reveal-item" data-category="infrastructura">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Main Distribution Frames.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// mdf · distribuție</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Telecomunicații</span>
+        <h2 class="proj-name">Main Distribution Frames</h2>
+        <span class="proj-result">Distribuție voce &amp; date</span>
+      </div>
+    </article>
+
+    <!-- P4 — Securitate video -->
     <article class="proj-card reveal-item" data-category="securitate">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:
-          radial-gradient(ellipse 80% 80% at 50% 20%, rgba(30,100,180,0.18) 0%, rgba(4,9,26,1) 65%),
-          linear-gradient(145deg, #040c1e 0%, #030812 100%);"></div>
-        <span class="proj-visual-tag">// supraveghere video</span>
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Securitate video și control-access.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// cctv + control acces</span>
       </div>
       <div class="proj-body">
-        <span class="proj-domain">Retail &amp; logistică</span>
-        <h2 class="proj-name">Sistem CCTV depozit logistic</h2>
-        <span class="proj-result">32 camere IP · acoperire 100%</span>
+        <span class="proj-domain">Securitate</span>
+        <h2 class="proj-name">Securitate video și control-acces</h2>
+        <span class="proj-result">Supraveghere 24/7 · acces controlat</span>
       </div>
     </article>
 
-    <!-- P4 — Automatizări -->
-    <article class="proj-card reveal-item" data-category="automatizari">
+    <!-- P5 — Sisteme videoconferință -->
+    <article class="proj-card reveal-item" data-category="comunicatii">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:
-          radial-gradient(ellipse 80% 80% at 60% 40%, rgba(20,160,100,0.12) 0%, rgba(4,9,26,1) 65%),
-          linear-gradient(145deg, #040f0a 0%, #030812 100%);"></div>
-        <span class="proj-visual-tag">// automatizare industrială</span>
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Sisteme de videoconferință.png') center/cover;"></div>
+        <span class="proj-visual-tag">// videoconferință</span>
       </div>
       <div class="proj-body">
-        <span class="proj-domain">Producție &amp; procesare</span>
-        <h2 class="proj-name">Automatizare linie de producție</h2>
-        <span class="proj-result">Timp ciclu redus cu 40%</span>
+        <span class="proj-domain">Comunicații</span>
+        <h2 class="proj-name">Sisteme de videoconferință</h2>
+        <span class="proj-result">Conferință HD · colaborare remote</span>
       </div>
     </article>
 
-    <!-- P5 — Instalații electrice rezidențial -->
-    <article class="proj-card reveal-item" data-category="instalatii-electrice">
+    <!-- P6 — Securitate acces și alarmare -->
+    <article class="proj-card reveal-item" data-category="securitate">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:
-          radial-gradient(ellipse 80% 80% at 25% 60%, rgba(200,80,80,0.10) 0%, rgba(4,9,26,1) 65%),
-          linear-gradient(145deg, #0f0505 0%, #030812 100%);"></div>
-        <span class="proj-visual-tag">// instalații rezidențiale</span>
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Securitate acces și alarmare.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// securitate + alarmare</span>
       </div>
       <div class="proj-body">
-        <span class="proj-domain">Rezidențial &amp; ansambluri</span>
-        <h2 class="proj-name">Instalații electrice ansamblu rezidențial</h2>
-        <span class="proj-result">48 apartamente · livrat la termen</span>
+        <span class="proj-domain">Securitate</span>
+        <h2 class="proj-name">Securitate acces și alarmare</h2>
+        <span class="proj-result">Sistem integrat · monitorizare</span>
       </div>
     </article>
 
-    <!-- P6 — Alte lucrări -->
-    <article class="proj-card reveal-item" data-category="alte-lucrari">
+    <!-- P7 — Offices -->
+    <article class="proj-card reveal-item" data-category="logistica">
       <div class="proj-visual">
-        <div class="proj-visual-bg" style="background:
-          radial-gradient(ellipse 80% 80% at 70% 50%, rgba(255,180,40,0.08) 0%, rgba(4,9,26,1) 65%),
-          linear-gradient(145deg, #0c0b04 0%, #030812 100%);"></div>
-        <span class="proj-visual-tag">// mentenanță &amp; service</span>
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Offices.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// office it</span>
       </div>
       <div class="proj-body">
-        <span class="proj-domain">Servicii &amp; mentenanță</span>
-        <h2 class="proj-name">Contract mentenanță tehnică anuală</h2>
-        <span class="proj-result">Intervenție &lt;4h · disponibilitate 24/7</span>
+        <span class="proj-domain">Birouri</span>
+        <h2 class="proj-name">Offices</h2>
+        <span class="proj-result">Infrastructură completă birou</span>
+      </div>
+    </article>
+
+    <!-- P8 — Warehouses -->
+    <article class="proj-card reveal-item" data-category="logistica">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Warehouses.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// logistică · depozit</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Logistică</span>
+        <h2 class="proj-name">Warehouses</h2>
+        <span class="proj-result">Rețea &amp; securitate depozit</span>
+      </div>
+    </article>
+
+    <!-- P9 — Tempest și Radiocomunicații -->
+    <article class="proj-card reveal-item" data-category="comunicatii">
+      <div class="proj-visual">
+        <div class="proj-visual-bg" style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Tempest și Radiocomunicații.webp') center/cover;"></div>
+        <span class="proj-visual-tag">// tempest · radiocomunicații</span>
+      </div>
+      <div class="proj-body">
+        <span class="proj-domain">Telecomunicații speciale</span>
+        <h2 class="proj-name">Tempest și Radiocomunicații</h2>
+        <span class="proj-result">Sistem protejat · comunicații securizate</span>
       </div>
     </article>
 
@@ -392,6 +482,8 @@
 
   </div>
 </section>
+
+</div><!-- /prj-sticky-scope -->
 
 <!-- ══════════ CTA FINAL ══════════ -->
 <section class="section prj-cta">
@@ -420,10 +512,20 @@
 <!-- ══════════ FOOTER ══════════ -->
 <footer class="site-footer">
   <div class="footer-inner">
-
     <div class="footer-brand">
       <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
-      <p class="footer-desc">Instalații electrice, HVAC, sisteme de securitate și automatizări pentru industrie și sectorul rezidențial.</p>
+      <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+          Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
+        </span><br />
+        <br />
+        Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
+        Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br />
+        <br />
+        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+      </address>
       <div class="footer-social">
         <a href="#" class="footer-social-link" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -440,20 +542,18 @@
     <nav class="footer-nav" aria-label="Navigare footer">
       <div class="footer-nav-col">
         <span class="footer-nav-title">Servicii</span>
-        <a href="servicii.html#instalatii-electrice">Instalații electrice</a>
-        <a href="servicii.html#hvac">Climatizare &amp; ventilație</a>
-        <a href="servicii.html#securitate">Sisteme de securitate</a>
-        <a href="servicii.html#automatizari">Automatizări</a>
-        <a href="servicii.html#retele-structurate">Rețele structurate</a>
-        <a href="servicii.html#mentenanta">Mentenanță tehnică</a>
+        <a href="servicii.html#servicii-it">Servicii IT</a>
+        <a href="servicii.html#infrastructura-retea">Infrastructura rețelei</a>
+        <a href="servicii.html#securitate-video">Securitate video &amp; control acces</a>
+        <a href="servicii.html#sisteme-videoconferinta">Sisteme de videoconferință</a>
       </div>
       <div class="footer-nav-col">
         <span class="footer-nav-title">Companie</span>
         <a href="servicii.html">Servicii</a>
         <a href="proiecte.html">Proiecte</a>
-        <a href="misiunea-noastra.html">Misiunea noastră</a>
+        <a href="despre-noi.html">Despre noi</a>
         <a href="contact.html">Contact</a>
-        <a href="contact.html#programeaza">Programează o discuție</a>
+        <a href="contact.html">Solicită ofertă</a>
       </div>
       <div class="footer-nav-col">
         <span class="footer-nav-title">Legal</span>
@@ -462,17 +562,10 @@
         <a href="cookies.html">Politică de cookie-uri</a>
       </div>
     </nav>
-
   </div>
 
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 Integrasys. Toate drepturile rezervate.</span>
-    <span class="footer-tagline">Infrastructura tehnică a afacerii tale. Instalată corect, menținută profesionist.</span>
-    <nav class="footer-legal" aria-label="Navigare legală">
-      <a href="confidentialitate.html">Confidențialitate</a>
-      <a href="termeni.html">Termeni</a>
-      <a href="cookies.html">Cookies</a>
-    </nav>
   </div>
 </footer>
 
@@ -484,12 +577,36 @@
    PROIECTE.HTML — JS specific
    ============================================================ */
 
+/* ── Sticky filter bar ── */
+(function () {
+  var outer = document.getElementById('prj-filter-outer');
+  if (!outer) return;
+  var sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
+  outer.parentNode.insertBefore(sentinel, outer);
+  new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      outer.classList.toggle('is-stuck', !e.isIntersecting);
+    });
+  }, { threshold: [1] }).observe(outer);
+})();
+
 /* ── Filter proiecte ── */
 (function () {
   var pills   = document.querySelectorAll('.prj-pill');
   var cards   = document.querySelectorAll('.proj-card');
   var empty   = document.getElementById('prj-empty');
+  var sep     = document.getElementById('prj-filter-sep');
+  var outer   = document.getElementById('prj-filter-outer');
   var current = 'all';
+
+  function scrollToGrid() {
+    if (!sep) return;
+    var navH    = 116;
+    var filterH = outer ? outer.offsetHeight : 88;
+    var target  = sep.getBoundingClientRect().top + window.scrollY - navH - filterH;
+    window.scrollTo({ top: target, behavior: 'smooth' });
+  }
 
   function filter(cat) {
     current = cat;
@@ -506,11 +623,82 @@
     });
 
     if (empty) empty.classList.toggle('is-visible', visible === 0);
+    scrollToGrid();
   }
 
   pills.forEach(function (pill) {
     pill.addEventListener('click', function () {
       filter(this.dataset.filter);
+    });
+  });
+})();
+
+/* ── Bento glow on project cards ── */
+(function () {
+  const SPOTLIGHT_R = 340;
+  const proximity = SPOTLIGHT_R * 0.5;
+  const fadeDist = SPOTLIGHT_R * 0.75;
+
+  function makeSpotlight() {
+    const el = document.createElement('div');
+    el.classList.add('bento-spotlight');
+    el.style.cssText = `
+      position:absolute;
+      width:${SPOTLIGHT_R * 2}px; height:${SPOTLIGHT_R * 2}px;
+      border-radius:50%; pointer-events:none;
+      background:radial-gradient(circle,
+        rgba(248,69,3,0.13) 0%,
+        rgba(248,69,3,0.05) 40%,
+        transparent 70%);
+      transform:translate(-50%,-50%);
+      transition:opacity 0.25s ease;
+      opacity:0; z-index:9;`;
+    return el;
+  }
+
+  const grid = document.getElementById('proj-grid');
+  if (!grid) return;
+  const cards = Array.from(grid.querySelectorAll('.proj-card'));
+
+  cards.forEach(card => {
+    const sp = makeSpotlight();
+    card.appendChild(sp);
+  });
+
+  grid.addEventListener('mousemove', e => {
+    const onCard = cards.some(card => {
+      const r = card.getBoundingClientRect();
+      return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+    });
+    if (!onCard) {
+      cards.forEach(c => {
+        c.style.setProperty('--glow-intensity', '0');
+        c.querySelector('.bento-spotlight').style.opacity = '0';
+      });
+      return;
+    }
+    cards.forEach(card => {
+      const r = card.getBoundingClientRect();
+      const rx = e.clientX - r.left;
+      const ry = e.clientY - r.top;
+      const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
+      const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
+      const dist = Math.hypot(dx, dy);
+      const intensity = dist <= proximity ? 1 : dist <= fadeDist ? (fadeDist - dist) / (fadeDist - proximity) : 0;
+      card.style.setProperty('--glow-x', `${((rx / r.width) * 100).toFixed(1)}%`);
+      card.style.setProperty('--glow-y', `${((ry / r.height) * 100).toFixed(1)}%`);
+      card.style.setProperty('--glow-intensity', intensity.toFixed(3));
+      const sp = card.querySelector('.bento-spotlight');
+      sp.style.left = rx + 'px';
+      sp.style.top  = ry + 'px';
+      sp.style.opacity = intensity.toFixed(3);
+    });
+  });
+
+  grid.addEventListener('mouseleave', () => {
+    cards.forEach(c => {
+      c.style.setProperty('--glow-intensity', '0');
+      c.querySelector('.bento-spotlight').style.opacity = '0';
     });
   });
 })();

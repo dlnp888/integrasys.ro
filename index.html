@@ -30,8 +30,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
     
-    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" /></noscript>
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" /></noscript>
 
     <!-- Design system global -->
     <link rel="stylesheet" href="lupvision.ro-global.css" />
@@ -48,6 +48,7 @@
         font-size: var(--text-h1);
         font-weight: var(--weight-bold);
         line-height: var(--leading-tight);
+        text-transform: uppercase;
         letter-spacing: var(--tracking-tight);
         max-width: 820px;
         color: #fff;
@@ -1161,6 +1162,10 @@
    SERVICII
 ══════════════════════════════════════════ */
       .srv-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: var(--space-5);
         margin-bottom: var(--space-8);
       }
       .srv-grid {
@@ -1170,16 +1175,52 @@
       }
       .srv-card {
         border-radius: var(--radius-lg);
-        border: 1px solid var(--border);
+        border: none;
         background: var(--bg-card);
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        transition: border-color var(--transition-ui), box-shadow var(--transition-ui);
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        transition: box-shadow var(--transition-ui);
+        --glow-x: 50%;
+        --glow-y: 50%;
+        --glow-intensity: 0;
+        --glow-radius: 280px;
+      }
+      .srv-card::before {
+        content: '';
+        position: absolute; inset: 0;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 1px rgba(248, 69, 3, 0.22);
+        pointer-events: none;
+        z-index: 20;
+        transition: box-shadow var(--transition-ui);
+      }
+      .srv-card:hover::before {
+        box-shadow: inset 0 0 0 1px rgba(248, 69, 3, 0.55);
       }
       .srv-card:hover {
-        border-color: rgba(248, 69, 3, 0.22);
         box-shadow: 0 20px 56px rgba(0, 0, 0, 0.5);
+      }
+      .srv-card::after {
+        content: '';
+        position: absolute; inset: 0;
+        padding: 1.5px;
+        background: radial-gradient(
+          var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+          rgba(248, 69, 3, calc(var(--glow-intensity) * 0.9)) 0%,
+          rgba(248, 69, 3, calc(var(--glow-intensity) * 0.4)) 35%,
+          transparent 65%
+        );
+        border-radius: inherit;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: 21;
       }
       .srv-card-img {
         width: 100%;
@@ -1187,6 +1228,8 @@
         object-fit: cover;
         display: block;
         flex-shrink: 0;
+        position: relative;
+        z-index: 10;
       }
       .srv-card-body {
         padding: 28px 24px 30px;
@@ -1212,7 +1255,22 @@
         font-size: var(--text-sm);
         color: var(--muted);
         line-height: 1.65;
+        flex: 1;
       }
+      .srv-card-cta {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: var(--text-sm); font-weight: var(--weight-medium);
+        color: var(--accent);
+        margin-top: 4px;
+        transition: gap var(--transition-ui), opacity var(--transition-ui);
+      }
+      .srv-card-cta svg {
+        width: 14px; height: 14px;
+        stroke: currentColor; stroke-width: 1.8;
+        transition: transform var(--transition-ui);
+      }
+      .srv-card:hover .srv-card-cta { gap: 10px; }
+      .srv-card:hover .srv-card-cta svg { transform: translateX(3px); }
 
       /* ══════════════════════════════════════════
    PROIECTE REPREZENTATIVE
@@ -1230,21 +1288,36 @@
       .proj-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: var(--space-3);
+        column-gap: var(--space-3);
+        row-gap: var(--space-6);
       }
       .proj-card {
         border-radius: var(--radius-lg);
-        border: 1px solid var(--border);
+        border: none;
+        box-shadow: none;
         background: var(--bg-card);
         overflow: hidden;
         position: relative;
         transition:
-          border-color var(--transition-ui),
           box-shadow var(--transition-ui);
         --glow-x: 50%;
         --glow-y: 50%;
         --glow-intensity: 0;
         --glow-radius: 280px;
+      }
+      .proj-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 1px rgba(248, 69, 3, 0.22);
+        pointer-events: none;
+        z-index: 20;
+        transition: box-shadow var(--transition-ui);
+      }
+      .proj-card:hover::before {
+        box-shadow: inset 0 0 0 1px rgba(248, 69, 3, 0.55);
+        z-index: 20;
       }
       .proj-card::after {
         content: '';
@@ -1263,22 +1336,22 @@
         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         mask-composite: exclude;
         pointer-events: none;
-        z-index: 2;
+        z-index: 21;
       }
       .proj-card:hover {
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(248, 69, 3, 0.22);
-        border-color: rgba(248, 69, 3, 0.22);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
       }
       .proj-visual {
         height: 190px;
         position: relative;
-        overflow: hidden;
+        z-index: 10;
       }
       .proj-visual-bg {
         position: absolute;
         inset: 0;
         background-size: cover;
         background-position: center;
+        border-radius: inherit;
       }
       .proj-visual-tag {
         position: absolute;
@@ -1904,45 +1977,55 @@
       <!-- ══════════ SERVICII ══════════ -->
       <section class="section">
         <div class="srv-header reveal">
-          <span class="section-label">Ce facem</span>
-          <h2>Serviciile noastre</h2>
+          <div>
+            <span class="section-label">Ce facem</span>
+            <h2>Serviciile <em>IntegraSys</em></h2>
+            <p class="section-desc" style="max-width:560px; margin-top: var(--space-3);">De la infrastructură IT la sisteme de securitate și videoconferință — soluții complete, proiectate și implementate de la zero.</p>
+          </div>
+          <a href="servicii.html" class="btn-ghost" style="flex-shrink:0;">
+            <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+            <span class="glow-shine" aria-hidden="true"></span>
+            Descoperă soluțiile noastre
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
         <div class="srv-grid">
 
-          <div class="srv-card reveal-item">
+          <a class="srv-card reveal-item" href="servicii.html#servicii-it">
             <img class="srv-card-img" src="images/Servicii/servicii-it.webp" alt="Servicii IT" loading="lazy" />
             <div class="srv-card-body">
               <p class="srv-card-title">Servicii IT</p>
               <p class="srv-card-desc">Serviciile noastre IT pot ajuta companiile să își optimizeze infrastructura IT și să reducă timpul de nefuncționare. Oferim o gamă largă de servicii IT, inclusiv managementul rețelei și managementul securității.</p>
+              <span class="srv-card-cta">Află mai multe <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
             </div>
-          </div>
+          </a>
 
-          <div class="srv-card reveal-item">
+          <a class="srv-card reveal-item" href="servicii.html#infrastructura-retea">
             <img class="srv-card-img" src="images/Servicii/infrastructura-retelei.webp" alt="Infrastructura rețelei" loading="lazy" />
             <div class="srv-card-body">
-
               <p class="srv-card-title">Infrastructura rețelei</p>
               <p class="srv-card-desc">Oferim servicii de infrastructură de rețea voce și date ce includ o gamă largă de activități care vizează proiectarea, implementarea, întreținerea și dezvoltarea rețelelor de voce și date.</p>
+              <span class="srv-card-cta">Află mai multe <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
             </div>
-          </div>
+          </a>
 
-          <div class="srv-card reveal-item">
+          <a class="srv-card reveal-item" href="servicii.html#securitate-video">
             <img class="srv-card-img" src="images/Servicii/securitate-video.webp" alt="Securitate video și control acces" loading="lazy" />
             <div class="srv-card-body">
-
               <p class="srv-card-title">Securitate video și control acces</p>
               <p class="srv-card-desc">Suntem specializați în furnizarea de sisteme de securitate și securitate tehnică pentru afaceri. Serviciile noastre includ măsuri pentru efracție, control acces, supraveghere video si alarma de incendiu.</p>
+              <span class="srv-card-cta">Află mai multe <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
             </div>
-          </div>
+          </a>
 
-          <div class="srv-card reveal-item">
+          <a class="srv-card reveal-item" href="servicii.html#sisteme-videoconferinta">
             <img class="srv-card-img" src="images/Servicii/sisteme-videoconferinta.jpg" alt="Sisteme de videoconferință" loading="lazy" />
             <div class="srv-card-body">
-
               <p class="srv-card-title">Sisteme de videoconferință</p>
               <p class="srv-card-desc">Sistemul de videoconferință aduce întâlnirea de lucru la birou sau acasă la dumneavoastră, permițându-vă să mențineți contactul cu persoane importante. Noi vă oferim soluții personalizate cu instrumentele și resursele care vă fac munca mai ușoară.</p>
+              <span class="srv-card-cta">Află mai multe <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
             </div>
-          </div>
+          </a>
 
         </div>
       </section>
@@ -1981,15 +2064,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 72% 28%,
-                      rgba(248, 69, 3, 0.13) 0%,
-                      rgba(4, 9, 26, 1) 68%
-                    ),
-                    linear-gradient(145deg, #060f22 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Cablare structurată voce și date.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// networking + date</span>
             </div>
@@ -2004,15 +2079,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 30% 70%,
-                      rgba(12, 112, 220, 0.14) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #060f22 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Data Center.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// data center</span>
             </div>
@@ -2029,15 +2096,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 50% 20%,
-                      rgba(248, 69, 3, 0.1) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #040c1e 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Main Distribution Frames.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// mdf · distribuție</span>
             </div>
@@ -2052,15 +2111,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 65% 35%,
-                      rgba(12, 112, 220, 0.16) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #060f22 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Securitate video și control-access.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// cctv + control acces</span>
             </div>
@@ -2077,15 +2128,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 40% 60%,
-                      rgba(248, 69, 3, 0.12) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #040c1e 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Sisteme de videoconferință.png') center/cover;"
               ></div>
               <span class="proj-visual-tag">// videoconferință</span>
             </div>
@@ -2100,15 +2143,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 55% 45%,
-                      rgba(12, 112, 220, 0.12) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #060f22 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Securitate acces și alarmare.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// securitate + alarmare</span>
             </div>
@@ -2123,15 +2158,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 30% 50%,
-                      rgba(248, 69, 3, 0.11) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #040c1e 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Offices.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// office it</span>
             </div>
@@ -2146,15 +2173,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 70% 30%,
-                      rgba(12, 112, 220, 0.14) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #060f22 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Warehouses.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// logistică · depozit</span>
             </div>
@@ -2169,15 +2188,7 @@
             <div class="proj-visual">
               <div
                 class="proj-visual-bg"
-                style="
-                  background:
-                    radial-gradient(
-                      ellipse 80% 80% at 50% 20%,
-                      rgba(248, 69, 3, 0.14) 0%,
-                      rgba(4, 9, 26, 1) 65%
-                    ),
-                    linear-gradient(145deg, #040c1e 0%, #030812 100%);
-                "
+                style="background: linear-gradient(to bottom, rgba(3,8,30,0.35) 0%, rgba(3,8,30,0.65) 100%), url('images/proiecte/Proiecte Integrasys - Tempest și Radiocomunicații.webp') center/cover;"
               ></div>
               <span class="proj-visual-tag">// tempest · radiocomunicații</span>
             </div>
@@ -2595,7 +2606,7 @@
 
         function resetAll() {
           document
-            .querySelectorAll(".card-flat, .card-mobile-row, .fan-wrap .card, .proj-card")
+            .querySelectorAll(".card-flat, .card-mobile-row, .fan-wrap .card, .proj-card, .srv-card")
             .forEach((card) => {
               const sp = card.querySelector(".bento-spotlight");
               if (sp) sp.style.opacity = "0";
@@ -2738,9 +2749,53 @@
           }));
         }
 
+        function bindSrvCards() {
+          const grid = document.querySelector(".srv-grid");
+          if (!grid) return;
+          const cards = Array.from(grid.querySelectorAll(".srv-card"));
+          ensureSpotlights(cards);
+          grid.addEventListener("mousemove", (e) => {
+            const onCard = cards.some((card) => {
+              const r = card.getBoundingClientRect();
+              return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+            });
+            if (!onCard) {
+              cards.forEach(c => {
+                c.style.setProperty("--glow-intensity", "0");
+                const sp = c.querySelector(".bento-spotlight");
+                if (sp) sp.style.opacity = "0";
+              });
+              return;
+            }
+            cards.forEach((card) => {
+              const r = card.getBoundingClientRect();
+              const rx = e.clientX - r.left;
+              const ry = e.clientY - r.top;
+              const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
+              const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
+              const dist = Math.hypot(dx, dy);
+              let intensity = dist <= proximity ? 1 : dist <= fadeDist ? (fadeDist - dist) / (fadeDist - proximity) : 0;
+              card.style.setProperty("--glow-x", `${((rx / r.width) * 100).toFixed(1)}%`);
+              card.style.setProperty("--glow-y", `${((ry / r.height) * 100).toFixed(1)}%`);
+              card.style.setProperty("--glow-intensity", intensity.toFixed(3));
+              const sp = card.querySelector(".bento-spotlight");
+              if (sp) {
+                sp.style.left = rx + "px";
+                sp.style.top = ry + "px";
+                sp.style.opacity = intensity.toFixed(3);
+              }
+            });
+          });
+          grid.addEventListener("mouseleave", () => cards.forEach(c => {
+            c.style.setProperty("--glow-intensity", "0");
+            const sp = c.querySelector(".bento-spotlight");
+            if (sp) sp.style.opacity = "0";
+          }));
+        }
+
         if (document.readyState === "loading")
-          document.addEventListener("DOMContentLoaded", () => { bindFanCards(); bindProjCards(); });
-        else { bindFanCards(); bindProjCards(); }
+          document.addEventListener("DOMContentLoaded", () => { bindFanCards(); bindProjCards(); bindSrvCards(); });
+        else { bindFanCards(); bindProjCards(); bindSrvCards(); }
 
         /* Click ripple */
         document.addEventListener("click", (e) => {

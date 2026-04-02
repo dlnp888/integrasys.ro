@@ -17,8 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
   
-  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" /></noscript>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" /></noscript>
 
   <!-- Design system global -->
   <link rel="stylesheet" href="lupvision.ro-global.css">
@@ -95,40 +95,60 @@
   animation: rise 0.7s ease 0.32s both;
 }
 
-/* ── QUICK NAV PILLS ── */
+/* ── QUICK NAV ── */
+.srv-quicknav-wrap {
+  position: sticky;
+  top: 116px;
+  z-index: 90;
+  background: rgba(4, 9, 26, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: box-shadow 0.3s ease;
+}
+.srv-quicknav-wrap.is-stuck {
+  box-shadow: 0 4px 32px rgba(0,0,0,0.45);
+}
 .srv-quicknav {
-  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-9);
+  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
   display: flex; gap: 8px; flex-wrap: wrap;
+  height: 88px; align-items: center;
 }
 .srv-qlink {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--font-mono); font-size: var(--text-xs);
   color: var(--muted); letter-spacing: 0.05em;
+  text-transform: none;
   padding: 7px 16px; border-radius: var(--radius-full);
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.025);
   transition: color var(--transition-ui), border-color var(--transition-ui), background var(--transition-ui);
-}
-.srv-qlink::before {
-  content: '//'; opacity: 0.45; font-size: 0.6rem;
+  white-space: nowrap;
 }
 .srv-qlink:hover {
-  color: var(--accent); border-color: rgba(248,69,3,0.3);
-  background: rgba(248,69,3,0.05);
+  color: var(--text); border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+}
+.srv-qlink.is-active {
+  color: var(--accent); border-color: rgba(248,69,3,0.35);
+  background: rgba(248,69,3,0.07);
 }
 
 /* ── SERVICE DETAIL SECTIONS ── */
-#servicii-it, #infrastructura-retea, #securitate-video,
-#sisteme-videoconferinta, #plan-implementare {
-  scroll-margin-top: 120px;
+.srv-section-sep[id] {
+  scroll-margin-top: 204px;
 }
 .srv-section-sep {
-  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
-  border-top: 1px solid var(--border-soft);
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(232, 237, 245, 0.18) 15%,
+    rgba(232, 237, 245, 0.18) 85%,
+    transparent 100%);
 }
 .srv-detail {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: var(--space-10); align-items: center;
+  gap: calc(var(--space-10) * 2); align-items: stretch;
 }
 .srv-detail--flip .srv-detail-content { order: 2; }
 .srv-detail--flip .srv-visual-panel   { order: 1; }
@@ -173,7 +193,6 @@
   border: 0.5px solid rgba(248, 69, 3, 0.22);
   overflow: hidden;
   position: relative;
-  min-height: 380px;
 }
 .srv-img-panel img {
   width: 100%; height: 100%;
@@ -613,18 +632,23 @@
 
 </div><!-- /srv-hero -->
 
+<!-- ══════════ STICKY SCOPE (quicknav + servicii + implementare) ══════════ -->
+<div id="srv-sticky-scope">
+
 <!-- ══════════ QUICK NAV ══════════ -->
-<nav class="srv-quicknav" aria-label="Navigare servicii">
-  <a href="#servicii-it" class="srv-qlink">servicii IT</a>
-  <a href="#infrastructura-retea" class="srv-qlink">infrastructura rețelei</a>
-  <a href="#securitate-video" class="srv-qlink">securitate video &amp; control acces</a>
-  <a href="#sisteme-videoconferinta" class="srv-qlink">sisteme videoconferință</a>
-  <a href="#plan-implementare" class="srv-qlink">implementare</a>
-</nav>
+<div class="srv-quicknav-wrap" id="srv-quicknav-wrap">
+  <nav class="srv-quicknav" aria-label="Navigare servicii">
+    <a href="#servicii-it" class="srv-qlink" data-target="servicii-it">Servicii IT</a>
+    <a href="#infrastructura-retea" class="srv-qlink" data-target="infrastructura-retea">Infrastructura Rețelei</a>
+    <a href="#securitate-video" class="srv-qlink" data-target="securitate-video">Securitate Video &amp; Control Acces</a>
+    <a href="#sisteme-videoconferinta" class="srv-qlink" data-target="sisteme-videoconferinta">Sisteme Videoconferință</a>
+    <a href="#plan-implementare" class="srv-qlink" data-target="plan-implementare">Implementare</a>
+  </nav>
+</div>
 
 <!-- ══════════ 1. SERVICII IT ══════════ -->
-<div class="srv-section-sep" aria-hidden="true"></div>
-<section id="servicii-it" class="section">
+<div class="srv-section-sep" id="servicii-it"></div>
+<section class="section">
   <div class="srv-detail">
 
     <div class="srv-detail-content reveal">
@@ -648,8 +672,8 @@
 </section>
 
 <!-- ══════════ 2. INFRASTRUCTURA REȚELEI ══════════ -->
-<div class="srv-section-sep" aria-hidden="true"></div>
-<section id="infrastructura-retea" class="section">
+<div class="srv-section-sep" id="infrastructura-retea"></div>
+<section class="section">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
@@ -672,8 +696,8 @@
 </section>
 
 <!-- ══════════ 3. SECURITATE VIDEO ══════════ -->
-<div class="srv-section-sep" aria-hidden="true"></div>
-<section id="securitate-video" class="section">
+<div class="srv-section-sep" id="securitate-video"></div>
+<section class="section">
   <div class="srv-detail">
 
     <div class="srv-detail-content reveal">
@@ -697,8 +721,8 @@
 </section>
 
 <!-- ══════════ 4. SISTEME VIDEOCONFERINȚĂ ══════════ -->
-<div class="srv-section-sep" aria-hidden="true"></div>
-<section id="sisteme-videoconferinta" class="section">
+<div class="srv-section-sep" id="sisteme-videoconferinta"></div>
+<section class="section">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
@@ -722,8 +746,8 @@
 
 
 <!-- ══════════ PLAN IMPLEMENTARE ══════════ -->
-<div class="srv-section-sep" aria-hidden="true"></div>
-<section id="plan-implementare" class="section">
+<div class="srv-section-sep" id="plan-implementare"></div>
+<section class="section">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
@@ -785,6 +809,11 @@
 
   </div>
 </section>
+
+</div><!-- /srv-sticky-scope -->
+
+<!-- separator implementare → faq -->
+<div style="height:1px; background: linear-gradient(90deg, transparent 0%, rgba(232,237,245,0.18) 15%, rgba(232,237,245,0.18) 85%, transparent 100%);"></div>
 
 <!-- ══════════ FAQ ══════════ -->
 <section class="section">
@@ -865,10 +894,20 @@
 <!-- ══════════ FOOTER ══════════ -->
 <footer class="site-footer">
   <div class="footer-inner">
-
     <div class="footer-brand">
       <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
-      <p class="footer-desc">Proiectăm, instalăm și mentenăm infrastructuri IT și telecomunicații pentru companii care au nevoie de stabilitate și performanță.</p>
+      <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+          Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
+        </span><br />
+        <br />
+        Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
+        Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br />
+        <br />
+        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+      </address>
       <div class="footer-social">
         <a href="#" class="footer-social-link" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -905,17 +944,10 @@
         <a href="cookies.html">Politică de cookie-uri</a>
       </div>
     </nav>
-
   </div>
 
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 Integrasys. Toate drepturile rezervate.</span>
-    <span class="footer-tagline">Infrastructuri tehnice de comunicații și securitate pentru companii.</span>
-    <nav class="footer-legal" aria-label="Navigare legală">
-      <a href="confidentialitate.html">Confidențialitate</a>
-      <a href="termeni.html">Termeni</a>
-      <a href="cookies.html">Cookies</a>
-    </nav>
   </div>
 </footer>
 
@@ -940,6 +972,58 @@
         el.style.transitionDelay = '';
         el.removeEventListener('transitionend', clear);
       }
+    });
+  });
+})();
+
+/* ── Sticky quicknav + scroll spy ── */
+(function () {
+  var wrap   = document.getElementById('srv-quicknav-wrap');
+  var links  = document.querySelectorAll('.srv-qlink[data-target]');
+  var sectionIds = ['servicii-it', 'infrastructura-retea', 'securitate-video', 'sisteme-videoconferinta', 'plan-implementare'];
+
+  /* Build array of {id, el} pairs where el is the <section> after the separator */
+  var sections = sectionIds.map(function(id) {
+    var sep = document.getElementById(id);
+    return sep ? { id: id, el: sep.nextElementSibling } : null;
+  }).filter(Boolean);
+
+  /* Sticky shadow */
+  var sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
+  wrap.parentNode.insertBefore(sentinel, wrap);
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      wrap.classList.toggle('is-stuck', !e.isIntersecting);
+    });
+  }, { threshold: [1] });
+  io.observe(wrap);
+
+  /* Scroll spy */
+  function setActive(id) {
+    links.forEach(function(l) {
+      l.classList.toggle('is-active', l.dataset.target === id);
+    });
+  }
+
+  function onScroll() {
+    var mid = window.innerHeight / 2;
+    var active = null;
+    for (var i = sections.length - 1; i >= 0; i--) {
+      var rect = sections[i].el.getBoundingClientRect();
+      if (rect.top <= mid) { active = sections[i].id; break; }
+    }
+    setActive(active);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* Click — set active immediately */
+  links.forEach(function(l) {
+    l.addEventListener('click', function() {
+      setActive(l.dataset.target);
     });
   });
 })();
