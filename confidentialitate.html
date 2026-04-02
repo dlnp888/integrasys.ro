@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politică de confidențialitate — Integrasys</title>
+  <meta name="description" content="Politica de prelucrare a datelor cu caracter personal a IntegraSys, conform Regulamentului (UE) 2016/679 (GDPR) și legislației românești aplicabile." />
+  <link rel="canonical" href="https://integrasys.ro/confidentialitate.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://integrasys.ro/confidentialitate.html" />
+  <meta property="og:title" content="Politică de confidențialitate — Integrasys" />
+  <meta property="og:description" content="Cum prelucrăm datele tale cu caracter personal. GDPR-conform." />
+  <style>html, body { background: #030812; }</style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="lupvision.ro-global.css">
+
+<style>
+/* ============================================================
+   LEGAL PAGES — CSS comun
+   ============================================================ */
+
+/* ── Scroll progress bar ── */
+.lgl-progress {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent), #0c70dc);
+  width: 0%; transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+/* ── Hero compact ── */
+.lgl-hero {
+  padding: 160px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-7);
+  position: relative; overflow: hidden;
+}
+.lgl-hero-glow {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -20%);
+  width: 900px; height: 520px; pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    rgba(12, 112, 220, 0.09) 0%, rgba(248, 69, 3, 0.02) 45%, transparent 70%);
+}
+.lgl-hero-content { position: relative; z-index: 1; }
+.lgl-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: var(--space-2); animation: rise 0.5s ease 0.05s both;
+}
+.lgl-eyebrow::before, .lgl-eyebrow::after {
+  content: ''; display: block; width: 20px; height: 1px;
+  background: var(--accent); opacity: 0.6;
+}
+.lgl-hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: #fff; margin-bottom: var(--space-2);
+  animation: rise 0.7s ease 0.12s both;
+}
+.lgl-meta {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted-2); letter-spacing: 0.06em;
+  animation: rise 0.7s ease 0.20s both;
+}
+.lgl-hero-sep {
+  height: 1px; margin-top: var(--space-6);
+  background: linear-gradient(90deg,
+    rgba(232,237,245,0.12) 0%,
+    rgba(232,237,245,0.04) 60%,
+    transparent 100%);
+}
+
+/* ── Body grid ── */
+.lgl-outer {
+  padding: var(--space-7) max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-11);
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  gap: var(--space-9);
+  align-items: start;
+}
+
+/* ── TOC desktop ── */
+.lgl-toc { position: sticky; top: 112px; }
+.lgl-toc-heading {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--muted-2); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: var(--space-2); display: block;
+}
+.lgl-toc-heading::before { content: '// '; opacity: 0.55; }
+.lgl-toc-list {
+  list-style: none;
+  border-left: 1px solid var(--border);
+  padding-left: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.lgl-toc-link {
+  display: block; font-size: 0.875rem; color: var(--muted-2);
+  line-height: 1.45; padding: 5px 0 5px 16px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  transition: color var(--transition-ui), border-color var(--transition-ui);
+}
+.lgl-toc-link:hover { color: var(--text); }
+.lgl-toc-link.is-active { color: var(--text); border-left-color: var(--accent); }
+
+/* ── TOC mobile ── */
+.lgl-toc-mobile { display: none; margin-bottom: var(--space-5); }
+.lgl-toc-mobile summary {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer; list-style: none;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
+  transition: border-color var(--transition-ui);
+}
+.lgl-toc-mobile summary::-webkit-details-marker { display: none; }
+.lgl-toc-mobile summary::after {
+  content: ''; width: 10px; height: 6px;
+  background: currentColor; clip-path: polygon(0 0, 100% 0, 50% 100%);
+  flex-shrink: 0; transition: transform var(--transition-ui);
+}
+.lgl-toc-mobile[open] summary { border-color: rgba(248,69,3,0.22); }
+.lgl-toc-mobile[open] summary::after { transform: rotate(180deg); }
+.lgl-toc-inner {
+  margin-top: 6px; padding: 14px 18px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.lgl-toc-inner .lgl-toc-link { border-left: none; padding-left: 0; }
+
+/* ── Content ── */
+.lgl-content { min-width: 0; }
+
+.lgl-section {
+  padding-top: var(--space-7); padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border-soft);
+  scroll-margin-top: 116px;
+}
+.lgl-section:first-child { padding-top: 0; }
+.lgl-section:last-child { border-bottom: none; }
+
+.lgl-num {
+  display: block; margin-bottom: 8px;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+.lgl-section h2 {
+  font-size: var(--text-xl); font-weight: var(--weight-bold);
+  letter-spacing: -0.02em; line-height: 1.25;
+  color: #fff; margin-bottom: var(--space-3);
+}
+
+.lgl-section h3 {
+  font-size: var(--text-lg); font-weight: var(--weight-semibold);
+  color: var(--text); margin: var(--space-4) 0 var(--space-2);
+  line-height: 1.3;
+}
+
+.lgl-section p {
+  color: var(--muted); line-height: var(--leading-body);
+  margin-bottom: var(--space-2);
+}
+.lgl-section p:last-child { margin-bottom: 0; }
+
+.lgl-section ul, .lgl-section ol {
+  padding-left: var(--space-3); color: var(--muted);
+  line-height: var(--leading-body);
+  display: flex; flex-direction: column; gap: 7px;
+  margin: var(--space-2) 0;
+}
+.lgl-section ul li::marker { color: var(--accent); }
+.lgl-section ol { list-style: decimal; }
+.lgl-section ol li::marker {
+  color: var(--muted-2); font-family: var(--font-mono); font-size: 0.9em;
+}
+
+.lgl-section a {
+  color: #3a9ef5;
+  text-decoration: underline; text-decoration-color: rgba(58,158,245,0.3);
+  transition: color var(--transition-ui), text-decoration-color var(--transition-ui);
+}
+.lgl-section a:hover { color: #6ab8ff; text-decoration-color: rgba(106,184,255,0.5); }
+
+strong { color: var(--text); font-weight: var(--weight-semibold); }
+
+/* ── Callout ── */
+.lgl-callout {
+  padding: var(--space-3) var(--space-4);
+  background: rgba(12, 112, 220, 0.05);
+  border: 1px solid rgba(12, 112, 220, 0.14);
+  border-left: 3px solid #0c70dc;
+  border-radius: var(--radius-md);
+  margin: var(--space-3) 0;
+}
+.lgl-callout p { color: var(--text); margin: 0; line-height: var(--leading-body); }
+
+.lgl-callout-warn {
+  background: rgba(248, 69, 3, 0.04);
+  border-color: rgba(248, 69, 3, 0.12);
+  border-left-color: var(--accent);
+}
+.lgl-callout-warn p { color: var(--muted); }
+
+/* ── Drepturi grid ── */
+.lgl-rights {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin: var(--space-3) 0;
+}
+.lgl-right-item {
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.022);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+}
+.lgl-right-title {
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  color: #fff; margin-bottom: 5px; line-height: 1.3;
+}
+.lgl-right-desc { font-size: 0.875rem; color: var(--muted-2); line-height: 1.55; }
+
+/* ── Table ── */
+.lgl-table-wrap {
+  overflow-x: auto; margin: var(--space-3) 0;
+  border-radius: var(--radius-md); border: 1px solid var(--border);
+}
+.lgl-table {
+  width: 100%; border-collapse: collapse; min-width: 480px;
+}
+.lgl-table th {
+  background: rgba(8,15,30,0.9); padding: 11px 16px;
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: left; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.lgl-table td {
+  padding: 11px 16px; font-size: var(--text-sm); color: var(--muted);
+  line-height: 1.5; border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+}
+.lgl-table tr:last-child td { border-bottom: none; }
+.lgl-table tr:hover td { background: rgba(255,255,255,0.012); }
+
+/* ── Responsive ── */
+@media (max-width: 1099px) {
+  .lgl-outer { grid-template-columns: 1fr; gap: var(--space-6); }
+  .lgl-toc { display: none; }
+  .lgl-toc-mobile { display: block; }
+  .lgl-rights { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+  .lgl-hero { padding: 140px var(--container-pad) var(--space-5); }
+  .lgl-outer { padding-left: var(--container-pad); padding-right: var(--container-pad); padding-bottom: var(--space-9); }
+  .lgl-rights { grid-template-columns: 1fr; }
+  .lgl-section { scroll-margin-top: 92px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Sari la conținut</a>
+<div class="lgl-progress" id="lgl-progress" aria-hidden="true"></div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <a class="logo" href="index.html"><img class="logo-color" src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="156" height="72"><img class="logo-white" src="brand_assets/IntegraSys%20-%20logo%20alb.png" alt="" width="156" height="72" aria-hidden="true"></a>
+  <nav aria-label="Navigare principală">
+    <a href="servicii.html">Servicii</a>
+    <a href="proiecte.html">Proiecte</a>
+    <a href="contact.html" class="nav-cta">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Solicită ofertă
+    </a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div id="dv-menu"></div>
+  <a href="servicii.html">Servicii</a>
+  <a href="proiecte.html">Proiecte</a>
+  <a href="contact.html" class="nav-cta">
+    <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+    <span class="glow-shine" aria-hidden="true"></span>
+    Solicită ofertă
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ══════════ HERO ══════════ -->
+<div class="lgl-hero">
+  <div class="lgl-hero-glow" aria-hidden="true"></div>
+  <div class="lgl-hero-content">
+    <span class="lgl-eyebrow">Legal</span>
+    <h1>Politică de confidențialitate</h1>
+    <p class="lgl-meta">Ultima actualizare: 02 aprilie 2026 &nbsp;·&nbsp; Versiunea 1.0</p>
+    <div class="lgl-hero-sep"></div>
+  </div>
+</div>
+
+<!-- ══════════ BODY ══════════ -->
+<div class="lgl-outer">
+
+  <!-- TOC desktop -->
+  <aside class="lgl-toc" aria-label="Cuprins">
+    <span class="lgl-toc-heading">Cuprins</span>
+    <ul class="lgl-toc-list" role="list">
+      <li><a class="lgl-toc-link" href="#s1">1. Cine suntem</a></li>
+      <li><a class="lgl-toc-link" href="#s2">2. Date pe care le colectăm</a></li>
+      <li><a class="lgl-toc-link" href="#s3">3. Scopuri și temeiuri juridice</a></li>
+      <li><a class="lgl-toc-link" href="#s4">4. Durata stocării datelor</a></li>
+      <li><a class="lgl-toc-link" href="#s5">5. Cui transmitem datele</a></li>
+      <li><a class="lgl-toc-link" href="#s6">6. Transferuri internaționale</a></li>
+      <li><a class="lgl-toc-link" href="#s7">7. Drepturile tale</a></li>
+      <li><a class="lgl-toc-link" href="#s8">8. Securitatea datelor</a></li>
+      <li><a class="lgl-toc-link" href="#s9">9. Modificări ale politicii</a></li>
+      <li><a class="lgl-toc-link" href="#s10">10. Contact și plângeri</a></li>
+    </ul>
+  </aside>
+
+  <!-- TOC mobile -->
+  <details class="lgl-toc-mobile" aria-label="Cuprins">
+    <summary>// Cuprins</summary>
+    <nav class="lgl-toc-inner">
+      <a class="lgl-toc-link" href="#s1">1. Cine suntem</a>
+      <a class="lgl-toc-link" href="#s2">2. Date pe care le colectăm</a>
+      <a class="lgl-toc-link" href="#s3">3. Scopuri și temeiuri juridice</a>
+      <a class="lgl-toc-link" href="#s4">4. Durata stocării datelor</a>
+      <a class="lgl-toc-link" href="#s5">5. Cui transmitem datele</a>
+      <a class="lgl-toc-link" href="#s6">6. Transferuri internaționale</a>
+      <a class="lgl-toc-link" href="#s7">7. Drepturile tale</a>
+      <a class="lgl-toc-link" href="#s8">8. Securitatea datelor</a>
+      <a class="lgl-toc-link" href="#s9">9. Modificări ale politicii</a>
+      <a class="lgl-toc-link" href="#s10">10. Contact și plângeri</a>
+    </nav>
+  </details>
+
+  <!-- Content -->
+  <article class="lgl-content" role="main">
+
+    <section class="lgl-section" id="s1">
+      <span class="lgl-num">01</span>
+      <h2>Cine suntem și cum ne contactezi</h2>
+      <p>
+        <strong>S.C. IntegraSys S.R.L.</strong> (denumită în continuare „IntegraSys", „noi", „operatorul") este o societate comercială cu sediul în <strong>Str. Avram Iancu nr. 23, Bacău, 600260, România</strong>, furnizoare de servicii IT, infrastructură de rețea, sisteme de securitate video și sisteme de videoconferință.
+      </p>
+      <p>
+        În calitate de operator de date cu caracter personal, IntegraSys prelucrează datele persoanelor vizate în conformitate cu <strong>Regulamentul (UE) 2016/679 al Parlamentului European și al Consiliului</strong> din 27 aprilie 2016 (GDPR), cu <strong>Legea nr. 190/2018</strong> privind măsurile de punere în aplicare a GDPR la nivel național, precum și cu celelalte acte normative aplicabile în materia protecției datelor cu caracter personal.
+      </p>
+      <p>
+        Pentru orice întrebare legată de prelucrarea datelor tale, ne poți contacta la:
+      </p>
+      <div class="lgl-callout">
+        <p>
+          <strong>Email:</strong> <a href="mailto:info@integrasys.ro">info@integrasys.ro</a><br />
+          <strong>Telefon:</strong> <a href="tel:+40722474455">+40 722 474 455</a><br />
+          <strong>Adresă poștală:</strong> Str. Avram Iancu nr. 23, Bacău, 600260, România<br />
+          <strong>Program:</strong> Luni – Vineri: 9:00–17:00 / Sâmbătă: 9:00–14:30
+        </p>
+      </div>
+    </section>
+
+    <section class="lgl-section" id="s2">
+      <span class="lgl-num">02</span>
+      <h2>Date cu caracter personal pe care le colectăm</h2>
+      <p>
+        Colectăm și prelucrăm date cu caracter personal în următoarele contexte:
+      </p>
+
+      <h3>a) Formular de contact / solicitare ofertă</h3>
+      <p>
+        Când completezi formularul de contact de pe site-ul nostru, colectăm:
+      </p>
+      <ul>
+        <li>Nume și prenume</li>
+        <li>Adresă de email</li>
+        <li>Număr de telefon (opțional)</li>
+        <li>Denumirea companiei (opțional)</li>
+        <li>Serviciul de interes și intervalul de buget estimat</li>
+        <li>Conținutul mesajului</li>
+      </ul>
+
+      <h3>b) Date contractuale</h3>
+      <p>
+        Dacă devii client al IntegraSys, prelucrăm datele necesare executării contractului, inclusiv: date de identificare (nume, CNP sau CUI, adresă), date de facturare și plată, date de contact, date tehnice referitoare la infrastructura deserviți.
+      </p>
+
+      <h3>c) Date de navigare și cookie-uri</h3>
+      <p>
+        Prin navigarea pe site-ul nostru, pot fi colectate automat date tehnice: adresa IP, tipul de browser și sistemul de operare, paginile accesate, durata vizitei, sursa de trafic. Detalii complete sunt disponibile în <a href="cookies.html">Politica de cookie-uri</a>.
+      </p>
+
+      <h3>d) Date colectate în contextul prestării serviciilor</h3>
+      <p>
+        În situația în care prestăm servicii de instalare și configurare sisteme de supraveghere video sau control acces pentru clienți, IntegraSys acționează în calitate de <strong>persoană împuternicită de operator</strong>. Clientul (beneficiarul sistemului) este operatorul de date, iar prelucrările realizate de IntegraSys se fac exclusiv în baza și conform instrucțiunilor clientului, conform unui acord de prelucrare a datelor (DPA) încheiat în prealabil.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s3">
+      <span class="lgl-num">03</span>
+      <h2>Scopurile și temeiurile juridice ale prelucrării</h2>
+
+      <div class="lgl-table-wrap">
+        <table class="lgl-table">
+          <thead>
+            <tr>
+              <th>Scop</th>
+              <th>Categorii de date</th>
+              <th>Temei juridic (art. 6 GDPR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Răspuns la solicitări de ofertare / contact</td>
+              <td>Identificare, contact, mesaj</td>
+              <td>Art. 6(1)(b) — măsuri precontractuale</td>
+            </tr>
+            <tr>
+              <td>Executarea contractelor de servicii</td>
+              <td>Identificare, contact, facturare, tehnice</td>
+              <td>Art. 6(1)(b) — executarea contractului</td>
+            </tr>
+            <tr>
+              <td>Îndeplinirea obligațiilor legale (contabilitate, fiscal, ANAF)</td>
+              <td>Identificare, facturare</td>
+              <td>Art. 6(1)(c) — obligație legală</td>
+            </tr>
+            <tr>
+              <td>Trimiterea de comunicări comerciale (newsletter, oferte)</td>
+              <td>Email, nume</td>
+              <td>Art. 6(1)(a) — consimțământ explicit</td>
+            </tr>
+            <tr>
+              <td>Îmbunătățirea serviciilor și securitatea site-ului</td>
+              <td>Date de navigare, IP</td>
+              <td>Art. 6(1)(f) — interes legitim</td>
+            </tr>
+            <tr>
+              <td>Apărarea intereselor juridice ale IntegraSys</td>
+              <td>Date relevante litigiului</td>
+              <td>Art. 6(1)(f) — interes legitim</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lgl-callout-warn lgl-callout">
+        <p>
+          Acolo unde temeiul juridic este <strong>consimțământul</strong>, ai dreptul să îl retragi în orice moment. Retragerea consimțământului nu afectează legalitatea prelucrărilor efectuate anterior retragerii.
+        </p>
+      </div>
+    </section>
+
+    <section class="lgl-section" id="s4">
+      <span class="lgl-num">04</span>
+      <h2>Durata stocării datelor</h2>
+      <p>
+        Stocăm datele tale cu caracter personal numai atât timp cât este necesar scopurilor pentru care au fost colectate, respectând totodată obligațiile legale de arhivare.
+      </p>
+      <ul>
+        <li><strong>Date din formularul de contact</strong> (fără finalizarea unui contract): maxim <strong>12 luni</strong> de la data ultimei interacțiuni.</li>
+        <li><strong>Date contractuale</strong> (documente, facturi, corespondență): <strong>10 ani</strong> de la data încetării relației contractuale, conform Legii contabilității nr. 82/1991 și Codului fiscal.</li>
+        <li><strong>Date pentru apărarea în litigii</strong>: pe durata termenului de prescripție aplicabil, în general <strong>3 ani</strong> de la nașterea dreptului la acțiune (Codul civil).</li>
+        <li><strong>Date de navigare / cookie-uri</strong>: conform perioadei de valabilitate a fiecărui cookie (detalii în <a href="cookies.html">Politica de cookie-uri</a>).</li>
+        <li><strong>Comunicări de marketing</strong>: până la retragerea consimțământului sau 3 ani de la ultima interacțiune, oricare intervine primul.</li>
+      </ul>
+      <p>
+        La expirarea perioadei de stocare, datele sunt șterse sau anonimizate ireversibil.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s5">
+      <span class="lgl-num">05</span>
+      <h2>Cui transmitem datele tale</h2>
+      <p>
+        IntegraSys nu vinde și nu închiriază datele tale cu caracter personal. Datele pot fi transmise sau accesate de:
+      </p>
+      <ul>
+        <li><strong>Furnizori de servicii IT / cloud</strong> (hosting, email, CRM) — acționează ca persoane împuternicite de operator, în baza unor contracte de prelucrare a datelor (DPA) conforme cu art. 28 GDPR.</li>
+        <li><strong>Contabili, auditori, consultanți juridici</strong> — în cadrul obligațiilor legale, sub obligație de confidențialitate.</li>
+        <li><strong>Autorități publice competente</strong> (ANAF, ANPC, organe de urmărire penală, instanțe judecătorești) — exclusiv la cerere legală sau în baza unei obligații legale.</li>
+        <li><strong>Parteneri tehnici / subcontractori</strong> — numai acele date strict necesare executării serviciului contractat, cu clauze de confidențialitate și protecția datelor.</li>
+      </ul>
+      <p>
+        Nu utilizăm date personale în scopuri de profilare automată sau în luarea de decizii automate cu efecte juridice.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s6">
+      <span class="lgl-num">06</span>
+      <h2>Transferuri internaționale de date</h2>
+      <p>
+        În principiu, datele tale sunt prelucrate în cadrul Spațiului Economic European (SEE). Acolo unde recurgem la servicii cloud sau furnizori din afara SEE (de ex. servicii de analiză web), ne asigurăm că transferul beneficiază de garanții adecvate, conform Cap. V GDPR:
+      </p>
+      <ul>
+        <li>Decizie de adecvare adoptată de Comisia Europeană, sau</li>
+        <li>Clauze contractuale standard (SCC) adoptate de Comisia Europeană, sau</li>
+        <li>Alte mecanisme de transfer aprobate (ex. certificări, coduri de conduită).</li>
+      </ul>
+      <p>
+        Pentru informații suplimentare privind garanțiile aplicabile unui anumit transfer, ne poți contacta la adresa <a href="mailto:info@integrasys.ro">info@integrasys.ro</a>.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s7">
+      <span class="lgl-num">07</span>
+      <h2>Drepturile tale conform GDPR</h2>
+      <p>
+        Ai dreptul să exerciți oricare dintre drepturile de mai jos, în orice moment, fără nicio taxă. Vom răspunde solicitării tale în termen de maxim <strong>30 de zile calendaristice</strong> de la primire (termen ce poate fi prelungit cu 60 de zile, cu notificarea ta, în cazuri complexe).
+      </p>
+      <div class="lgl-rights">
+        <div class="lgl-right-item">
+          <div class="lgl-right-title">Dreptul de acces</div>
+          <div class="lgl-right-desc">Poți solicita o copie a datelor cu caracter personal pe care le deținem despre tine, împreună cu informații privind prelucrarea acestora (art. 15 GDPR).</div>
+        </div>
+        <div class="lgl-right-item">
+          <div class="lgl-right-title">Dreptul la rectificare</div>
+          <div class="lgl-right-desc">Poți solicita corectarea sau completarea datelor inexacte sau incomplete (art. 16 GDPR).</div>
+        </div>
+        <div class="lgl-right-item">
+          <div class="lgl-right-title">Dreptul la ștergere („dreptul de a fi uitat")</div>
+          <div class="lgl-right-desc">Poți solicita ștergerea datelor tale în anumite condiții prevăzute de art. 17 GDPR (de ex. date care nu mai sunt necesare scopului).</div>
+        </div>
+        <div class="lgl-right-item">
+          <div class="lgl-right-title">Dreptul la restricționarea prelucrării</div>
+          <div class="lgl-right-desc">Poți solicita limitarea prelucrării datelor tale în situațiile prevăzute de art. 18 GDPR (de ex. pe durata soluționării unei contestații).</div>
+        </div>
+        <div class="lgl-right-item">
+          <div class="lgl-right-title">Dreptul la portabilitate</div>
+          <div class="lgl-right-desc">Poți solicita primirea datelor furnizate de tine într-un format structurat, utilizat curent și prelucrabil automat, sau transmiterea acestora unui alt operator (art. 20 GDPR).</div>
+        </div>
+        <div class="lgl-right-item">
+          <div class="lgl-right-title">Dreptul la opoziție</div>
+          <div class="lgl-right-desc">Poți obiecta față de prelucrările bazate pe interesul legitim sau față de marketingul direct (art. 21 GDPR). Opoziția la marketing direct are efect imediat.</div>
+        </div>
+      </div>
+      <p style="margin-top: var(--space-3);">
+        Pentru exercitarea oricărui drept, transmite o solicitare scrisă la <a href="mailto:info@integrasys.ro">info@integrasys.ro</a> sau la adresa noastră poștală, indicând clar dreptul pe care dorești să îl exerciți și, dacă este cazul, informații care ne ajută să te identificăm.
+      </p>
+      <div class="lgl-callout">
+        <p>
+          Dacă considerezi că drepturile tale au fost încălcate, ai dreptul să depui o plângere la <strong>Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP)</strong>, cu sediul în B-dul G-ral. Gheorghe Magheru nr. 28–30, Sector 1, București. Website: <a href="https://www.dataprotection.ro" target="_blank" rel="noopener noreferrer">www.dataprotection.ro</a>. Poți, de asemenea, sesiza instanța de judecată competentă.
+        </p>
+      </div>
+    </section>
+
+    <section class="lgl-section" id="s8">
+      <span class="lgl-num">08</span>
+      <h2>Securitatea datelor</h2>
+      <p>
+        IntegraSys aplică măsuri tehnice și organizatorice adecvate pentru a proteja datele cu caracter personal împotriva distrugerii, pierderii, modificării, divulgării neautorizate sau accesului neautorizat, conform art. 32 GDPR. Printre măsurile implementate:
+      </p>
+      <ul>
+        <li>Transmiterea datelor prin protocoale criptate (HTTPS/TLS)</li>
+        <li>Controlul accesului bazat pe roluri (need-to-know)</li>
+        <li>Politici interne de securitate a informației și instruire periodică a personalului</li>
+        <li>Evaluări periodice ale securității sistemelor</li>
+        <li>Acorduri de confidențialitate cu angajații și partenerii</li>
+      </ul>
+      <p>
+        În caz de incident de securitate care afectează datele tale, IntegraSys va notifica ANSPDCP în termenul de 72 de ore prevăzut de art. 33 GDPR și, după caz, te va notifica și pe tine în conformitate cu art. 34 GDPR.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s9">
+      <span class="lgl-num">09</span>
+      <h2>Modificări ale prezentei politici</h2>
+      <p>
+        IntegraSys poate actualiza periodic această Politică de confidențialitate pentru a reflecta modificări ale practicilor de prelucrare, ale legislației sau ale serviciilor oferite. Versiunea în vigoare este întotdeauna disponibilă la adresa <a href="https://integrasys.ro/confidentialitate.html">integrasys.ro/confidentialitate.html</a>, marcată cu data ultimei actualizări.
+      </p>
+      <p>
+        În cazul unor modificări semnificative care te afectează, te vom notifica prin email (dacă deținem adresa ta de email în mod corespunzător) sau prin afișarea unui anunț pe site cu cel puțin <strong>15 zile înainte</strong> de intrarea în vigoare a modificărilor.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s10">
+      <span class="lgl-num">10</span>
+      <h2>Contact și plângeri</h2>
+      <p>
+        Pentru orice întrebare, solicitare privind exercitarea drepturilor sau sesizare privind prelucrarea datelor cu caracter personal, contactează-ne prin oricare din modalitățile de mai jos:
+      </p>
+      <div class="lgl-callout">
+        <p>
+          <strong>S.C. IntegraSys S.R.L.</strong><br />
+          Str. Avram Iancu nr. 23, Bacău, 600260, România<br />
+          Email: <a href="mailto:info@integrasys.ro">info@integrasys.ro</a><br />
+          Telefon: <a href="tel:+40722474455">+40 722 474 455</a><br />
+          Program: Luni – Vineri 9:00–17:00 / Sâmbătă 9:00–14:30
+        </p>
+      </div>
+      <p>
+        Dacă nu ești mulțumit de răspunsul nostru, ai dreptul să depui o plângere la <strong>ANSPDCP</strong>: <a href="https://www.dataprotection.ro" target="_blank" rel="noopener noreferrer">www.dataprotection.ro</a>.
+      </p>
+      <p>
+        Prezenta Politică de confidențialitate este guvernată de legislația română și a Uniunii Europene. Referințe legislative principale: Regulamentul (UE) 2016/679 (GDPR), Legea nr. 190/2018, Legea nr. 506/2004.
+      </p>
+    </section>
+
+  </article>
+</div>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
+      <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+          Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
+        </span><br /><br />
+        Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
+        Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br /><br />
+        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+      </address>
+      <div class="footer-social">
+        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="Navigare footer">
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Servicii</span>
+        <a href="servicii.html#servicii-it">Servicii IT</a>
+        <a href="servicii.html#infrastructura-retea">Infrastructura rețelei</a>
+        <a href="servicii.html#securitate-video">Securitate video &amp; control acces</a>
+        <a href="servicii.html#sisteme-videoconferinta">Sisteme de videoconferință</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Companie</span>
+        <a href="servicii.html">Servicii</a>
+        <a href="proiecte.html">Proiecte</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-nav-col footer-nav-col--legal">
+        <span class="footer-nav-title">Legal</span>
+        <a href="confidentialitate.html" aria-current="page">Politică de confidențialitate</a>
+        <a href="termeni.html">Termeni și condiții</a>
+        <a href="cookies.html">Politică de cookie-uri</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Integrasys. Toate drepturile rezervate.</span>
+  </div>
+</footer>
+
+<!-- Global JS -->
+<script src="lupvision.ro-global.js"></script>
+<script>
+(function () {
+  /* ── Scroll progress bar ── */
+  var bar = document.getElementById('lgl-progress');
+  if (bar) {
+    window.addEventListener('scroll', function () {
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
+    }, { passive: true });
+  }
+
+  /* ── TOC active link ── */
+  var sections = document.querySelectorAll('.lgl-section');
+  var links    = document.querySelectorAll('.lgl-toc-link');
+  if (!sections.length || !links.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        links.forEach(function (l) {
+          l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-10% 0px -70% 0px' });
+
+  sections.forEach(function (s) { io.observe(s); });
+})();
+</script>
+
+</body>
+</html>

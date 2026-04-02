@@ -44,15 +44,7 @@
     rgba(12, 112, 220, 0.10) 0%, rgba(248, 69, 3, 0.03) 40%, transparent 70%);
   pointer-events: none; z-index: 1;
 }
-.srv-hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-  pointer-events: none; z-index: 1;
-}
+.srv-hero-grid { display: none; }
 .dv-container {
   position: absolute; inset: 0;
   pointer-events: none; z-index: 0; overflow: hidden;
@@ -100,11 +92,17 @@
   position: sticky;
   top: 116px;
   z-index: 90;
-  background: rgba(4, 9, 26, 0.85);
+  background: rgba(3, 8, 18, 0.85);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
   transition: box-shadow 0.3s ease;
+}
+.srv-quicknav-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(232,237,245,0.18) 15%, rgba(232,237,245,0.18) 85%, transparent 100%);
 }
 .srv-quicknav-wrap.is-stuck {
   box-shadow: 0 4px 32px rgba(0,0,0,0.45);
@@ -529,7 +527,7 @@
 .srv-cta-border {
   position: absolute; top: 0;
   left: var(--container-pad); right: var(--container-pad); height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(248,69,3,0.16), transparent);
+  background: linear-gradient(90deg, transparent 0%, rgba(232,237,245,0.18) 15%, rgba(232,237,245,0.18) 85%, transparent 100%);
 }
 .srv-cta-title {
   font-size: clamp(1.9rem, 4vw, 2.9rem);
@@ -577,7 +575,7 @@
   <nav aria-label="Navigare principală">
     <a href="servicii.html" aria-current="page">Servicii</a>
     <a href="proiecte.html">Proiecte</a>
-    <a href="misiunea-noastra.html">Misiunea noastră</a>
+
     <a href="contact.html" class="nav-cta">
       <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
       <span class="glow-shine" aria-hidden="true"></span>
@@ -594,7 +592,6 @@
   <div id="dv-menu"></div>
   <a href="servicii.html" aria-current="page">Servicii</a>
   <a href="proiecte.html">Proiecte</a>
-  <a href="misiunea-noastra.html">Misiunea noastră</a>
   <a href="contact.html" class="nav-cta">
     <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
     <span class="glow-shine" aria-hidden="true"></span>
@@ -933,11 +930,9 @@
         <span class="footer-nav-title">Companie</span>
         <a href="servicii.html">Servicii</a>
         <a href="proiecte.html">Proiecte</a>
-        <a href="despre-noi.html">Despre noi</a>
         <a href="contact.html">Contact</a>
-        <a href="contact.html">Solicită ofertă</a>
       </div>
-      <div class="footer-nav-col">
+      <div class="footer-nav-col footer-nav-col--legal">
         <span class="footer-nav-title">Legal</span>
         <a href="confidentialitate.html">Politică de confidențialitate</a>
         <a href="termeni.html">Termeni și condiții</a>

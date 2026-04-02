@@ -1060,7 +1060,8 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
 .footer-nav {
   display: grid; grid-template-columns: repeat(3, auto);
   justify-content: space-between;
-  gap: var(--space-6);
+  column-gap: var(--space-11);
+  row-gap: var(--space-6);
   align-items: start;
 }
 
@@ -1081,6 +1082,7 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
   line-height: 1.4;
 }
 .footer-nav-col a:hover { color: var(--text); }
+.footer-nav-col--legal a { text-transform: none; }
 
 /* Bottom bar */
 .footer-bottom {
