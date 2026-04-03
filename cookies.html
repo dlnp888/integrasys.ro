@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politică de cookie-uri — Integrasys</title>
+  <meta name="description" content="Informații despre cookie-urile utilizate pe integrasys.ro, în conformitate cu Directiva ePrivacy, GDPR și Legea nr. 506/2004." />
+  <link rel="canonical" href="https://integrasys.ro/cookies.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://integrasys.ro/cookies.html" />
+  <meta property="og:title" content="Politică de cookie-uri — Integrasys" />
+  <meta property="og:description" content="Cum utilizăm cookie-urile pe integrasys.ro și cum îți poți gestiona preferințele." />
+  <style>html, body { background: #030812; }</style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="lupvision.ro-global.css">
+
+<style>
+/* ── Hero compact ── */
+.lgl-hero {
+  padding: 160px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-7);
+  position: relative; overflow: hidden;
+}
+.lgl-hero-glow {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -20%);
+  width: 900px; height: 520px; pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    rgba(12, 112, 220, 0.09) 0%, rgba(248, 69, 3, 0.02) 45%, transparent 70%);
+}
+.lgl-hero-content { position: relative; z-index: 1; }
+.lgl-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: var(--space-2); animation: rise 0.5s ease 0.05s both;
+}
+.lgl-eyebrow::before, .lgl-eyebrow::after {
+  content: ''; display: block; width: 20px; height: 1px;
+  background: var(--accent); opacity: 0.6;
+}
+.lgl-hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: #fff; margin-bottom: var(--space-2);
+  animation: rise 0.7s ease 0.12s both;
+}
+.lgl-meta {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted-2); letter-spacing: 0.06em;
+  animation: rise 0.7s ease 0.20s both;
+}
+.lgl-hero-sep {
+  height: 1px; margin-top: var(--space-6);
+  background: linear-gradient(90deg,
+    rgba(232,237,245,0.12) 0%,
+    rgba(232,237,245,0.04) 60%,
+    transparent 100%);
+}
+
+/* ── Body grid ── */
+.lgl-outer {
+  padding: var(--space-7) max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-11);
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  gap: var(--space-9);
+  align-items: start;
+}
+
+/* ── TOC desktop ── */
+.lgl-toc { position: sticky; top: 112px; padding-top: var(--space-3); }
+.lgl-toc-heading {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--muted-2); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: var(--space-2); display: block;
+}
+.lgl-toc-heading::before { content: '// '; opacity: 0.55; }
+.lgl-toc-list {
+  list-style: none;
+  border-left: 1px solid var(--border);
+  padding-left: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.lgl-toc-link {
+  display: block; font-size: 0.875rem; color: var(--muted-2);
+  line-height: 1.45; padding: 5px 0 5px 16px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  transition: color var(--transition-ui), border-color var(--transition-ui);
+}
+.lgl-toc-link:hover { color: var(--text); }
+.lgl-toc-link.is-active { color: var(--text); border-left-color: var(--accent); }
+
+/* ── TOC mobile ── */
+.lgl-toc-mobile { display: none; margin-bottom: var(--space-5); }
+.lgl-toc-mobile summary {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer; list-style: none;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
+  transition: border-color var(--transition-ui);
+}
+.lgl-toc-mobile summary::-webkit-details-marker { display: none; }
+.lgl-toc-mobile summary::after {
+  content: ''; width: 10px; height: 6px;
+  background: currentColor; clip-path: polygon(0 0, 100% 0, 50% 100%);
+  flex-shrink: 0; transition: transform var(--transition-ui);
+}
+.lgl-toc-mobile[open] summary { border-color: rgba(248,69,3,0.22); }
+.lgl-toc-mobile[open] summary::after { transform: rotate(180deg); }
+.lgl-toc-inner {
+  margin-top: 6px; padding: 14px 18px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.lgl-toc-inner .lgl-toc-link { border-left: none; padding-left: 0; }
+
+/* ── Content ── */
+.lgl-content { min-width: 0; }
+
+.lgl-section {
+  padding-top: var(--space-7); padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border-soft);
+  scroll-margin-top: 116px;
+}
+.lgl-section:first-child { padding-top: 0; }
+.lgl-section:last-child { border-bottom: none; }
+
+.lgl-num {
+  display: block; margin-bottom: 8px;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+.lgl-section h2 {
+  font-size: var(--text-xl); font-weight: var(--weight-bold);
+  letter-spacing: -0.02em; line-height: 1.25;
+  color: #fff; margin-bottom: var(--space-3);
+}
+
+.lgl-section h3 {
+  font-size: var(--text-lg); font-weight: var(--weight-semibold);
+  color: var(--text); margin: var(--space-4) 0 var(--space-2);
+  line-height: 1.3;
+}
+
+.lgl-section p {
+  color: var(--muted); line-height: var(--leading-body);
+  margin-bottom: var(--space-2);
+}
+.lgl-section p:last-child { margin-bottom: 0; }
+
+.lgl-section ul, .lgl-section ol {
+  padding-left: var(--space-3); color: var(--muted);
+  line-height: var(--leading-body);
+  display: flex; flex-direction: column; gap: 7px;
+  margin: var(--space-2) 0;
+}
+.lgl-section ul li::marker { color: var(--accent); }
+.lgl-section ol { list-style: decimal; }
+.lgl-section ol li::marker {
+  color: var(--muted-2); font-family: var(--font-mono); font-size: 0.9em;
+}
+
+.lgl-section a {
+  color: #3a9ef5;
+  text-decoration: underline; text-decoration-color: rgba(58,158,245,0.3);
+  transition: color var(--transition-ui), text-decoration-color var(--transition-ui);
+}
+.lgl-section a:hover { color: #6ab8ff; text-decoration-color: rgba(106,184,255,0.5); }
+
+strong { color: var(--text); font-weight: var(--weight-semibold); }
+
+/* ── Callout ── */
+.lgl-callout {
+  padding: var(--space-3) var(--space-4);
+  background: rgba(12, 112, 220, 0.05);
+  border: 1px solid rgba(12, 112, 220, 0.14);
+  border-left: 3px solid #0c70dc;
+  border-radius: var(--radius-md);
+  margin: var(--space-3) 0;
+}
+.lgl-callout p { color: var(--text); margin: 0; line-height: var(--leading-body); }
+
+.lgl-callout-warn {
+  background: rgba(248, 69, 3, 0.04);
+  border-color: rgba(248, 69, 3, 0.12);
+  border-left-color: var(--accent);
+}
+.lgl-callout-warn p { color: var(--muted); }
+
+/* ── Badge tipuri cookie ── */
+.lgl-badge {
+  display: inline-block; padding: 2px 9px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono); font-size: 0.72rem;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  vertical-align: middle; margin-left: 6px;
+}
+.lgl-badge-req { background: rgba(12,112,220,0.12); color: #6ab8ff; border: 1px solid rgba(12,112,220,0.22); }
+.lgl-badge-opt { background: rgba(248,69,3,0.08); color: #f8a07a; border: 1px solid rgba(248,69,3,0.18); }
+
+/* ── Table ── */
+.lgl-table-wrap {
+  overflow-x: auto; margin: var(--space-3) 0;
+  border-radius: var(--radius-md); border: 1px solid var(--border);
+}
+.lgl-table {
+  width: 100%; border-collapse: collapse; min-width: 560px;
+}
+.lgl-table th {
+  background: rgba(8,15,30,0.9); padding: 11px 16px;
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: left; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.lgl-table td {
+  padding: 11px 16px; font-size: var(--text-sm); color: var(--muted);
+  line-height: 1.5; border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+}
+.lgl-table tr:last-child td { border-bottom: none; }
+.lgl-table tr:hover td { background: rgba(255,255,255,0.012); }
+
+/* ── Preferințe cookie ── */
+.lgl-pref-panel {
+  margin: var(--space-4) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.lgl-pref-row {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border-soft);
+  transition: background var(--transition-ui);
+}
+.lgl-pref-row:last-child { border-bottom: none; }
+.lgl-pref-row:hover { background: rgba(255,255,255,0.014); }
+.lgl-pref-info { flex: 1; min-width: 0; }
+.lgl-pref-name {
+  font-size: var(--text-base); font-weight: var(--weight-semibold);
+  color: var(--text); margin-bottom: 4px; line-height: 1.3;
+}
+.lgl-pref-desc { font-size: 0.875rem; color: var(--muted-2); line-height: 1.55; }
+.lgl-toggle { position: relative; flex-shrink: 0; margin-top: 2px; }
+.lgl-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+.lgl-toggle-track {
+  display: block; width: 44px; height: 24px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--transition-ui), border-color var(--transition-ui);
+  position: relative;
+}
+.lgl-toggle-track::after {
+  content: ''; position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--muted-2);
+  transition: transform var(--transition-ui), background var(--transition-ui);
+}
+.lgl-toggle input:checked + .lgl-toggle-track {
+  background: rgba(248,69,3,0.18);
+  border-color: rgba(248,69,3,0.4);
+}
+.lgl-toggle input:checked + .lgl-toggle-track::after {
+  transform: translateX(20px);
+  background: var(--accent);
+}
+.lgl-toggle input:disabled + .lgl-toggle-track { cursor: not-allowed; opacity: 0.55; }
+.lgl-toggle input:focus-visible + .lgl-toggle-track {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.lgl-pref-save {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: var(--space-3);
+  padding: 0 22px; height: 44px;
+  background: rgba(248,69,3,0.1);
+  border: 1px solid rgba(248,69,3,0.28);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition-ui), border-color var(--transition-ui), color var(--transition-ui);
+}
+.lgl-pref-save:hover { background: rgba(248,69,3,0.16); border-color: rgba(248,69,3,0.44); }
+.lgl-pref-save:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lgl-pref-save-msg {
+  display: none; margin-top: var(--space-2);
+  font-family: var(--font-mono); font-size: 0.82rem;
+  color: #6ab8ff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1099px) {
+  .lgl-outer { grid-template-columns: 1fr; gap: var(--space-6); }
+  .lgl-toc { display: none; }
+  .lgl-toc-mobile { display: block; }
+}
+@media (max-width: 767px) {
+  .lgl-hero { padding: 140px var(--container-pad) var(--space-5); }
+  .lgl-outer { padding-left: var(--container-pad); padding-right: var(--container-pad); padding-bottom: var(--space-9); }
+  .lgl-section { scroll-margin-top: 92px; }
+  .lgl-pref-row { flex-direction: row; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Sari la conținut</a>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <a class="logo" href="index.html"><img class="logo-color" src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="156" height="72"><img class="logo-white" src="brand_assets/IntegraSys%20-%20logo%20alb.png" alt="" width="156" height="72" aria-hidden="true"></a>
+  <nav aria-label="Navigare principală">
+    <a href="servicii.html">Servicii</a>
+    <a href="proiecte.html">Proiecte</a>
+    <a href="contact.html" class="nav-cta">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Solicită ofertă
+    </a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div id="dv-menu"></div>
+  <a href="servicii.html">Servicii</a>
+  <a href="proiecte.html">Proiecte</a>
+  <a href="contact.html" class="nav-cta">
+    <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+    <span class="glow-shine" aria-hidden="true"></span>
+    Solicită ofertă
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ══════════ HERO ══════════ -->
+<div class="lgl-hero">
+  <div class="lgl-hero-glow" aria-hidden="true"></div>
+  <div class="lgl-hero-content">
+    <span class="lgl-eyebrow">Legal</span>
+    <h1>Politică de cookie-uri</h1>
+    <p class="lgl-meta">Ultima actualizare: 02 aprilie 2026 &nbsp;·&nbsp; Versiunea 1.0</p>
+    <div class="lgl-hero-sep"></div>
+  </div>
+</div>
+
+<!-- ══════════ BODY ══════════ -->
+<div class="lgl-outer">
+
+  <!-- TOC desktop -->
+  <aside class="lgl-toc" aria-label="Cuprins">
+    <span class="lgl-toc-heading">Cuprins</span>
+    <ul class="lgl-toc-list" role="list">
+      <li><a class="lgl-toc-link" href="#s1">1. Ce sunt cookie-urile</a></li>
+      <li><a class="lgl-toc-link" href="#s2">2. Temeiul legal</a></li>
+      <li><a class="lgl-toc-link" href="#s3">3. Tipuri de cookie-uri</a></li>
+      <li><a class="lgl-toc-link" href="#s4">4. Cookie-urile pe integrasys.ro</a></li>
+      <li><a class="lgl-toc-link" href="#s5">5. Cookie-uri terțe</a></li>
+      <li><a class="lgl-toc-link" href="#s6">6. Preferințele tale</a></li>
+      <li><a class="lgl-toc-link" href="#s7">7. Setări browser</a></li>
+      <li><a class="lgl-toc-link" href="#s8">8. Modificări ale politicii</a></li>
+      <li><a class="lgl-toc-link" href="#s9">9. Contact</a></li>
+    </ul>
+  </aside>
+
+  <!-- TOC mobile -->
+  <details class="lgl-toc-mobile" aria-label="Cuprins">
+    <summary>// Cuprins</summary>
+    <nav class="lgl-toc-inner">
+      <a class="lgl-toc-link" href="#s1">1. Ce sunt cookie-urile</a>
+      <a class="lgl-toc-link" href="#s2">2. Temeiul legal</a>
+      <a class="lgl-toc-link" href="#s3">3. Tipuri de cookie-uri</a>
+      <a class="lgl-toc-link" href="#s4">4. Cookie-urile pe integrasys.ro</a>
+      <a class="lgl-toc-link" href="#s5">5. Cookie-uri terțe</a>
+      <a class="lgl-toc-link" href="#s6">6. Preferințele tale</a>
+      <a class="lgl-toc-link" href="#s7">7. Setări browser</a>
+      <a class="lgl-toc-link" href="#s8">8. Modificări ale politicii</a>
+      <a class="lgl-toc-link" href="#s9">9. Contact</a>
+    </nav>
+  </details>
+
+  <!-- Content -->
+  <article class="lgl-content" role="main">
+
+    <section class="lgl-section" id="s1">
+      <span class="lgl-num">01</span>
+      <h2>Ce sunt cookie-urile?</h2>
+      <p>
+        Cookie-urile sunt fișiere text de mici dimensiuni, stocate în browserul tău atunci când vizitezi un site web. Ele permit site-ului să îți recunoască dispozitivul la vizite ulterioare și să rețină anumite preferințe sau informații despre sesiunea ta de navigare.
+      </p>
+      <p>
+        Pe lângă cookie-urile propriu-zise, pot fi utilizate și alte tehnologii similare: <strong>localStorage</strong>, <strong>sessionStorage</strong>, <strong>web beacons</strong> sau <strong>pixeli de urmărire</strong>. În prezenta politică, termenul „cookie" le acoperă pe toate.
+      </p>
+      <p>
+        Cookie-urile nu sunt programe, nu pot accesa alte informații de pe dispozitivul tău și nu conțin viruși. Pot fi șterse oricând din setările browserului.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s2">
+      <span class="lgl-num">02</span>
+      <h2>Temeiul legal</h2>
+      <p>
+        Utilizarea cookie-urilor pe site-ul integrasys.ro este reglementată de:
+      </p>
+      <ul>
+        <li><strong>Legea nr. 506/2004</strong> privind prelucrarea datelor cu caracter personal și protecția vieții private în sectorul comunicațiilor electronice (transpunere a Directivei 2002/58/CE — „Directiva ePrivacy"), modificată prin Legea nr. 506/2004</li>
+        <li><strong>Regulamentul (UE) 2016/679</strong> (GDPR), pentru cookie-urile care implică prelucrarea datelor cu caracter personal</li>
+        <li>Ghidurile <strong>ANSPDCP</strong> și <strong>EDPB</strong> (Comitetul European pentru Protecția Datelor) referitoare la consimțământul pentru cookie-uri</li>
+      </ul>
+      <div class="lgl-callout">
+        <p>
+          Conform legislației aplicabile, cookie-urile <strong>strict necesare</strong> pot fi utilizate fără consimțământul tău. Toate celelalte categorii de cookie-uri (analiză, marketing, personalizare) necesită <strong>consimțământul tău prealabil, explicit, liber, specific și informat</strong>, care poate fi retras oricând fără nicio consecință negativă pentru tine.
+        </p>
+      </div>
+    </section>
+
+    <section class="lgl-section" id="s3">
+      <span class="lgl-num">03</span>
+      <h2>Tipuri de cookie-uri utilizate</h2>
+
+      <h3>După durata de stocare</h3>
+      <ul>
+        <li><strong>Cookie-uri de sesiune</strong> — temporare, șterse automat când închizi browserul. Folosite pentru funcționarea de bază a site-ului.</li>
+        <li><strong>Cookie-uri persistente</strong> — rămân stocate pe dispozitivul tău pentru o perioadă determinată, chiar și după închiderea browserului. Folosite pentru reținerea preferințelor și analiză.</li>
+      </ul>
+
+      <h3>După origine</h3>
+      <ul>
+        <li><strong>Cookie-uri proprii (first-party)</strong> — plasate direct de integrasys.ro</li>
+        <li><strong>Cookie-uri terțe (third-party)</strong> — plasate de servicii externe integrate pe site (ex. Google Maps, Google Analytics, fonturi web)</li>
+      </ul>
+
+      <h3>După scop</h3>
+      <ul>
+        <li><strong>Strict necesare</strong> <span class="lgl-badge lgl-badge-req">Obligatorii</span> — esențiale pentru funcționarea de bază a site-ului (ex. preferințe cookie, sesiune)</li>
+        <li><strong>Funcționale</strong> <span class="lgl-badge lgl-badge-opt">Opționale</span> — rețin preferințele tale (ex. limbă, regiune)</li>
+        <li><strong>Analiză / statistici</strong> <span class="lgl-badge lgl-badge-opt">Opționale</span> — ne ajută să înțelegem cum este utilizat site-ul (trafic anonim sau pseudonimizat)</li>
+        <li><strong>Marketing</strong> <span class="lgl-badge lgl-badge-opt">Opționale</span> — utilizate pentru publicitate direcționată (în prezent, nefolosite pe acest site)</li>
+      </ul>
+    </section>
+
+    <section class="lgl-section" id="s4">
+      <span class="lgl-num">04</span>
+      <h2>Cookie-urile utilizate pe integrasys.ro</h2>
+
+      <div class="lgl-table-wrap">
+        <table class="lgl-table">
+          <thead>
+            <tr>
+              <th>Nume cookie</th>
+              <th>Tip</th>
+              <th>Durată</th>
+              <th>Scop</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code style="font-family:var(--font-mono); font-size:0.85em;">integrasys_cookie_consent</code></td>
+              <td>Propriu · Strict necesar</td>
+              <td>12 luni</td>
+              <td>Reținerea preferințelor tale privind cookie-urile pentru a nu afișa bannerul la fiecare vizită</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:var(--font-mono); font-size:0.85em;">integrasys_cookie_prefs</code></td>
+              <td>Propriu · Strict necesar</td>
+              <td>12 luni</td>
+              <td>Stocarea categoriilor de cookie-uri acceptate / respinse</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:var(--font-mono); font-size:0.85em;">_ga</code></td>
+              <td>Terț (Google) · Analiză</td>
+              <td>2 ani</td>
+              <td>Distingerea utilizatorilor unici pentru Google Analytics (date agregate, anonimizate prin IP masking)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:var(--font-mono); font-size:0.85em;">_ga_*</code></td>
+              <td>Terț (Google) · Analiză</td>
+              <td>2 ani</td>
+              <td>Stocarea și numărarea vizitelor de pagini în Google Analytics 4</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:var(--font-mono); font-size:0.85em;">NID</code>, <code style="font-family:var(--font-mono); font-size:0.85em;">1P_JAR</code></td>
+              <td>Terț (Google Maps) · Funcțional</td>
+              <td>6 luni</td>
+              <td>Necesare pentru afișarea hărții Google Maps integrate pe pagina de contact</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Ne angajăm să actualizăm acest tabel ori de câte ori adăugăm sau eliminăm cookie-uri de pe site.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s5">
+      <span class="lgl-num">05</span>
+      <h2>Cookie-uri terțe și servicii externe</h2>
+
+      <h3>Google Analytics</h3>
+      <p>
+        Site-ul integrasys.ro utilizează Google Analytics 4 (furnizat de Google LLC, SUA) pentru analiza traficului web. Google Analytics plasează cookie-uri care colectează date anonimizate sau pseudonimizate despre comportamentul utilizatorilor (pagini vizitate, durată sesiune, sursa traficului). Funcția de IP masking este activată, astfel că adresele IP complete nu sunt stocate.
+      </p>
+      <p>
+        Datele sunt transferate în SUA în baza Clauzelor Contractuale Standard (SCC) adoptate de Comisia Europeană. Politica de confidențialitate Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>. Poți refuza urmărirea prin Google Analytics instalând extensia de browser <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.
+      </p>
+
+      <h3>Google Maps</h3>
+      <p>
+        Pagina de contact integrează o hartă Google Maps (Google LLC, SUA). Accesarea hărții poate duce la plasarea de cookie-uri de către Google. Google Maps este necesar pentru funcționarea corectă a paginii de contact; dacă nu dorești plasarea acestor cookie-uri, poți vizita pagina de contact fără a interacționa cu harta sau poți bloca cookie-urile terțe din setările browserului.
+      </p>
+
+      <h3>Google Fonts</h3>
+      <p>
+        Site-ul încarcă fonturi web prin Google Fonts API (Google LLC, SUA). La prima vizită, browserul tău se conectează la serverele Google pentru a descărca fonturile; Google poate înregistra adresa ta IP. Fonturile sunt ulterior stocate în cache-ul browserului pentru vizitele viitoare. Politica Google Fonts: <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener noreferrer">developers.google.com/fonts/faq/privacy</a>.
+      </p>
+
+      <div class="lgl-callout-warn lgl-callout">
+        <p>
+          IntegraSys nu are control asupra practicilor de prelucrare ale terților menționați mai sus. Te încurajăm să consulți politicile de confidențialitate ale acestora pentru informații complete.
+        </p>
+      </div>
+    </section>
+
+    <section class="lgl-section" id="s6">
+      <span class="lgl-num">06</span>
+      <h2>Gestionează-ți preferințele</h2>
+      <p>
+        Poți modifica preferințele privind cookie-urile în orice moment folosind panoul de mai jos. Cookie-urile strict necesare nu pot fi dezactivate deoarece sunt esențiale pentru funcționarea site-ului.
+      </p>
+
+      <div class="lgl-pref-panel" role="group" aria-label="Preferințe cookie">
+        <div class="lgl-pref-row">
+          <div class="lgl-pref-info">
+            <div class="lgl-pref-name">Cookie-uri strict necesare <span class="lgl-badge lgl-badge-req">Întotdeauna active</span></div>
+            <div class="lgl-pref-desc">Esențiale pentru navigarea pe site și accesarea funcționalităților de bază. Nu colectează date în scop de marketing sau analiză.</div>
+          </div>
+          <label class="lgl-toggle" aria-label="Cookie-uri strict necesare — întotdeauna active">
+            <input type="checkbox" id="ck-necessary" checked disabled />
+            <span class="lgl-toggle-track"></span>
+          </label>
+        </div>
+        <div class="lgl-pref-row">
+          <div class="lgl-pref-info">
+            <div class="lgl-pref-name">Cookie-uri de analiză <span class="lgl-badge lgl-badge-opt">Opționale</span></div>
+            <div class="lgl-pref-desc">Ne ajută să înțelegem cum interacționezi cu site-ul (Google Analytics 4, date agregate și anonimizate). Nu se folosesc în scop publicitar.</div>
+          </div>
+          <label class="lgl-toggle" aria-label="Activează / dezactivează cookie-uri de analiză">
+            <input type="checkbox" id="ck-analytics" />
+            <span class="lgl-toggle-track"></span>
+          </label>
+        </div>
+        <div class="lgl-pref-row">
+          <div class="lgl-pref-info">
+            <div class="lgl-pref-name">Cookie-uri funcționale <span class="lgl-badge lgl-badge-opt">Opționale</span></div>
+            <div class="lgl-pref-desc">Permit afișarea hărții Google Maps și rețin alte preferințe ale tale legate de funcționalitățile site-ului.</div>
+          </div>
+          <label class="lgl-toggle" aria-label="Activează / dezactivează cookie-uri funcționale">
+            <input type="checkbox" id="ck-functional" />
+            <span class="lgl-toggle-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <button class="lgl-pref-save" id="lgl-save-prefs" type="button">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Salvează preferințele
+      </button>
+      <p class="lgl-pref-save-msg" id="lgl-save-msg">Preferințele au fost salvate.</p>
+
+      <p style="margin-top: var(--space-3);">
+        Poți revoca consimțământul acordat în orice moment revenind la această pagină și dezactivând categoriile dorite, sau ștergând cookie-urile din browserul tău.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s7">
+      <span class="lgl-num">07</span>
+      <h2>Gestionarea cookie-urilor din browser</h2>
+      <p>
+        Pe lângă panoul de preferințe de mai sus, poți controla sau dezactiva cookie-urile direct din setările browserului tău:
+      </p>
+      <ul>
+        <li><strong>Google Chrome:</strong> Setări → Confidențialitate și securitate → Cookie-uri și alte date ale site-urilor</li>
+        <li><strong>Mozilla Firefox:</strong> Setări → Confidențialitate și securitate → Cookie-uri și date ale site-urilor</li>
+        <li><strong>Safari:</strong> Preferințe → Confidențialitate → Gestionează datele site-urilor web</li>
+        <li><strong>Microsoft Edge:</strong> Setări → Cookie-uri și permisiuni ale site-urilor → Cookie-uri și date ale site-urilor</li>
+      </ul>
+      <p>
+        Poți opta, de asemenea, pentru soluții de blocare a urmăririi (ex. uBlock Origin, Privacy Badger) sau poți utiliza modul privat / incognito al browserului.
+      </p>
+      <div class="lgl-callout-warn lgl-callout">
+        <p>
+          Dezactivarea tuturor cookie-urilor poate afecta funcționarea unor elemente ale site-ului, cum ar fi afișarea hărții Google Maps sau reținerea preferințelor tale. Cookie-urile strict necesare sunt necesare pentru funcționarea de bază și nu pot fi dezactivate fără a împiedica utilizarea site-ului.
+        </p>
+      </div>
+      <p>
+        Poți afla mai multe despre cum să gestionezi cookie-urile pe site-ul <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener noreferrer">allaboutcookies.org</a> sau <a href="https://www.youronlinechoices.eu" target="_blank" rel="noopener noreferrer">youronlinechoices.eu</a>.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s8">
+      <span class="lgl-num">08</span>
+      <h2>Modificări ale politicii de cookie-uri</h2>
+      <p>
+        IntegraSys poate actualiza periodic prezenta Politică de cookie-uri pentru a reflecta modificări tehnice, legislative sau ale serviciilor utilizate. Versiunea actualizată va fi publicată la <a href="https://integrasys.ro/cookies.html">integrasys.ro/cookies.html</a>, cu indicarea datei ultimei modificări.
+      </p>
+      <p>
+        În cazul unor modificări semnificative privind categoriile de cookie-uri utilizate sau scopurile prelucrării, bannerul de consimțământ va fi afișat din nou, iar preferințele salvate anterior vor fi resetate pentru a-ți permite să îți exprimi din nou acordul în cunoștință de cauză.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s9">
+      <span class="lgl-num">09</span>
+      <h2>Contact</h2>
+      <p>
+        Pentru întrebări privind utilizarea cookie-urilor sau pentru exercitarea drepturilor tale prevăzute de GDPR în legătură cu datele colectate prin cookie-uri, contactează-ne:
+      </p>
+      <div class="lgl-callout">
+        <p>
+          <strong>S.C. IntegraSys S.R.L.</strong><br />
+          Str. Avram Iancu nr. 23, Bacău, 600260, România<br />
+          Email: <a href="mailto:info@integrasys.ro">info@integrasys.ro</a><br />
+          Telefon: <a href="tel:+40722474455">+40 722 474 455</a>
+        </p>
+      </div>
+      <p>
+        Dacă nu ești mulțumit de modul în care prelucrăm cookie-urile, ai dreptul să depui o plângere la <strong>ANSPDCP</strong>: <a href="https://www.dataprotection.ro" target="_blank" rel="noopener noreferrer">www.dataprotection.ro</a>.
+      </p>
+    </section>
+
+  </article>
+</div>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
+      <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+          Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
+        </span><br /><br />
+        Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
+        Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br /><br />
+        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+      </address>
+      <div class="footer-social">
+        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="Navigare footer">
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Servicii</span>
+        <a href="servicii.html#servicii-it">Servicii IT</a>
+        <a href="servicii.html#infrastructura-retea">Infrastructura rețelei</a>
+        <a href="servicii.html#securitate-video">Securitate video &amp; control acces</a>
+        <a href="servicii.html#sisteme-videoconferinta">Sisteme de videoconferință</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Companie</span>
+        <a href="servicii.html">Servicii</a>
+        <a href="proiecte.html">Proiecte</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-nav-col footer-nav-col--legal">
+        <span class="footer-nav-title">Legal</span>
+        <a href="confidentialitate.html">Politică de confidențialitate</a>
+        <a href="termeni.html">Termeni și condiții</a>
+        <a href="cookies.html" aria-current="page">Politică de cookie-uri</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Integrasys. Toate drepturile rezervate.</span>
+  </div>
+</footer>
+
+<!-- Global JS -->
+<script src="lupvision.ro-global.js"></script>
+<script>
+(function () {
+  /* ── TOC active link ── */
+  var sections = document.querySelectorAll('.lgl-section');
+  var links    = document.querySelectorAll('.lgl-toc-link');
+  if (sections.length && links.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute('id');
+          links.forEach(function (l) {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-10% 0px -70% 0px' });
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  /* ── Cookie preferences panel ── */
+  var PREF_KEY = 'integrasys_cookie_prefs';
+
+  function loadPrefs() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(PREF_KEY) || '{}');
+      var ckA = document.getElementById('ck-analytics');
+      var ckF = document.getElementById('ck-functional');
+      if (ckA && saved.analytics !== undefined) ckA.checked = !!saved.analytics;
+      if (ckF && saved.functional !== undefined) ckF.checked = !!saved.functional;
+    } catch (e) {}
+  }
+
+  function savePrefs() {
+    try {
+      var ckA = document.getElementById('ck-analytics');
+      var ckF = document.getElementById('ck-functional');
+      var prefs = {
+        necessary: true,
+        analytics: ckA ? ckA.checked : false,
+        functional: ckF ? ckF.checked : false,
+        savedAt: Date.now()
+      };
+      localStorage.setItem(PREF_KEY, JSON.stringify(prefs));
+      localStorage.setItem('integrasys_cookie_consent', '1');
+      var msg = document.getElementById('lgl-save-msg');
+      if (msg) {
+        msg.style.display = 'block';
+        setTimeout(function () { msg.style.display = 'none'; }, 3500);
+      }
+    } catch (e) {}
+  }
+
+  loadPrefs();
+
+  var saveBtn = document.getElementById('lgl-save-prefs');
+  if (saveBtn) saveBtn.addEventListener('click', savePrefs);
+})();
+</script>
+
+</body>
+</html>

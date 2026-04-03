@@ -24,14 +24,6 @@
    LEGAL PAGES — CSS comun
    ============================================================ */
 
-/* ── Scroll progress bar ── */
-.lgl-progress {
-  position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
-  background: linear-gradient(90deg, var(--accent), #0c70dc);
-  width: 0%; transition: width 0.1s linear;
-  pointer-events: none;
-}
-
 /* ── Hero compact ── */
 .lgl-hero {
   padding: 160px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-7);
@@ -85,7 +77,7 @@
 }
 
 /* ── TOC desktop ── */
-.lgl-toc { position: sticky; top: 112px; }
+.lgl-toc { position: sticky; top: 112px; padding-top: var(--space-3); }
 .lgl-toc-heading {
   font-family: var(--font-mono); font-size: 0.78rem;
   color: var(--muted-2); letter-spacing: 0.12em; text-transform: uppercase;
@@ -269,7 +261,7 @@ strong { color: var(--text); font-weight: var(--weight-semibold); }
 <body>
 
 <a href="#main" class="sr-only">Sari la conținut</a>
-<div class="lgl-progress" id="lgl-progress" aria-hidden="true"></div>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 <!-- ══════════ HEADER ══════════ -->
 <header>
@@ -673,15 +665,6 @@ strong { color: var(--text); font-weight: var(--weight-semibold); }
 <script src="lupvision.ro-global.js"></script>
 <script>
 (function () {
-  /* ── Scroll progress bar ── */
-  var bar = document.getElementById('lgl-progress');
-  if (bar) {
-    window.addEventListener('scroll', function () {
-      var total = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
-    }, { passive: true });
-  }
-
   /* ── TOC active link ── */
   var sections = document.querySelectorAll('.lgl-section');
   var links    = document.querySelectorAll('.lgl-toc-link');

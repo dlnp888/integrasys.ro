@@ -6,6 +6,18 @@
 'use strict';
 
 /* ============================================================
+   0. SCROLL PROGRESS BAR
+   ============================================================ */
+(function () {
+  var bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  window.addEventListener('scroll', function () {
+    var total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+/* ============================================================
    1. HEADER — transparent → frosted glass on scroll
    ============================================================ */
 (function () {

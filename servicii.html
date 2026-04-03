@@ -102,15 +102,15 @@
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(232,237,245,0.18) 15%, rgba(232,237,245,0.18) 85%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(248,69,3,0.35) 20%, rgba(248,69,3,0.35) 80%, transparent 100%);
 }
 .srv-quicknav-wrap.is-stuck {
   box-shadow: 0 4px 32px rgba(0,0,0,0.45);
 }
 .srv-quicknav {
-  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
+  padding: 27px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) 28px;
   display: flex; gap: 8px; flex-wrap: wrap;
-  height: 88px; align-items: center;
+  align-items: center; row-gap: 10px;
 }
 .srv-qlink {
   display: inline-flex; align-items: center; gap: 6px;
@@ -136,6 +136,9 @@
 .srv-section-sep[id] {
   scroll-margin-top: 204px;
 }
+.section[id] {
+  scroll-margin-top: 204px;
+}
 .srv-section-sep {
   height: 1px;
   background: linear-gradient(90deg,
@@ -143,6 +146,9 @@
     rgba(232, 237, 245, 0.18) 15%,
     rgba(232, 237, 245, 0.18) 85%,
     transparent 100%);
+}
+.srv-section-sep + .section {
+  padding-top: var(--space-11);
 }
 .srv-detail {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -157,6 +163,7 @@
   display: flex; flex-direction: column;
   border-top: 1px solid var(--border-soft);
 }
+.srv-detail-content > .srv-includes:last-child { margin-bottom: 0; }
 .srv-include-item {
   display: flex; align-items: flex-start; gap: var(--space-3);
   padding: 11px 0; border-bottom: 1px solid var(--border-soft);
@@ -545,17 +552,30 @@
 /* ── RESPONSIVE ── */
 @media (max-width: 1099px) {
   .srv-hero    { min-height: 60vh; }
+  .srv-img-panel { border: none; min-height: 320px; }
+  .srv-qlink { font-size: 0.75rem; padding: 5px 12px; }
   .srv-detail  { grid-template-columns: 1fr; gap: var(--space-7); }
   .srv-detail--flip .srv-detail-content { order: 0; }
   .srv-detail--flip .srv-visual-panel   { order: 0; }
   .srv-visual-panel { min-height: 280px; }
   .faq-body    { grid-template-columns: 1fr; gap: var(--space-7); }
   .faq-left    { position: static; }
+  .srv-quicknav-wrap {
+    position: sticky;
+    top: 116px;
+    z-index: 90;
+    background: rgba(3, 8, 18, 0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
 }
 @media (max-width: 767px) {
+  .srv-quicknav-wrap { top: 100px; }
+  .srv-qlink { white-space: normal; text-align: left; }
+  .srv-img-panel { min-height: 220px; }
   .srv-hero          { padding: 146px var(--container-pad) var(--space-7); min-height: auto; }
   .srv-hero-actions  { flex-direction: column; align-items: stretch; }
-  .srv-quicknav      { gap: 6px; }
+
   .srv-scores        { grid-template-columns: repeat(2, 1fr); }
   .srv-apps-display  { flex-direction: column; gap: var(--space-3); }
   .srv-phone         { width: 72px; height: 130px; }
@@ -567,6 +587,7 @@
 <body>
 
 <a href="#main" class="sr-only">Sari la conținut</a>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 <!-- ══════════ HEADER ══════════ -->
 <header>
@@ -618,14 +639,15 @@
         <span class="glow-shine" aria-hidden="true"></span>
         Solicită ofertă
       </a>
-      <a href="#infrastructura-retea" class="btn-ghost">
+      <button id="srv-scroll-down" class="btn-ghost">
         <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
         <span class="glow-shine" aria-hidden="true"></span>
         Explorează serviciile
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
     </div>
   </div>
+
 
 </div><!-- /srv-hero -->
 
@@ -644,8 +666,8 @@
 </div>
 
 <!-- ══════════ 1. SERVICII IT ══════════ -->
-<div class="srv-section-sep" id="servicii-it"></div>
-<section class="section">
+<div class="srv-section-sep"></div>
+<section class="section" id="servicii-it">
   <div class="srv-detail">
 
     <div class="srv-detail-content reveal">
@@ -669,8 +691,8 @@
 </section>
 
 <!-- ══════════ 2. INFRASTRUCTURA REȚELEI ══════════ -->
-<div class="srv-section-sep" id="infrastructura-retea"></div>
-<section class="section">
+<div class="srv-section-sep"></div>
+<section class="section" id="infrastructura-retea">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
@@ -693,8 +715,8 @@
 </section>
 
 <!-- ══════════ 3. SECURITATE VIDEO ══════════ -->
-<div class="srv-section-sep" id="securitate-video"></div>
-<section class="section">
+<div class="srv-section-sep"></div>
+<section class="section" id="securitate-video">
   <div class="srv-detail">
 
     <div class="srv-detail-content reveal">
@@ -718,8 +740,8 @@
 </section>
 
 <!-- ══════════ 4. SISTEME VIDEOCONFERINȚĂ ══════════ -->
-<div class="srv-section-sep" id="sisteme-videoconferinta"></div>
-<section class="section">
+<div class="srv-section-sep"></div>
+<section class="section" id="sisteme-videoconferinta">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
@@ -743,8 +765,8 @@
 
 
 <!-- ══════════ PLAN IMPLEMENTARE ══════════ -->
-<div class="srv-section-sep" id="plan-implementare"></div>
-<section class="section">
+<div class="srv-section-sep"></div>
+<section class="section" id="plan-implementare">
   <div class="srv-detail srv-detail--flip">
 
     <div class="srv-detail-content reveal">
@@ -971,16 +993,26 @@
   });
 })();
 
+/* ── Scroll-down arrow ── */
+(function () {
+  var btn = document.getElementById('srv-scroll-down');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var target = document.getElementById('srv-sticky-scope');
+    if (!target) return;
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+  });
+})();
+
 /* ── Sticky quicknav + scroll spy ── */
 (function () {
   var wrap   = document.getElementById('srv-quicknav-wrap');
   var links  = document.querySelectorAll('.srv-qlink[data-target]');
   var sectionIds = ['servicii-it', 'infrastructura-retea', 'securitate-video', 'sisteme-videoconferinta', 'plan-implementare'];
 
-  /* Build array of {id, el} pairs where el is the <section> after the separator */
   var sections = sectionIds.map(function(id) {
-    var sep = document.getElementById(id);
-    return sep ? { id: id, el: sep.nextElementSibling } : null;
+    var el = document.getElementById(id);
+    return el ? { id: id, el: el } : null;
   }).filter(Boolean);
 
   /* Sticky shadow */

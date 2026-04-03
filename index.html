@@ -989,6 +989,15 @@
         .hero-actions {
           margin-bottom: 36px;
         }
+        .cards-grid .card-flat {
+          border-color: rgba(248, 69, 3, 0.22);
+          --glow-intensity: 0 !important;
+        }
+        .cards-grid .card-flat .card-photo {
+          max-height: 200px;
+          position: relative;
+          z-index: 3;
+        }
       }
 
       @media (max-width: 1099px) and (min-width: 768px) {
@@ -1025,8 +1034,8 @@
           flex-direction: column;
           padding: 0 20px;
           width: 100%;
-          gap: 10px;
-          margin-bottom: var(--space-5);
+          gap: 2px;
+          margin-bottom: 0;
         }
         .fan-wrap {
           display: none;
@@ -1036,16 +1045,26 @@
         }
         .cards-mobile {
           display: flex;
-          margin-top: 20px;
+          margin-top: 36px;
+        }
+        .hero-discover-desktop {
+          display: none !important;
+        }
+        .hero-discover-mobile {
+          display: flex !important;
+          margin: 16px 20px 0;
+          width: calc(100% - 40px);
+          justify-content: center;
         }
         .proof-bar {
           padding: 20px;
           margin-top: 24px;
         }
         .proof-inner {
-          flex-wrap: wrap;
-          gap: 20px;
-          justify-content: center;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px 0;
+          justify-items: center;
         }
         .proof-divider {
           display: none;
@@ -1055,6 +1074,10 @@
         }
         .proof-stat .num {
           font-size: 1.4rem;
+        }
+        .proof-stat {
+          width: 100%;
+          padding: 0 16px;
         }
       }
 
@@ -1431,15 +1454,8 @@
         background: rgba(248, 69, 3, 0.06);
         border: 1px solid rgba(248, 69, 3, 0.14);
         border-radius: var(--radius-full);
-        padding: 4px 11px;
-      }
-      .proj-result::before {
-        content: "";
-        display: block;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--accent);
+        font-size: 0.75rem;
+        padding: 4px 11px 4px 16px;
       }
 
       /* ══════════════════════════════════════════
@@ -1645,6 +1661,19 @@
           flex-direction: column;
           align-items: stretch;
         }
+        .srv-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .srv-header > a.btn-ghost {
+          width: 100%;
+          justify-content: center;
+        }
+        .srv-header > a.btn-ghost .srv-arrow-right { display: none !important; }
+        .srv-header > a.btn-ghost .srv-arrow-down  { display: block !important; }
+        .srv-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       /* ── CTA — reveal stagger (fără hover interactiv, CSS e corect) ── */
@@ -1699,6 +1728,7 @@
   </head>
   <body>
     <a href="#main" class="sr-only">Sari la conținut</a>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
     <!-- ══════════ HEADER ══════════ -->
     <header>
@@ -1780,14 +1810,25 @@
             <span class="glow-shine" aria-hidden="true"></span>
             Solicită ofertă
           </a>
-          <a href="servicii.html" class="btn-ghost">
+          <a href="servicii.html" class="btn-ghost hero-discover-desktop">
             <span class="glow-lines" aria-hidden="true"
               ><svg><rect width="100%" height="100%" rx="8" ry="8" /></svg
             ></span>
             <span class="glow-shine" aria-hidden="true"></span>
             Descoperă soluțiile
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
+
+        <!-- Discover CTA — mobile only, above cards -->
+        <a href="servicii.html" class="btn-ghost hero-discover-mobile" style="display:none">
+          <span class="glow-lines" aria-hidden="true"
+            ><svg><rect width="100%" height="100%" rx="8" ry="8" /></svg
+          ></span>
+          <span class="glow-shine" aria-hidden="true"></span>
+          Descoperă soluțiile
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
 
         <!-- ════ DESKTOP FAN ════ -->
         <div class="fan-wrap">
@@ -2088,15 +2129,8 @@
             ></span>
             <span class="glow-shine" aria-hidden="true"></span>
             Descoperă soluțiile noastre
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <svg class="srv-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg class="srv-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0;display:none"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
           </a>
         </div>
         <div class="srv-grid">
@@ -2889,16 +2923,21 @@
           });
         }
 
+        function resetCards(selector) {
+          document.querySelectorAll(selector).forEach((card) => {
+            const sp = card.querySelector(".bento-spotlight");
+            if (sp) sp.style.opacity = "0";
+            card.style.setProperty("--glow-intensity", "0");
+          });
+        }
         function resetAll() {
-          document
-            .querySelectorAll(
-              ".card-flat, .card-mobile-row, .fan-wrap .card, .proj-card, .srv-card",
-            )
-            .forEach((card) => {
-              const sp = card.querySelector(".bento-spotlight");
-              if (sp) sp.style.opacity = "0";
-              card.style.setProperty("--glow-intensity", "0");
-            });
+          resetCards(".card-flat, .card-mobile-row, .fan-wrap .card");
+        }
+        function resetProj() {
+          resetCards(".proj-card");
+        }
+        function resetSrv() {
+          resetCards(".srv-card");
         }
 
         function activateTracking(cards, e) {
@@ -2997,61 +3036,8 @@
           if (!grid) return;
           const cards = Array.from(grid.querySelectorAll(".proj-card"));
           ensureSpotlights(cards);
-          grid.addEventListener("mousemove", (e) => {
-            const onCard = cards.some((card) => {
-              const r = card.getBoundingClientRect();
-              return (
-                e.clientX >= r.left &&
-                e.clientX <= r.right &&
-                e.clientY >= r.top &&
-                e.clientY <= r.bottom
-              );
-            });
-            if (!onCard) {
-              cards.forEach((c) => {
-                c.style.setProperty("--glow-intensity", "0");
-                const sp = c.querySelector(".bento-spotlight");
-                if (sp) sp.style.opacity = "0";
-              });
-              return;
-            }
-            cards.forEach((card) => {
-              const r = card.getBoundingClientRect();
-              const rx = e.clientX - r.left;
-              const ry = e.clientY - r.top;
-              const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
-              const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
-              const dist = Math.hypot(dx, dy);
-              let intensity =
-                dist <= proximity
-                  ? 1
-                  : dist <= fadeDist
-                    ? (fadeDist - dist) / (fadeDist - proximity)
-                    : 0;
-              card.style.setProperty(
-                "--glow-x",
-                `${((rx / r.width) * 100).toFixed(1)}%`,
-              );
-              card.style.setProperty(
-                "--glow-y",
-                `${((ry / r.height) * 100).toFixed(1)}%`,
-              );
-              card.style.setProperty("--glow-intensity", intensity.toFixed(3));
-              const sp = card.querySelector(".bento-spotlight");
-              if (sp) {
-                sp.style.left = rx + "px";
-                sp.style.top = ry + "px";
-                sp.style.opacity = intensity.toFixed(3);
-              }
-            });
-          });
-          grid.addEventListener("mouseleave", () =>
-            cards.forEach((c) => {
-              c.style.setProperty("--glow-intensity", "0");
-              const sp = c.querySelector(".bento-spotlight");
-              if (sp) sp.style.opacity = "0";
-            }),
-          );
+          grid.addEventListener("mousemove", (e) => { activateTracking(cards, e); });
+          grid.addEventListener("mouseleave", resetProj);
         }
 
         function bindSrvCards() {
@@ -3059,73 +3045,77 @@
           if (!grid) return;
           const cards = Array.from(grid.querySelectorAll(".srv-card"));
           ensureSpotlights(cards);
-          grid.addEventListener("mousemove", (e) => {
-            const onCard = cards.some((card) => {
-              const r = card.getBoundingClientRect();
-              return (
-                e.clientX >= r.left &&
-                e.clientX <= r.right &&
-                e.clientY >= r.top &&
-                e.clientY <= r.bottom
-              );
-            });
-            if (!onCard) {
-              cards.forEach((c) => {
-                c.style.setProperty("--glow-intensity", "0");
-                const sp = c.querySelector(".bento-spotlight");
-                if (sp) sp.style.opacity = "0";
-              });
-              return;
-            }
-            cards.forEach((card) => {
-              const r = card.getBoundingClientRect();
-              const rx = e.clientX - r.left;
-              const ry = e.clientY - r.top;
-              const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
-              const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
-              const dist = Math.hypot(dx, dy);
-              let intensity =
-                dist <= proximity
-                  ? 1
-                  : dist <= fadeDist
-                    ? (fadeDist - dist) / (fadeDist - proximity)
-                    : 0;
-              card.style.setProperty(
-                "--glow-x",
-                `${((rx / r.width) * 100).toFixed(1)}%`,
-              );
-              card.style.setProperty(
-                "--glow-y",
-                `${((ry / r.height) * 100).toFixed(1)}%`,
-              );
-              card.style.setProperty("--glow-intensity", intensity.toFixed(3));
-              const sp = card.querySelector(".bento-spotlight");
-              if (sp) {
-                sp.style.left = rx + "px";
-                sp.style.top = ry + "px";
-                sp.style.opacity = intensity.toFixed(3);
-              }
-            });
-          });
-          grid.addEventListener("mouseleave", () =>
-            cards.forEach((c) => {
-              c.style.setProperty("--glow-intensity", "0");
-              const sp = c.querySelector(".bento-spotlight");
-              if (sp) sp.style.opacity = "0";
-            }),
-          );
+          grid.addEventListener("mousemove", (e) => { activateTracking(cards, e); });
+          grid.addEventListener("mouseleave", resetSrv);
         }
+
+        /* ── Touch glow for mobile — real DOM border glow ── */
+        function ensureTouchBorder(card) {
+          if (card.querySelector(".t-border-glow")) return;
+          const el = document.createElement("div");
+          el.className = "t-border-glow";
+          el.style.cssText = `
+            position:absolute; inset:0; border-radius:inherit;
+            pointer-events:none; z-index:21; opacity:0;
+            padding:1.5px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            transition: opacity 0.2s ease;`;
+          card.appendChild(el);
+          ensureSpotlights([card]);
+        }
+
+        function bindTouchCard(card) {
+          if (card._touchBound) return;
+          card._touchBound = true;
+          ensureTouchBorder(card);
+          function applyTouch(e) {
+            const t = e.touches[0]; if (!t) return;
+            const r = card.getBoundingClientRect();
+            const rx = t.clientX - r.left, ry = t.clientY - r.top;
+            const px = ((rx / r.width) * 100).toFixed(1) + "%";
+            const py = ((ry / r.height) * 100).toFixed(1) + "%";
+            const el = card.querySelector(".t-border-glow");
+            if (el) {
+              el.style.background = `radial-gradient(280px circle at ${px} ${py}, rgba(${GLOW_COLOR},0.9) 0%, rgba(${GLOW_COLOR},0.4) 35%, transparent 65%)`;
+              el.style.opacity = "1";
+            }
+            const sp = card.querySelector(".bento-spotlight");
+            if (sp) { sp.style.left = rx+"px"; sp.style.top = ry+"px"; sp.style.opacity = "1"; }
+          }
+          function clearTouch() {
+            const el = card.querySelector(".t-border-glow");
+            if (el) el.style.opacity = "0";
+            const sp = card.querySelector(".bento-spotlight");
+            if (sp) sp.style.opacity = "0";
+          }
+          card.addEventListener("touchstart", applyTouch, { passive: true });
+          card.addEventListener("touchmove", applyTouch, { passive: true });
+          card.addEventListener("touchend", clearTouch, { passive: true });
+          card.addEventListener("touchcancel", clearTouch, { passive: true });
+        }
+
+        function bindAllTouchCards() {
+          document.querySelectorAll(
+            ".card-mobile-row, .card-flat, .fan-wrap .card, .proj-card, .srv-card"
+          ).forEach(bindTouchCard);
+        }
+
 
         if (document.readyState === "loading")
           document.addEventListener("DOMContentLoaded", () => {
             bindFanCards();
             bindProjCards();
             bindSrvCards();
+            bindAllTouchCards();
           });
         else {
           bindFanCards();
           bindProjCards();
           bindSrvCards();
+          bindAllTouchCards();
         }
 
         /* Click ripple */

@@ -811,6 +811,9 @@ header.drawer-open {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
+header.drawer-open::after {
+  opacity: 0 !important;
+}
 
 /* Logo */
 .logo {
@@ -1013,7 +1016,7 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
 .footer-inner {
   padding: var(--space-10) max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-8);
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: var(--space-7);
   align-items: start;
 }
@@ -1058,11 +1061,7 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
 
 /* Nav cols */
 .footer-nav {
-  display: grid; grid-template-columns: repeat(3, auto);
-  justify-content: space-between;
-  column-gap: var(--space-11);
-  row-gap: var(--space-6);
-  align-items: start;
+  display: contents;
 }
 
 .footer-nav-col { display: flex; flex-direction: column; gap: 10px; }
@@ -1114,18 +1113,34 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
 /* Responsive footer */
 @media (max-width: 1099px) {
   .footer-inner {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-6);
+    row-gap: var(--space-11);
     padding-bottom: var(--space-7);
   }
-  .footer-nav { grid-template-columns: repeat(3, 1fr); }
+  .footer-brand { grid-column: 1 / -1; }
 }
 
 @media (max-width: 767px) {
   .footer-inner {
+    grid-template-columns: 1fr 1fr;
     padding: var(--space-8) var(--container-pad) var(--space-6);
+    column-gap: var(--space-5);
+    row-gap: var(--space-10);
   }
-  .footer-nav { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
   .footer-tagline { display: none; }
+}
+
+/* ============================================================
+   13. SCROLL PROGRESS BAR
+   ============================================================ */
+
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent) 0%, #0c70dc 100%);
+  width: 0%;
+  transition: width 0.08s linear;
+  pointer-events: none;
+  transform-origin: left;
 }

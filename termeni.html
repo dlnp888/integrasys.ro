@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Termeni și condiții — Integrasys</title>
+  <meta name="description" content="Termenii și condițiile generale de utilizare a site-ului integrasys.ro și de prestare a serviciilor IntegraSys, conform legislației române și europene." />
+  <link rel="canonical" href="https://integrasys.ro/termeni.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://integrasys.ro/termeni.html" />
+  <meta property="og:title" content="Termeni și condiții — Integrasys" />
+  <meta property="og:description" content="Termenii și condițiile generale de utilizare a site-ului și serviciilor IntegraSys." />
+  <style>html, body { background: #030812; }</style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="lupvision.ro-global.css">
+
+<style>
+/* ── Hero compact ── */
+.lgl-hero {
+  padding: 160px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-7);
+  position: relative; overflow: hidden;
+}
+.lgl-hero-glow {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -20%);
+  width: 900px; height: 520px; pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    rgba(12, 112, 220, 0.09) 0%, rgba(248, 69, 3, 0.02) 45%, transparent 70%);
+}
+.lgl-hero-content { position: relative; z-index: 1; }
+.lgl-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: var(--space-2); animation: rise 0.5s ease 0.05s both;
+}
+.lgl-eyebrow::before, .lgl-eyebrow::after {
+  content: ''; display: block; width: 20px; height: 1px;
+  background: var(--accent); opacity: 0.6;
+}
+.lgl-hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: #fff; margin-bottom: var(--space-2);
+  animation: rise 0.7s ease 0.12s both;
+}
+.lgl-meta {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted-2); letter-spacing: 0.06em;
+  animation: rise 0.7s ease 0.20s both;
+}
+.lgl-hero-sep {
+  height: 1px; margin-top: var(--space-6);
+  background: linear-gradient(90deg,
+    rgba(232,237,245,0.12) 0%,
+    rgba(232,237,245,0.04) 60%,
+    transparent 100%);
+}
+
+/* ── Body grid ── */
+.lgl-outer {
+  padding: var(--space-7) max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-11);
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  gap: var(--space-9);
+  align-items: start;
+}
+
+/* ── TOC desktop ── */
+.lgl-toc { position: sticky; top: 112px; padding-top: var(--space-3); }
+.lgl-toc-heading {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--muted-2); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: var(--space-2); display: block;
+}
+.lgl-toc-heading::before { content: '// '; opacity: 0.55; }
+.lgl-toc-list {
+  list-style: none;
+  border-left: 1px solid var(--border);
+  padding-left: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.lgl-toc-link {
+  display: block; font-size: 0.875rem; color: var(--muted-2);
+  line-height: 1.45; padding: 5px 0 5px 16px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  transition: color var(--transition-ui), border-color var(--transition-ui);
+}
+.lgl-toc-link:hover { color: var(--text); }
+.lgl-toc-link.is-active { color: var(--text); border-left-color: var(--accent); }
+
+/* ── TOC mobile ── */
+.lgl-toc-mobile { display: none; margin-bottom: var(--space-5); }
+.lgl-toc-mobile summary {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer; list-style: none;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
+  transition: border-color var(--transition-ui);
+}
+.lgl-toc-mobile summary::-webkit-details-marker { display: none; }
+.lgl-toc-mobile summary::after {
+  content: ''; width: 10px; height: 6px;
+  background: currentColor; clip-path: polygon(0 0, 100% 0, 50% 100%);
+  flex-shrink: 0; transition: transform var(--transition-ui);
+}
+.lgl-toc-mobile[open] summary { border-color: rgba(248,69,3,0.22); }
+.lgl-toc-mobile[open] summary::after { transform: rotate(180deg); }
+.lgl-toc-inner {
+  margin-top: 6px; padding: 14px 18px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.lgl-toc-inner .lgl-toc-link { border-left: none; padding-left: 0; }
+
+/* ── Content ── */
+.lgl-content { min-width: 0; }
+
+.lgl-section {
+  padding-top: var(--space-7); padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border-soft);
+  scroll-margin-top: 116px;
+}
+.lgl-section:first-child { padding-top: 0; }
+.lgl-section:last-child { border-bottom: none; }
+
+.lgl-num {
+  display: block; margin-bottom: 8px;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+.lgl-section h2 {
+  font-size: var(--text-xl); font-weight: var(--weight-bold);
+  letter-spacing: -0.02em; line-height: 1.25;
+  color: #fff; margin-bottom: var(--space-3);
+}
+
+.lgl-section h3 {
+  font-size: var(--text-lg); font-weight: var(--weight-semibold);
+  color: var(--text); margin: var(--space-4) 0 var(--space-2);
+  line-height: 1.3;
+}
+
+.lgl-section p {
+  color: var(--muted); line-height: var(--leading-body);
+  margin-bottom: var(--space-2);
+}
+.lgl-section p:last-child { margin-bottom: 0; }
+
+.lgl-section ul, .lgl-section ol {
+  padding-left: var(--space-3); color: var(--muted);
+  line-height: var(--leading-body);
+  display: flex; flex-direction: column; gap: 7px;
+  margin: var(--space-2) 0;
+}
+.lgl-section ul li::marker { color: var(--accent); }
+.lgl-section ol { list-style: decimal; }
+.lgl-section ol li::marker {
+  color: var(--muted-2); font-family: var(--font-mono); font-size: 0.9em;
+}
+
+.lgl-section a {
+  color: #3a9ef5;
+  text-decoration: underline; text-decoration-color: rgba(58,158,245,0.3);
+  transition: color var(--transition-ui), text-decoration-color var(--transition-ui);
+}
+.lgl-section a:hover { color: #6ab8ff; text-decoration-color: rgba(106,184,255,0.5); }
+
+strong { color: var(--text); font-weight: var(--weight-semibold); }
+
+/* ── Callout ── */
+.lgl-callout {
+  padding: var(--space-3) var(--space-4);
+  background: rgba(12, 112, 220, 0.05);
+  border: 1px solid rgba(12, 112, 220, 0.14);
+  border-left: 3px solid #0c70dc;
+  border-radius: var(--radius-md);
+  margin: var(--space-3) 0;
+}
+.lgl-callout p { color: var(--text); margin: 0; line-height: var(--leading-body); }
+
+.lgl-callout-warn {
+  background: rgba(248, 69, 3, 0.04);
+  border-color: rgba(248, 69, 3, 0.12);
+  border-left-color: var(--accent);
+}
+.lgl-callout-warn p { color: var(--muted); }
+
+/* ── Table ── */
+.lgl-table-wrap {
+  overflow-x: auto; margin: var(--space-3) 0;
+  border-radius: var(--radius-md); border: 1px solid var(--border);
+}
+.lgl-table {
+  width: 100%; border-collapse: collapse; min-width: 480px;
+}
+.lgl-table th {
+  background: rgba(8,15,30,0.9); padding: 11px 16px;
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--muted-2); letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: left; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.lgl-table td {
+  padding: 11px 16px; font-size: var(--text-sm); color: var(--muted);
+  line-height: 1.5; border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+}
+.lgl-table tr:last-child td { border-bottom: none; }
+.lgl-table tr:hover td { background: rgba(255,255,255,0.012); }
+
+/* ── Responsive ── */
+@media (max-width: 1099px) {
+  .lgl-outer { grid-template-columns: 1fr; gap: var(--space-6); }
+  .lgl-toc { display: none; }
+  .lgl-toc-mobile { display: block; }
+}
+@media (max-width: 767px) {
+  .lgl-hero { padding: 140px var(--container-pad) var(--space-5); }
+  .lgl-outer { padding-left: var(--container-pad); padding-right: var(--container-pad); padding-bottom: var(--space-9); }
+  .lgl-section { scroll-margin-top: 92px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Sari la conținut</a>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <a class="logo" href="index.html"><img class="logo-color" src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="156" height="72"><img class="logo-white" src="brand_assets/IntegraSys%20-%20logo%20alb.png" alt="" width="156" height="72" aria-hidden="true"></a>
+  <nav aria-label="Navigare principală">
+    <a href="servicii.html">Servicii</a>
+    <a href="proiecte.html">Proiecte</a>
+    <a href="contact.html" class="nav-cta">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Solicită ofertă
+    </a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div id="dv-menu"></div>
+  <a href="servicii.html">Servicii</a>
+  <a href="proiecte.html">Proiecte</a>
+  <a href="contact.html" class="nav-cta">
+    <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="7" ry="7"/></svg></span>
+    <span class="glow-shine" aria-hidden="true"></span>
+    Solicită ofertă
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ══════════ HERO ══════════ -->
+<div class="lgl-hero">
+  <div class="lgl-hero-glow" aria-hidden="true"></div>
+  <div class="lgl-hero-content">
+    <span class="lgl-eyebrow">Legal</span>
+    <h1>Termeni și condiții</h1>
+    <p class="lgl-meta">Ultima actualizare: 02 aprilie 2026 &nbsp;·&nbsp; Versiunea 1.0</p>
+    <div class="lgl-hero-sep"></div>
+  </div>
+</div>
+
+<!-- ══════════ BODY ══════════ -->
+<div class="lgl-outer">
+
+  <!-- TOC desktop -->
+  <aside class="lgl-toc" aria-label="Cuprins">
+    <span class="lgl-toc-heading">Cuprins</span>
+    <ul class="lgl-toc-list" role="list">
+      <li><a class="lgl-toc-link" href="#s1">1. Dispoziții generale</a></li>
+      <li><a class="lgl-toc-link" href="#s2">2. Accesul și utilizarea site-ului</a></li>
+      <li><a class="lgl-toc-link" href="#s3">3. Serviciile IntegraSys</a></li>
+      <li><a class="lgl-toc-link" href="#s4">4. Oferte și contracte</a></li>
+      <li><a class="lgl-toc-link" href="#s5">5. Prețuri și plăți</a></li>
+      <li><a class="lgl-toc-link" href="#s6">6. Proprietate intelectuală</a></li>
+      <li><a class="lgl-toc-link" href="#s7">7. Răspundere și limitări</a></li>
+      <li><a class="lgl-toc-link" href="#s8">8. Forță majoră</a></li>
+      <li><a class="lgl-toc-link" href="#s9">9. Confidențialitate și date personale</a></li>
+      <li><a class="lgl-toc-link" href="#s10">10. Modificări ale termenilor</a></li>
+      <li><a class="lgl-toc-link" href="#s11">11. Legea aplicabilă și litigii</a></li>
+      <li><a class="lgl-toc-link" href="#s12">12. Contact</a></li>
+    </ul>
+  </aside>
+
+  <!-- TOC mobile -->
+  <details class="lgl-toc-mobile" aria-label="Cuprins">
+    <summary>// Cuprins</summary>
+    <nav class="lgl-toc-inner">
+      <a class="lgl-toc-link" href="#s1">1. Dispoziții generale</a>
+      <a class="lgl-toc-link" href="#s2">2. Accesul și utilizarea site-ului</a>
+      <a class="lgl-toc-link" href="#s3">3. Serviciile IntegraSys</a>
+      <a class="lgl-toc-link" href="#s4">4. Oferte și contracte</a>
+      <a class="lgl-toc-link" href="#s5">5. Prețuri și plăți</a>
+      <a class="lgl-toc-link" href="#s6">6. Proprietate intelectuală</a>
+      <a class="lgl-toc-link" href="#s7">7. Răspundere și limitări</a>
+      <a class="lgl-toc-link" href="#s8">8. Forță majoră</a>
+      <a class="lgl-toc-link" href="#s9">9. Confidențialitate și date personale</a>
+      <a class="lgl-toc-link" href="#s10">10. Modificări ale termenilor</a>
+      <a class="lgl-toc-link" href="#s11">11. Legea aplicabilă și litigii</a>
+      <a class="lgl-toc-link" href="#s12">12. Contact</a>
+    </nav>
+  </details>
+
+  <!-- Content -->
+  <article class="lgl-content" role="main">
+
+    <section class="lgl-section" id="s1">
+      <span class="lgl-num">01</span>
+      <h2>Dispoziții generale</h2>
+      <p>
+        Prezentele Termeni și Condiții (denumite în continuare „T&C") reglementează relația dintre <strong>S.C. IntegraSys S.R.L.</strong>, cu sediul în Str. Avram Iancu nr. 23, Bacău, 600260, România (denumită în continuare „IntegraSys", „Prestatorul" sau „noi") și orice persoană fizică sau juridică (denumită „Utilizatorul" sau „Clientul") care accesează site-ul <a href="https://integrasys.ro">integrasys.ro</a> sau solicită/beneficiază de serviciile oferite de IntegraSys.
+      </p>
+      <p>
+        Prin accesarea site-ului sau prin transmiterea oricărei solicitări de ofertă, Utilizatorul confirmă că a citit, înțeles și acceptat integral prezentele T&C.
+      </p>
+      <div class="lgl-callout">
+        <p>
+          T&C sunt redactate în conformitate cu: <strong>Codul civil</strong> (Legea nr. 287/2009), <strong>Legea nr. 365/2002</strong> privind comerțul electronic, <strong>Legea nr. 363/2007</strong> privind combaterea practicilor incorecte ale comercianților, <strong>OG nr. 21/1992</strong> privind protecția consumatorilor, <strong>Directiva (UE) 2019/770</strong> și <strong>Directiva (UE) 2019/771</strong> (transpuse prin Legea nr. 74/2022), precum și <strong>Regulamentul (UE) 2016/679</strong> (GDPR).
+        </p>
+      </div>
+      <p>
+        IntegraSys prestează servicii <strong>exclusiv pentru persoane juridice și profesioniști</strong> (în sensul art. 3 Cod civil). Prevederile referitoare la protecția consumatorilor (OG 21/1992, Directiva 2011/83/UE etc.) nu se aplică în relațiile B2B, cu excepția cazului în care se precizează altfel.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s2">
+      <span class="lgl-num">02</span>
+      <h2>Accesul și utilizarea site-ului</h2>
+      <p>
+        Site-ul <a href="https://integrasys.ro">integrasys.ro</a> este pus la dispoziție cu titlu informativ, fără nicio garanție de disponibilitate continuă. IntegraSys își rezervă dreptul de a modifica, suspenda sau întrerupe site-ul în orice moment, fără notificare prealabilă.
+      </p>
+      <h3>Utilizare permisă</h3>
+      <p>
+        Utilizatorul poate accesa și naviga pe site în scopuri legale, pentru a lua cunoștință de serviciile oferite și pentru a iniția un contact comercial. Orice altă utilizare necesită acordul scris prealabil al IntegraSys.
+      </p>
+      <h3>Utilizare interzisă</h3>
+      <p>Este strict interzisă:</p>
+      <ul>
+        <li>Copierea, reproducerea, distribuirea sau publicarea conținutului site-ului fără acordul scris al IntegraSys</li>
+        <li>Utilizarea de tehnici de scraping, crawling automat agresiv sau orice metodă de extragere automatizată a datelor</li>
+        <li>Transmiterea de conținut ilegal, ofensator, malițios sau care aduce atingere drepturilor terților</li>
+        <li>Orice acțiune care ar putea afecta integritatea, securitatea sau disponibilitatea site-ului</li>
+        <li>Utilizarea site-ului în scopul realizării de oferte competitive sau de analize comparative neautorizate</li>
+      </ul>
+      <p>
+        IntegraSys nu garantează că informațiile de pe site sunt complete, actuale sau lipsite de erori. Acestea au caracter orientativ și nu constituie o ofertă fermă de contractare.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s3">
+      <span class="lgl-num">03</span>
+      <h2>Serviciile IntegraSys</h2>
+      <p>
+        IntegraSys oferă, cu titlu principal, următoarele categorii de servicii profesionale pentru clienți persoane juridice:
+      </p>
+      <ul>
+        <li><strong>Servicii IT</strong> — management infrastructură IT, helpdesk, mentenanță sisteme, securitate cibernetică</li>
+        <li><strong>Infrastructura rețelei</strong> — proiectare, instalare și configurare rețele LAN/WAN, VoIP, fibră optică</li>
+        <li><strong>Securitate video și control acces</strong> — sisteme CCTV, control acces biometric și prin card, alarmare</li>
+        <li><strong>Sisteme videoconferință</strong> — soluții de comunicații unificate, echipamente și software de videoconferință</li>
+      </ul>
+      <p>
+        Serviciile sunt descrise în detaliu pe site-ul IntegraSys și în ofertele comerciale individualizate. Specificațiile tehnice exacte, termenele și condițiile particulare sunt stabilite prin contract individual negociat cu fiecare client.
+      </p>
+      <div class="lgl-callout-warn lgl-callout">
+        <p>
+          Informațiile prezentate pe site au caracter orientativ. Funcționalitățile, specificațiile tehnice și prețurile sunt orientative și pot varia în funcție de configurația concretă solicitată. Oferta fermă se transmite doar după evaluarea cerințelor clientului.
+        </p>
+      </div>
+    </section>
+
+    <section class="lgl-section" id="s4">
+      <span class="lgl-num">04</span>
+      <h2>Oferte, comenzi și formarea contractelor</h2>
+      <p>
+        Orice solicitare de ofertă transmisă prin formularul de contact, email sau telefon nu reprezintă o comandă fermă și nu obligă niciuna dintre părți.
+      </p>
+      <p>
+        Procesul de contractare urmează pașii:
+      </p>
+      <ol>
+        <li>Transmiterea solicitării de ofertă de către Utilizator (prin formular, email sau telefon)</li>
+        <li>Evaluarea cerințelor și transmiterea ofertei comerciale individualizate de către IntegraSys</li>
+        <li>Acceptarea ofertei de către Client, în scris (email sau semnătură pe ofertă)</li>
+        <li>Semnarea contractului de prestări servicii (și, după caz, a Acordului de Prelucrare a Datelor)</li>
+        <li>Emiterea facturii de avans (dacă este prevăzut în ofertă) și demararea lucrărilor</li>
+      </ol>
+      <p>
+        <strong>Contractul se consideră încheiat</strong> la data semnării de ambele părți sau, dacă se convine astfel, la data acceptării scrise a ofertei. Ofertele IntegraSys sunt valabile <strong>30 de zile calendaristice</strong> de la data emiterii, dacă nu se precizează altfel în ofertă.
+      </p>
+      <p>
+        IntegraSys își rezervă dreptul de a refuza orice solicitare de ofertă sau comandă, fără obligația de a motiva refuzul.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s5">
+      <span class="lgl-num">05</span>
+      <h2>Prețuri, facturare și plăți</h2>
+      <p>
+        Prețurile serviciilor IntegraSys sunt stabilite prin ofertă comercială individualizată și se exprimă, de regulă, în <strong>EUR fără TVA</strong>, cu plata în RON la cursul BNR din ziua facturării, dacă nu se convine altfel prin contract.
+      </p>
+      <h3>Facturare</h3>
+      <p>
+        Facturile sunt emise conform termenilor contractuali stabiliți cu fiecare client. În absența unor prevederi contractuale specifice, plata se efectuează în termen de <strong>15 zile calendaristice</strong> de la data emiterii facturii.
+      </p>
+      <h3>Penalități de întârziere</h3>
+      <p>
+        Pentru facturile neachitate la termen, IntegraSys aplică penalități de întârziere conform <strong>Legii nr. 72/2013</strong> privind măsurile pentru combaterea întârzierii în executarea obligațiilor de plată între profesioniști, respectiv rata dobânzii de referință a BNR majorată cu 8 puncte procentuale, calculată de la data scadenței.
+      </p>
+      <h3>Avansuri și garanții</h3>
+      <p>
+        IntegraSys poate solicita un avans de până la <strong>50% din valoarea contractului</strong> la semnare, în special pentru achiziționarea de echipamente sau materiale. Avansul nu este rambursabil în cazul rezilierii contractului din culpa Clientului, cu excepția situațiilor prevăzute expres în contract.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s6">
+      <span class="lgl-num">06</span>
+      <h2>Proprietate intelectuală</h2>
+      <p>
+        Toate elementele site-ului integrasys.ro — inclusiv, dar fără a se limita la: texte, grafică, logo-uri, pictograme, imagini, clipuri audio/video, cod sursă, design, arhitectură software — sunt proprietatea exclusivă a IntegraSys sau a licențiatorilor săi și sunt protejate de <strong>Legea nr. 8/1996</strong> privind dreptul de autor și drepturile conexe, precum și de reglementările europene aplicabile.
+      </p>
+      <p>
+        Este interzisă orice reproducere, distribuire, modificare, transmitere, republicare sau altă utilizare a conținutului site-ului fără acordul scris prealabil al IntegraSys, cu excepția utilizărilor permise de lege (citat, utilizare privată).
+      </p>
+      <h3>Livrabile contractuale</h3>
+      <p>
+        Dreptul de proprietate intelectuală asupra documentelor de proiectare, schemelor tehnice, configurațiilor și altor livrabile realizate în executarea contractului se transferă Clientului <strong>integral și definitiv</strong> la data plății integrale a contravalorii serviciilor, conform prevederilor contractuale.
+      </p>
+      <p>
+        IntegraSys poate folosi denumirea, logo-ul și o scurtă descriere a proiectului realizat ca referință comercială și în materialele de promovare proprii, dacă Clientul nu obiectează în scris la momentul semnării contractului sau ulterior.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s7">
+      <span class="lgl-num">07</span>
+      <h2>Răspundere și limitări ale răspunderii</h2>
+      <h3>Răspunderea IntegraSys</h3>
+      <p>
+        IntegraSys răspunde pentru prejudiciile directe cauzate Clientului exclusiv prin fapta proprie, în limitele prevăzute de lege și de contractul individual. Răspunderea totală a IntegraSys față de un Client, indiferent de natura prejudiciului, nu poate depăși <strong>valoarea totală a serviciilor facturate și plătite</strong> de Client în ultimele 12 luni anterioare producerii prejudiciului.
+      </p>
+      <h3>Excluderi ale răspunderii</h3>
+      <p>
+        IntegraSys nu răspunde pentru:
+      </p>
+      <ul>
+        <li>Prejudicii indirecte, consecvente, incidentale, de profit pierdut sau pierderea de date</li>
+        <li>Defecțiunile echipamentelor sau software-urilor terților, peste care IntegraSys nu are control</li>
+        <li>Întreruperile de serviciu cauzate de furnizori de infrastructură terți (ISP, furnizori de energie etc.)</li>
+        <li>Utilizarea necorespunzătoare a sistemelor livrate de către personalul Clientului</li>
+        <li>Pagube rezultate din nerespectarea de către Client a instrucțiunilor de utilizare furnizate de IntegraSys</li>
+        <li>Atacuri cibernetice sau breșe de securitate generate de vulnerabilități introduse de Client sau terți</li>
+      </ul>
+      <h3>Garanție</h3>
+      <p>
+        IntegraSys oferă o garanție pentru lucrările executate conform specificațiilor convenite prin contract. Perioada și condițiile de garanție sunt precizate în contractul individual. În absența unor prevederi contractuale specifice, garanția pentru manoperă este de <strong>12 luni</strong> de la recepția lucrărilor. Garanția producătorilor pentru echipamente se transmite direct Clientului conform condițiilor acestora.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s8">
+      <span class="lgl-num">08</span>
+      <h2>Forță majoră și cazul fortuit</h2>
+      <p>
+        Niciuna dintre părți nu răspunde pentru neexecutarea sau executarea cu întârziere a obligațiilor contractuale cauzate de un eveniment de <strong>forță majoră</strong>, în sensul art. 1.351 Cod civil — un eveniment extern, imprevizibil, absolut invincibil și inevitabil.
+      </p>
+      <p>
+        Constituie, cu titlu exemplificativ, cazuri de forță majoră: calamități naturale, pandemii, acte de război sau terorism, embargouri, decizii ale autorităților publice, greve generale, perturbări grave ale rețelelor de telecomunicații sau energetice la nivel național.
+      </p>
+      <p>
+        Partea care invocă forța majoră este obligată să notifice cealaltă parte în termen de <strong>5 zile lucrătoare</strong> de la producerea evenimentului și să transmită, în termen de <strong>15 zile calendaristice</strong>, dovezi din partea autorităților competente. Dacă forța majoră depășește <strong>60 de zile calendaristice</strong>, oricare dintre părți poate rezilia contractul fără penalități.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s9">
+      <span class="lgl-num">09</span>
+      <h2>Confidențialitate și prelucrarea datelor cu caracter personal</h2>
+      <p>
+        IntegraSys prelucrează datele cu caracter personal ale reprezentanților Clienților în conformitate cu <strong>Regulamentul (UE) 2016/679</strong> (GDPR) și cu <a href="confidentialitate.html">Politica de confidențialitate</a> disponibilă pe site.
+      </p>
+      <p>
+        Informațiile tehnice, comerciale și orice alte date clasificate ca „confidențiale" de oricare dintre părți vor fi tratate cu strictă confidențialitate pe toată durata contractului și timp de <strong>3 ani</strong> de la încetarea acestuia, conform clauzelor de confidențialitate din contractul individual.
+      </p>
+      <p>
+        Utilizarea cookie-urilor și a altor tehnologii de urmărire pe site-ul IntegraSys este reglementată de <a href="cookies.html">Politica de cookie-uri</a>.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s10">
+      <span class="lgl-num">10</span>
+      <h2>Modificări ale prezentelor T&C</h2>
+      <p>
+        IntegraSys poate actualiza prezentele T&C în orice moment. Versiunea în vigoare este publicată la adresa <a href="https://integrasys.ro/termeni.html">integrasys.ro/termeni.html</a>, marcată cu data ultimei actualizări.
+      </p>
+      <p>
+        Modificările T&C nu afectează contractele în curs de executare, decât în măsura în care legea impune altfel sau ambele părți convin în scris.
+      </p>
+      <p>
+        Continuarea utilizării site-ului sau a serviciilor IntegraSys după publicarea modificărilor constituie acceptul Utilizatorului față de noile T&C.
+      </p>
+    </section>
+
+    <section class="lgl-section" id="s11">
+      <span class="lgl-num">11</span>
+      <h2>Legea aplicabilă și soluționarea litigiilor</h2>
+      <p>
+        Prezentele T&C și orice relație contractuală cu IntegraSys sunt guvernate de <strong>legea română</strong>.
+      </p>
+      <p>
+        Orice litigiu care decurge din sau în legătură cu prezentele T&C ori cu serviciile IntegraSys se va soluționa, cu prioritate, pe cale amiabilă, în termen de <strong>30 de zile</strong> de la notificarea în scris a litigiului de către oricare dintre părți.
+      </p>
+      <p>
+        În cazul în care soluționarea amiabilă eșuează, litigiul va fi supus jurisdicției exclusive a <strong>instanțelor judecătorești competente din România</strong>, cu respectarea normelor de competență materială și teritorială prevăzute de Codul de procedură civilă.
+      </p>
+      <div class="lgl-callout">
+        <p>
+          Clienții persoane juridice pot recurge și la <strong>soluționarea alternativă a litigiilor (SAL/ADR)</strong> prin intermediul unui arbitru sau mediator agreat de ambele părți, conform Legii nr. 192/2006 privind medierea. Platforma europeană pentru soluționarea online a litigiilor (SOL/ODR) este disponibilă la <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="lgl-section" id="s12">
+      <span class="lgl-num">12</span>
+      <h2>Contact</h2>
+      <p>
+        Pentru orice întrebare sau clarificare privind prezentele T&C, contactează IntegraSys la:
+      </p>
+      <div class="lgl-callout">
+        <p>
+          <strong>S.C. IntegraSys S.R.L.</strong><br />
+          Str. Avram Iancu nr. 23, Bacău, 600260, România<br />
+          Email: <a href="mailto:info@integrasys.ro">info@integrasys.ro</a><br />
+          Telefon: <a href="tel:+40722474455">+40 722 474 455</a><br />
+          Program: Luni – Vineri 9:00–17:00 / Sâmbătă 9:00–14:30
+        </p>
+      </div>
+    </section>
+
+  </article>
+</div>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
+      <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+          Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
+        </span><br /><br />
+        Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
+        Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br /><br />
+        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+      </address>
+      <div class="footer-social">
+        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="Navigare footer">
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Servicii</span>
+        <a href="servicii.html#servicii-it">Servicii IT</a>
+        <a href="servicii.html#infrastructura-retea">Infrastructura rețelei</a>
+        <a href="servicii.html#securitate-video">Securitate video &amp; control acces</a>
+        <a href="servicii.html#sisteme-videoconferinta">Sisteme de videoconferință</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="footer-nav-title">Companie</span>
+        <a href="servicii.html">Servicii</a>
+        <a href="proiecte.html">Proiecte</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-nav-col footer-nav-col--legal">
+        <span class="footer-nav-title">Legal</span>
+        <a href="confidentialitate.html">Politică de confidențialitate</a>
+        <a href="termeni.html" aria-current="page">Termeni și condiții</a>
+        <a href="cookies.html">Politică de cookie-uri</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Integrasys. Toate drepturile rezervate.</span>
+  </div>
+</footer>
+
+<!-- Global JS -->
+<script src="lupvision.ro-global.js"></script>
+<script>
+(function () {
+  var sections = document.querySelectorAll('.lgl-section');
+  var links    = document.querySelectorAll('.lgl-toc-link');
+  if (!sections.length || !links.length) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        links.forEach(function (l) {
+          l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-10% 0px -70% 0px' });
+  sections.forEach(function (s) { io.observe(s); });
+})();
+</script>
+
+</body>
+</html>

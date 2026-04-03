@@ -86,7 +86,7 @@
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(232,237,245,0.18) 15%, rgba(232,237,245,0.18) 85%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(248,69,3,0.35) 20%, rgba(248,69,3,0.35) 80%, transparent 100%);
 }
 .prj-filter-outer.is-stuck {
   box-shadow: 0 4px 32px rgba(0,0,0,0.45);
@@ -100,9 +100,9 @@
     transparent 100%);
 }
 .prj-filter-wrap {
-  padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
+  padding: 27px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) 28px;
   display: flex; gap: 8px; flex-wrap: wrap;
-  height: 88px; align-items: center;
+  align-items: center; row-gap: 10px;
 }
 .prj-pill {
   display: inline-flex; align-items: center; gap: 6px;
@@ -210,11 +210,8 @@
   font-family: var(--font-mono); font-size: var(--text-xs);
   color: var(--accent); background: rgba(248,69,3,0.06);
   border: 1px solid rgba(248,69,3,0.14);
-  border-radius: var(--radius-full); padding: 4px 11px;
-}
-.proj-result::before {
-  content: ''; display: block; width: 5px; height: 5px;
-  border-radius: 50%; background: var(--accent);
+  font-size: 0.75rem;
+  border-radius: var(--radius-full); padding: 4px 11px 4px 16px;
 }
 
 /* ── FEATURED CARD (lățime dublă) ── */
@@ -268,8 +265,19 @@
   .proj-grid { grid-template-columns: repeat(2, 1fr); }
   .proj-card--featured { grid-column: span 1; }
   .proj-card--featured .proj-visual { height: 200px; }
+  .prj-pill { font-size: 0.75rem; padding: 5px 12px; }
+  .prj-filter-outer {
+    position: sticky;
+    top: 116px;
+    z-index: 90;
+    background: rgba(3, 8, 18, 0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
 }
 @media (max-width: 767px) {
+  .prj-filter-outer { top: 100px; }
+  .prj-pill { white-space: normal; text-align: left; }
   .prj-hero { padding: 146px var(--container-pad) var(--space-7); overflow: hidden; }
   .proj-grid { grid-template-columns: 1fr; }
   .proj-card--featured { grid-column: span 1; }
@@ -280,6 +288,7 @@
 <body>
 
 <a href="#main" class="sr-only">Sari la conținut</a>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 <!-- ══════════ HEADER ══════════ -->
 <header>
