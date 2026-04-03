@@ -495,7 +495,7 @@
   display: grid; grid-template-columns: 2fr 3fr;
   gap: var(--space-10); align-items: start;
 }
-.faq-left { position: sticky; top: 110px; }
+.faq-left { position: sticky; top: 140px; }
 .faq-list { display: flex; flex-direction: column; }
 .faq-item { border-bottom: 1px solid var(--border-soft); }
 .faq-item:first-child { border-top: 1px solid var(--border-soft); }
@@ -523,6 +523,8 @@
 
 /* ── CTA FINAL ── */
 .srv-cta { text-align: center; position: relative; }
+.pixel-snow-bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
+.srv-cta-inner { position: relative; z-index: 1; }
 .srv-cta-glow {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
@@ -889,22 +891,25 @@
 
 <!-- ══════════ CTA FINAL ══════════ -->
 <section class="section srv-cta">
+  <canvas class="pixel-snow-bg" aria-hidden="true" data-opts='{"color":"#0c70dc","flakeSize":0.01,"minFlakeSize":1.25,"pixelResolution":180,"speed":1.1,"density":0.65,"direction":125,"brightness":0.85,"depthFade":11,"farPlane":30,"gamma":0.4545}'></canvas>
   <div class="srv-cta-glow" aria-hidden="true"></div>
   <div class="srv-cta-border" aria-hidden="true"></div>
-  <span class="section-label reveal">Contactează-ne</span>
-  <h2 class="srv-cta-title reveal">Ai nevoie de o soluție tehnică<br><em>bine pusă la punct?</em></h2>
-  <p class="srv-cta-text reveal">Discută cu noi și îți propunem varianta potrivită pentru infrastructura ta.</p>
-  <div class="srv-cta-actions reveal">
-    <a href="contact.html" class="btn-main">
-      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
-      <span class="glow-shine" aria-hidden="true"></span>
-      Solicită ofertă
-    </a>
-    <a href="contact.html" class="btn-ghost">
-      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
-      <span class="glow-shine" aria-hidden="true"></span>
-      Programează o discuție
-    </a>
+  <div class="srv-cta-inner">
+    <span class="section-label reveal">Contactează-ne</span>
+    <h2 class="srv-cta-title reveal">Ai nevoie de o soluție tehnică<br><em>bine pusă la punct?</em></h2>
+    <p class="srv-cta-text reveal">Discută cu noi și îți propunem varianta potrivită pentru infrastructura ta.</p>
+    <div class="srv-cta-actions reveal">
+      <a href="contact.html" class="btn-main">
+        <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+        <span class="glow-shine" aria-hidden="true"></span>
+        Solicită ofertă
+      </a>
+      <a href="contact.html" class="btn-ghost">
+        <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+        <span class="glow-shine" aria-hidden="true"></span>
+        Programează o discuție
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1085,6 +1090,7 @@
   });
 })();
 </script>
+<script src="pixel-snow.js" defer></script>
 
 </body>
 </html>
