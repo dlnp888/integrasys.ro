@@ -31,7 +31,7 @@
 /* ── HERO ── */
 .ctc-hero {
   padding: 186px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-8);
-  position: relative; overflow: hidden;
+  position: relative;
 }
 .ctc-hero-glow {
   position: absolute; top: 50%; left: 50%;
@@ -40,6 +40,16 @@
   background: radial-gradient(ellipse at center,
     rgba(12, 112, 220, 0.10) 0%, rgba(248, 69, 3, 0.03) 45%, transparent 70%);
   pointer-events: none;
+}
+#main {
+  position: relative;
+}
+/* Canvas DarkVeil acoperă hero + secțiunea cu form */
+.dv-container {
+  position: absolute !important;
+  top: 0; left: 0; right: 0;
+  height: 1100px;
+  pointer-events: none; z-index: 0; overflow: hidden;
 }
 .ctc-hero-grid { display: none; }
 .dv-container {
@@ -344,8 +354,16 @@
   margin-top: var(--space-4);
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid var(--border);
+  position: relative;
+  box-shadow: 0 0 18px rgba(248, 69, 3, 0.08);
   flex: 1; min-height: 180px;
+}
+.ctc-map-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 2px rgba(248, 69, 3, 0.28);
+  pointer-events: none; z-index: 2;
 }
 .ctc-map-wrap iframe {
   display: block; width: 100%; height: 100%; min-height: 180px;
@@ -405,9 +423,11 @@
 
 <main id="main">
 
+<!-- Dark veil acoperă hero + secțiunea cu form -->
+<div id="dv-hero" class="dv-container"></div>
+
 <!-- ══════════ HERO ══════════ -->
 <div class="ctc-hero">
-  <div id="dv-hero" class="dv-container"></div>
   <div class="ctc-hero-glow" aria-hidden="true"></div>
   <div class="ctc-hero-grid" aria-hidden="true"></div>
 
@@ -605,16 +625,15 @@
     <div class="footer-brand">
       <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
       <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
-        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"><a href="https://maps.app.goo.gl/zA3uR4rgbaewhGq3A" target="_blank" rel="noopener noreferrer" class="footer-contact-link" style="color:inherit; text-decoration:none;"><span itemprop="streetAddress">Str. Avram Iancu nr. 23</span>, <span itemprop="addressLocality">Bacău</span></a><br />
           Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
         </span><br />
         <br />
         Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
         Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br />
         <br />
-        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
-        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+        <a href="tel:+40722474455" itemprop="telephone" class="footer-contact-link" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" class="footer-contact-link" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
       </address>
       <div class="footer-social">
         <a href="#" class="footer-social-link" aria-label="LinkedIn">

@@ -93,7 +93,9 @@
         pointer-events: none;
         z-index: 1;
       }
-      .hero-grid { display: none; }
+      .hero-grid {
+        display: none;
+      }
       /* ── Letter Glitch Hero ── */
       .lg-hero-container {
         position: fixed;
@@ -1335,9 +1337,37 @@
         font-weight: var(--weight-medium);
         color: var(--accent);
         margin-top: 4px;
+        position: relative;
         transition:
           gap var(--transition-ui),
           opacity var(--transition-ui);
+      }
+      .srv-card-cta-text {
+        position: relative;
+      }
+      .srv-card-cta-text::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--accent);
+        transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .srv-card:hover .srv-card-cta-text::after {
+        width: 100%;
+      }
+      /* Arrow slide animation on btn-ghost buttons */
+      .btn-ghost svg,
+      .hero-discover-desktop svg,
+      .hero-discover-mobile svg {
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .btn-ghost:hover svg,
+      .hero-discover-desktop:hover svg,
+      .hero-discover-mobile:hover svg {
+        transform: translateX(4px);
       }
       .srv-card-cta svg {
         width: 14px;
@@ -1599,19 +1629,6 @@
         text-align: center;
         position: relative;
       }
-      .pixel-snow-bg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        display: block;
-      }
-      .cta-inner {
-        position: relative;
-        z-index: 1;
-      }
       .cta-glow {
         position: absolute;
         top: 50%;
@@ -1666,7 +1683,7 @@
 
       /* White static separator line on top of each section */
       .proof-bar::before,
-      .section:not(.hero)::before {
+      .section:not(.hero):not(.cta-section)::before {
         content: "";
         position: absolute;
         top: 0;
@@ -1728,8 +1745,12 @@
           width: 100%;
           justify-content: center;
         }
-        .srv-header > a.btn-ghost .srv-arrow-right { display: none !important; }
-        .srv-header > a.btn-ghost .srv-arrow-down  { display: block !important; }
+        .srv-header > a.btn-ghost .srv-arrow-right {
+          display: none !important;
+        }
+        .srv-header > a.btn-ghost .srv-arrow-down {
+          display: block !important;
+        }
         .srv-grid {
           grid-template-columns: 1fr;
         }
@@ -1875,18 +1896,40 @@
             ></span>
             <span class="glow-shine" aria-hidden="true"></span>
             Descoperă soluțiile
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+              style="width: 18px; height: 18px; flex-shrink: 0"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </a>
         </div>
 
         <!-- Discover CTA — mobile only, above cards -->
-        <a href="servicii.html" class="btn-ghost hero-discover-mobile" style="display:none">
+        <a
+          href="servicii.html"
+          class="btn-ghost hero-discover-mobile"
+          style="display: none"
+        >
           <span class="glow-lines" aria-hidden="true"
             ><svg><rect width="100%" height="100%" rx="8" ry="8" /></svg
           ></span>
           <span class="glow-shine" aria-hidden="true"></span>
           Descoperă soluțiile
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+            style="width: 18px; height: 18px; flex-shrink: 0"
+          >
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
         </a>
 
         <!-- ════ DESKTOP FAN ════ -->
@@ -2188,8 +2231,28 @@
             ></span>
             <span class="glow-shine" aria-hidden="true"></span>
             Descoperă soluțiile noastre
-            <svg class="srv-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            <svg class="srv-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:18px;height:18px;flex-shrink:0;display:none"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            <svg
+              class="srv-arrow-right"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+              style="width: 18px; height: 18px; flex-shrink: 0"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+            <svg
+              class="srv-arrow-down"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+              style="width: 18px; height: 18px; flex-shrink: 0; display: none"
+            >
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
           </a>
         </div>
         <div class="srv-grid">
@@ -2209,7 +2272,7 @@
                 managementul securității.
               </p>
               <span class="srv-card-cta"
-                >Află mai multe
+                ><span class="srv-card-cta-text">Află mai multe</span>
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7" /></svg
               ></span>
@@ -2235,7 +2298,7 @@
                 date.
               </p>
               <span class="srv-card-cta"
-                >Află mai multe
+                ><span class="srv-card-cta-text">Află mai multe</span>
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7" /></svg
               ></span>
@@ -2258,7 +2321,7 @@
                 alarma de incendiu.
               </p>
               <span class="srv-card-cta"
-                >Află mai multe
+                ><span class="srv-card-cta-text">Află mai multe</span>
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7" /></svg
               ></span>
@@ -2284,7 +2347,7 @@
                 instrumentele și resursele care vă fac munca mai ușoară.
               </p>
               <span class="srv-card-cta"
-                >Află mai multe
+                ><span class="srv-card-cta-text">Află mai multe</span>
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7" /></svg
               ></span>
@@ -2651,32 +2714,30 @@
 
       <!-- ══════════ CTA FINAL ══════════ -->
       <section class="section cta-section">
-        <canvas class="pixel-snow-bg" aria-hidden="true" data-opts='{"color":"#0c70dc","flakeSize":0.01,"minFlakeSize":1.25,"pixelResolution":180,"speed":1.1,"density":0.65,"direction":125,"brightness":0.85,"depthFade":11,"farPlane":30,"gamma":0.4545}'></canvas>
+        <canvas class="magic-rings-bg" aria-hidden="true"></canvas>
         <div class="cta-glow" aria-hidden="true"></div>
-        <div class="cta-inner">
-          <span class="section-label reveal">Contactează-ne</span>
-          <h2 class="cta-title reveal">
-            Ai nevoie de o infrastructură<br />care chiar <em>funcționează?</em>
-          </h2>
-          <p class="cta-text reveal">
-            Discută cu noi și găsim soluția potrivită pentru business-ul tău.
-          </p>
-          <div class="cta-actions reveal">
-            <a href="contact.html" class="btn-main">
-              <span class="glow-lines" aria-hidden="true"
-                ><svg><rect width="100%" height="100%" rx="8" ry="8" /></svg
-              ></span>
-              <span class="glow-shine" aria-hidden="true"></span>
-              Solicită ofertă
-            </a>
-            <a href="contact.html" class="btn-ghost">
-              <span class="glow-lines" aria-hidden="true"
-                ><svg><rect width="100%" height="100%" rx="8" ry="8" /></svg
-              ></span>
-              <span class="glow-shine" aria-hidden="true"></span>
-              Contactează-ne
-            </a>
-          </div>
+        <span class="section-label reveal">Contactează-ne</span>
+        <h2 class="cta-title reveal">
+          Ai nevoie de o infrastructură<br />care chiar <em>funcționează?</em>
+        </h2>
+        <p class="cta-text reveal">
+          Discută cu noi și găsim soluția potrivită pentru business-ul tău.
+        </p>
+        <div class="cta-actions reveal">
+          <a href="contact.html" class="btn-main">
+            <span class="glow-lines" aria-hidden="true"
+              ><svg><rect width="100%" height="100%" rx="8" ry="8" /></svg
+            ></span>
+            <span class="glow-shine" aria-hidden="true"></span>
+            Solicită ofertă
+          </a>
+          <a href="contact.html" class="btn-ghost">
+            <span class="glow-lines" aria-hidden="true"
+              ><svg><rect width="100%" height="100%" rx="8" ry="8" /></svg
+            ></span>
+            <span class="glow-shine" aria-hidden="true"></span>
+            Contactează-ne
+          </a>
         </div>
       </section>
     </main>
@@ -2702,11 +2763,17 @@
               itemprop="address"
               itemscope
               itemtype="https://schema.org/PostalAddress"
-            >
-              <span itemprop="streetAddress">Str. Avram Iancu, 23</span>,
-              <span itemprop="addressLocality">Bacău</span><br />
+              ><a
+                href="https://maps.app.goo.gl/zA3uR4rgbaewhGq3A"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-contact-link"
+                style="color: inherit; text-decoration: none"
+                ><span itemprop="streetAddress">Str. Avram Iancu nr. 23</span>,
+                <span itemprop="addressLocality">Bacău</span></a
+              ><br />
               Cod Poștal: <span itemprop="postalCode">600260</span>,
-              <span itemprop="addressCountry">Romania</span> </span
+              <span itemprop="addressCountry">Romania</span></span
             ><br />
             <br />
             Program: Luni – Vineri:
@@ -2721,12 +2788,14 @@
             <a
               href="tel:+40722474455"
               itemprop="telephone"
+              class="footer-contact-link"
               style="color: inherit; text-decoration: none"
               >+40 722 474 455</a
             ><br />
             <a
               href="mailto:info@integrasys.ro"
               itemprop="email"
+              class="footer-contact-link"
               style="color: inherit; text-decoration: none"
               >info@integrasys.ro</a
             >
@@ -3098,7 +3167,9 @@
           if (!grid) return;
           const cards = Array.from(grid.querySelectorAll(".proj-card"));
           ensureSpotlights(cards);
-          grid.addEventListener("mousemove", (e) => { activateTracking(cards, e); });
+          grid.addEventListener("mousemove", (e) => {
+            activateTracking(cards, e);
+          });
           grid.addEventListener("mouseleave", resetProj);
         }
 
@@ -3107,7 +3178,9 @@
           if (!grid) return;
           const cards = Array.from(grid.querySelectorAll(".srv-card"));
           ensureSpotlights(cards);
-          grid.addEventListener("mousemove", (e) => { activateTracking(cards, e); });
+          grid.addEventListener("mousemove", (e) => {
+            activateTracking(cards, e);
+          });
           grid.addEventListener("mouseleave", resetSrv);
         }
 
@@ -3134,9 +3207,11 @@
           card._touchBound = true;
           ensureTouchBorder(card);
           function applyTouch(e) {
-            const t = e.touches[0]; if (!t) return;
+            const t = e.touches[0];
+            if (!t) return;
             const r = card.getBoundingClientRect();
-            const rx = t.clientX - r.left, ry = t.clientY - r.top;
+            const rx = t.clientX - r.left,
+              ry = t.clientY - r.top;
             const px = ((rx / r.width) * 100).toFixed(1) + "%";
             const py = ((ry / r.height) * 100).toFixed(1) + "%";
             const el = card.querySelector(".t-border-glow");
@@ -3145,7 +3220,11 @@
               el.style.opacity = "1";
             }
             const sp = card.querySelector(".bento-spotlight");
-            if (sp) { sp.style.left = rx+"px"; sp.style.top = ry+"px"; sp.style.opacity = "1"; }
+            if (sp) {
+              sp.style.left = rx + "px";
+              sp.style.top = ry + "px";
+              sp.style.opacity = "1";
+            }
           }
           function clearTouch() {
             const el = card.querySelector(".t-border-glow");
@@ -3160,11 +3239,12 @@
         }
 
         function bindAllTouchCards() {
-          document.querySelectorAll(
-            ".card-mobile-row, .card-flat, .fan-wrap .card, .proj-card, .srv-card"
-          ).forEach(bindTouchCard);
+          document
+            .querySelectorAll(
+              ".card-mobile-row, .card-flat, .fan-wrap .card, .proj-card, .srv-card",
+            )
+            .forEach(bindTouchCard);
         }
-
 
         if (document.readyState === "loading")
           document.addEventListener("DOMContentLoaded", () => {
@@ -3488,6 +3568,6 @@
         if (e.target.tagName === "IMG") e.preventDefault();
       });
     </script>
-    <script src="pixel-snow.js" defer></script>
+    <script src="magic-rings.js" defer></script>
   </body>
 </html>

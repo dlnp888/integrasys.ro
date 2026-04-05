@@ -523,8 +523,6 @@
 
 /* ── CTA FINAL ── */
 .srv-cta { text-align: center; position: relative; }
-.pixel-snow-bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
-.srv-cta-inner { position: relative; z-index: 1; }
 .srv-cta-glow {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
@@ -583,6 +581,13 @@
   .srv-phone         { width: 72px; height: 130px; }
   .srv-ecom-stats    { grid-template-columns: repeat(2, 1fr); }
   .srv-cta-actions   { flex-direction: column; align-items: stretch; }
+}
+/* Arrow slide animation on btn-ghost buttons */
+.btn-ghost svg {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.btn-ghost:hover svg {
+  transform: translateX(4px);
 }
 </style>
 </head>
@@ -645,7 +650,7 @@
         <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
         <span class="glow-shine" aria-hidden="true"></span>
         Explorează serviciile
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
     </div>
   </div>
@@ -891,25 +896,22 @@
 
 <!-- ══════════ CTA FINAL ══════════ -->
 <section class="section srv-cta">
-  <canvas class="pixel-snow-bg" aria-hidden="true" data-opts='{"color":"#0c70dc","flakeSize":0.01,"minFlakeSize":1.25,"pixelResolution":180,"speed":1.1,"density":0.65,"direction":125,"brightness":0.85,"depthFade":11,"farPlane":30,"gamma":0.4545}'></canvas>
+  <canvas class="magic-rings-bg" aria-hidden="true"></canvas>
   <div class="srv-cta-glow" aria-hidden="true"></div>
-  <div class="srv-cta-border" aria-hidden="true"></div>
-  <div class="srv-cta-inner">
-    <span class="section-label reveal">Contactează-ne</span>
-    <h2 class="srv-cta-title reveal">Ai nevoie de o soluție tehnică<br><em>bine pusă la punct?</em></h2>
-    <p class="srv-cta-text reveal">Discută cu noi și îți propunem varianta potrivită pentru infrastructura ta.</p>
-    <div class="srv-cta-actions reveal">
-      <a href="contact.html" class="btn-main">
-        <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
-        <span class="glow-shine" aria-hidden="true"></span>
-        Solicită ofertă
-      </a>
-      <a href="contact.html" class="btn-ghost">
-        <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
-        <span class="glow-shine" aria-hidden="true"></span>
-        Programează o discuție
-      </a>
-    </div>
+  <span class="section-label reveal">Contactează-ne</span>
+  <h2 class="srv-cta-title reveal">Ai nevoie de o soluție tehnică<br><em>bine pusă la punct?</em></h2>
+  <p class="srv-cta-text reveal">Discută cu noi și îți propunem varianta potrivită pentru infrastructura ta.</p>
+  <div class="srv-cta-actions reveal">
+    <a href="contact.html" class="btn-main">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Solicită ofertă
+    </a>
+    <a href="contact.html" class="btn-ghost">
+      <span class="glow-lines" aria-hidden="true"><svg><rect width="100%" height="100%" rx="8" ry="8"/></svg></span>
+      <span class="glow-shine" aria-hidden="true"></span>
+      Programează o discuție
+    </a>
   </div>
 </section>
 
@@ -921,16 +923,15 @@
     <div class="footer-brand">
       <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
       <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
-        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"><a href="https://maps.app.goo.gl/zA3uR4rgbaewhGq3A" target="_blank" rel="noopener noreferrer" class="footer-contact-link" style="color:inherit; text-decoration:none;"><span itemprop="streetAddress">Str. Avram Iancu nr. 23</span>, <span itemprop="addressLocality">Bacău</span></a><br />
           Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
         </span><br />
         <br />
         Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
         Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br />
         <br />
-        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
-        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+        <a href="tel:+40722474455" itemprop="telephone" class="footer-contact-link" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" class="footer-contact-link" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
       </address>
       <div class="footer-social">
         <a href="#" class="footer-social-link" aria-label="LinkedIn">
@@ -1090,7 +1091,7 @@
   });
 })();
 </script>
-<script src="pixel-snow.js" defer></script>
+<script src="magic-rings.js" defer></script>
 
 </body>
 </html>

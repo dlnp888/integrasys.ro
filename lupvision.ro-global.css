@@ -780,7 +780,7 @@ header {
   height: 116px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
-  background: transparent;
+  background: rgba(2, 6, 16, 0);
   border-bottom: none;
   transition: background var(--transition-fx), backdrop-filter var(--transition-fx), border-color var(--transition-fx);
 }
@@ -993,6 +993,17 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
    12. FOOTER — global component
    ============================================================ */
 
+/* ── Magic Rings canvas — shared across CTA sections ── */
+.magic-rings-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .site-footer {
   position: relative;
   z-index: 10;
@@ -1064,7 +1075,7 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
   display: contents;
 }
 
-.footer-nav-col { display: flex; flex-direction: column; gap: 10px; }
+.footer-nav-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 
 .footer-nav-title {
   font-family: var(--font-mono);
@@ -1083,6 +1094,23 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
 .footer-nav-col a:hover { color: var(--text); }
 .footer-nav-col--legal a { text-transform: none; }
 
+.footer-contact-link {
+  position: relative;
+}
+.footer-contact-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #fff;
+  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.footer-contact-link:hover::after {
+  width: 100%;
+}
+
 /* Bottom bar */
 .footer-bottom {
   padding: var(--space-4) max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
@@ -1092,8 +1120,8 @@ nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
 }
 
 .footer-copy {
-  font-family: var(--font-mono); font-size: var(--text-xs);
-  color: var(--muted); letter-spacing: 0.04em;
+  font-family: var(--font-heading); font-size: 0.75rem;
+  color: var(--muted); letter-spacing: 0.04em; font-weight: 600;
 }
 
 .footer-tagline {

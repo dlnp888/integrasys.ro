@@ -27,13 +27,13 @@
 /* ── Hero compact ── */
 .lgl-hero {
   padding: 160px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) var(--space-7);
-  position: relative; overflow: hidden;
+  position: relative;
 }
 .lgl-hero-glow {
-  position: absolute; top: 0; left: 50%; transform: translate(-50%, -20%);
-  width: 900px; height: 520px; pointer-events: none;
-  background: radial-gradient(ellipse at center,
-    rgba(12, 112, 220, 0.09) 0%, rgba(248, 69, 3, 0.02) 45%, transparent 70%);
+  position: absolute; top: -10%; left: -5%; transform: translate(0, 0);
+  width: 1200px; height: 900px; pointer-events: none; z-index: 0;
+  background: radial-gradient(ellipse at 40% 40%,
+    rgba(12, 112, 220, 0.13) 0%, rgba(12, 112, 220, 0.04) 40%, transparent 70%);
 }
 .lgl-hero-content { position: relative; z-index: 1; }
 .lgl-eyebrow {
@@ -60,10 +60,11 @@
   animation: rise 0.7s ease 0.20s both;
 }
 .lgl-hero-sep {
-  height: 1px; margin-top: var(--space-6);
+  height: 1px;
   background: linear-gradient(90deg,
-    rgba(232,237,245,0.12) 0%,
-    rgba(232,237,245,0.04) 60%,
+    transparent 0%,
+    rgba(232,237,245,0.18) 15%,
+    rgba(232,237,245,0.18) 85%,
     transparent 100%);
 }
 
@@ -127,7 +128,8 @@
   border-radius: var(--radius-md);
   display: flex; flex-direction: column; gap: 6px;
 }
-.lgl-toc-inner .lgl-toc-link { border-left: none; padding-left: 0; }
+.lgl-toc-inner .lgl-toc-link { border-left: none; padding-left: 8px; padding-right: 8px; margin-left: -8px; margin-right: -8px; border-radius: var(--radius-sm); }
+.lgl-toc-inner .lgl-toc-link:hover { background: rgba(255,255,255,0.04); }
 
 /* ── Content ── */
 .lgl-content { min-width: 0; }
@@ -142,8 +144,8 @@
 
 .lgl-num {
   display: block; margin-bottom: 8px;
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--font-heading); font-size: 1rem;
+  color: var(--accent); letter-spacing: 0.04em; font-weight: 600;
 }
 
 .lgl-section h2 {
@@ -299,10 +301,10 @@ strong { color: var(--text); font-weight: var(--weight-semibold); }
   <div class="lgl-hero-content">
     <span class="lgl-eyebrow">Legal</span>
     <h1>Politică de confidențialitate</h1>
-    <p class="lgl-meta">Ultima actualizare: 02 aprilie 2026 &nbsp;·&nbsp; Versiunea 1.0</p>
-    <div class="lgl-hero-sep"></div>
+    <p class="lgl-meta">Ultima actualizare: 02 aprilie 2026</p>
   </div>
 </div>
+<div class="lgl-hero-sep"></div>
 
 <!-- ══════════ BODY ══════════ -->
 <div class="lgl-outer">
@@ -613,14 +615,13 @@ strong { color: var(--text); font-weight: var(--weight-semibold); }
     <div class="footer-brand">
       <a class="footer-logo" href="index.html"><img src="brand_assets/IntegraSys%20-%20logo.png" alt="Integrasys" width="122" height="56"></a>
       <address class="footer-desc" style="font-style:normal; line-height:1.7;" itemscope itemtype="https://schema.org/LocalBusiness">
-        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-          <span itemprop="streetAddress">Str. Avram Iancu, 23</span>, <span itemprop="addressLocality">Bacău</span><br />
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"><a href="https://maps.app.goo.gl/zA3uR4rgbaewhGq3A" target="_blank" rel="noopener noreferrer" class="footer-contact-link" style="color:inherit; text-decoration:none;"><span itemprop="streetAddress">Str. Avram Iancu nr. 23</span>, <span itemprop="addressLocality">Bacău</span></a><br />
           Cod Poștal: <span itemprop="postalCode">600260</span>, <span itemprop="addressCountry">Romania</span>
         </span><br /><br />
         Program: Luni – Vineri: <span itemprop="openingHours" content="Mo-Fr 09:00-17:00">9:00–17:00</span><br />
         Sâmbătă: <span itemprop="openingHours" content="Sa 09:00-14:30">9:00–14:30</span><br /><br />
-        <a href="tel:+40722474455" itemprop="telephone" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
-        <a href="mailto:info@integrasys.ro" itemprop="email" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
+        <a href="tel:+40722474455" itemprop="telephone" class="footer-contact-link" style="color:inherit; text-decoration:none;">+40 722 474 455</a><br />
+        <a href="mailto:info@integrasys.ro" itemprop="email" class="footer-contact-link" style="color:inherit; text-decoration:none;">info@integrasys.ro</a>
       </address>
       <div class="footer-social">
         <a href="#" class="footer-social-link" aria-label="LinkedIn">
