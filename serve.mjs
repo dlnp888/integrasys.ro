@@ -1,4 +1,4 @@
-// serve.mjs — server local simplu pentru proiecte LupVision
+// serve.mjs — server local simplu pentru proiecte Integrasys
 // Rulează din folderul proiectului: node ../../"Flux de lucru"/serve.mjs
 // Sau copiază în folderul proiectului și rulează: node serve.mjs
 // Servește fișierele din directorul curent la http://localhost:3000

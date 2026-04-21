@@ -1,5 +1,5 @@
 /* ============================================================
-   LUPVISION.RO — GLOBAL JS
+   INTEGRASYS.RO — GLOBAL JS
    Referențiat în toate paginile înainte de </body>
    ============================================================ */
 
@@ -183,7 +183,7 @@
 
 /* ============================================================
    6. DARK VEIL — vanilla WebGL CPPN shader
-   Paleta LupVision aplicată prin lupPalette() în fragment shader
+   Paleta Integrasys aplicată prin lupPalette() în fragment shader
    ============================================================ */
 (function () {
   var VERT = [
