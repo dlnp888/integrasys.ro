@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#030812" />
   <title>Servicii — Integrasys | IT &amp; Telecom</title>
   <meta name="description" content="Descoperă serviciile Integrasys: infrastructură rețele, supraveghere video, suport IT, consultanță tehnică și integrare sisteme pentru companii." />
   <link rel="canonical" href="https://integrasys.ro/servicii.html" />
@@ -89,23 +90,8 @@
 
 /* ── QUICK NAV ── */
 .srv-quicknav-wrap {
-  position: sticky;
-  top: 116px;
-  z-index: 90;
-  background: rgba(3, 8, 18, 0.85);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  position: static;
   transition: box-shadow 0.3s ease;
-}
-.srv-quicknav-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(248,69,3,0.35) 20%, rgba(248,69,3,0.35) 80%, transparent 100%);
-}
-.srv-quicknav-wrap.is-stuck {
-  box-shadow: 0 4px 32px rgba(0,0,0,0.45);
 }
 .srv-quicknav {
   padding: 27px max(var(--container-pad), calc((100vw - var(--container-max)) / 2)) 28px;
@@ -122,14 +108,6 @@
   background: rgba(255,255,255,0.025);
   transition: color var(--transition-ui), border-color var(--transition-ui), background var(--transition-ui);
   white-space: nowrap;
-}
-.srv-qlink:hover {
-  color: var(--text); border-color: rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.06);
-}
-.srv-qlink.is-active {
-  color: var(--accent); border-color: rgba(248,69,3,0.35);
-  background: rgba(248,69,3,0.07);
 }
 
 /* ── SERVICE DETAIL SECTIONS ── */
@@ -561,20 +539,15 @@
   .faq-body    { grid-template-columns: 1fr; gap: var(--space-7); }
   .faq-left    { position: static; }
   .srv-quicknav-wrap {
-    position: sticky;
-    top: 116px;
-    z-index: 90;
-    background: rgba(3, 8, 18, 0.85);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    position: static;
   }
 }
 @media (max-width: 767px) {
-  .srv-quicknav-wrap { top: 100px; }
   .srv-qlink { white-space: normal; text-align: left; }
   .srv-img-panel { min-height: 220px; }
   .srv-hero          { padding: 146px var(--container-pad) var(--space-7); min-height: auto; }
   .srv-hero-actions  { flex-direction: column; align-items: stretch; }
+  .srv-visual-panel  { padding: var(--space-3); min-height: auto; }
 
   .srv-scores        { grid-template-columns: repeat(2, 1fr); }
   .srv-apps-display  { flex-direction: column; gap: var(--space-3); }
@@ -691,7 +664,7 @@
     </div>
 
     <div class="srv-img-panel reveal">
-      <img src="images/Servicii/servicii-it.webp" alt="Servicii IT" loading="lazy" />
+      <img src="images/Servicii/servicii-it.webp" alt="Servicii IT" loading="lazy" decoding="async" />
     </div>
 
   </div>
@@ -715,7 +688,7 @@
     </div>
 
     <div class="srv-img-panel reveal">
-      <img src="images/Servicii/infrastructura-retelei.webp" alt="Infrastructura rețelei" loading="lazy" />
+      <img src="images/Servicii/infrastructura-retelei.webp" alt="Infrastructura rețelei" loading="lazy" decoding="async" />
     </div>
 
   </div>
@@ -740,7 +713,7 @@
     </div>
 
     <div class="srv-img-panel reveal">
-      <img src="images/Servicii/securitate-video.webp" alt="Securitate video și control acces" loading="lazy" />
+      <img src="images/Servicii/securitate-video.webp" alt="Securitate video și control acces" loading="lazy" decoding="async" />
     </div>
 
   </div>
@@ -764,7 +737,7 @@
     </div>
 
     <div class="srv-img-panel reveal">
-      <img src="images/Servicii/sisteme-videoconferinta.jpg" alt="Sisteme de videoconferință" loading="lazy" />
+      <img src="images/Servicii/sisteme-videoconferinta.jpg" alt="Sisteme de videoconferință" loading="lazy" decoding="async" />
     </div>
 
   </div>
@@ -1011,55 +984,6 @@
 })();
 
 /* ── Sticky quicknav + scroll spy ── */
-(function () {
-  var wrap   = document.getElementById('srv-quicknav-wrap');
-  var links  = document.querySelectorAll('.srv-qlink[data-target]');
-  var sectionIds = ['servicii-it', 'infrastructura-retea', 'securitate-video', 'sisteme-videoconferinta', 'plan-implementare'];
-
-  var sections = sectionIds.map(function(id) {
-    var el = document.getElementById(id);
-    return el ? { id: id, el: el } : null;
-  }).filter(Boolean);
-
-  /* Sticky shadow */
-  var sentinel = document.createElement('div');
-  sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
-  wrap.parentNode.insertBefore(sentinel, wrap);
-
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      wrap.classList.toggle('is-stuck', !e.isIntersecting);
-    });
-  }, { threshold: [1] });
-  io.observe(wrap);
-
-  /* Scroll spy */
-  function setActive(id) {
-    links.forEach(function(l) {
-      l.classList.toggle('is-active', l.dataset.target === id);
-    });
-  }
-
-  function onScroll() {
-    var mid = window.innerHeight / 2;
-    var active = null;
-    for (var i = sections.length - 1; i >= 0; i--) {
-      var rect = sections[i].el.getBoundingClientRect();
-      if (rect.top <= mid) { active = sections[i].id; break; }
-    }
-    setActive(active);
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* Click — set active immediately */
-  links.forEach(function(l) {
-    l.addEventListener('click', function() {
-      setActive(l.dataset.target);
-    });
-  });
-})();
 
 /* ── FAQ Accordion ── */
 (function () {

@@ -6,31 +6,40 @@
 "use strict";
 
 /* ============================================================
-   0. SCROLL PROGRESS BAR
+   0+1+5. SCROLL UNIFIED — progress bar, header, parallax glow
+   Un singur listener + RAF pentru a evita reflow multiplu
    ============================================================ */
 (function () {
   var bar = document.getElementById("scroll-progress");
-  if (!bar) return;
-  window.addEventListener(
-    "scroll",
-    function () {
+  var hdr = document.querySelector("header");
+  var glow = document.querySelector(".hero-glow");
+
+  var rafId = null;
+  var lastScrollY = -1;
+
+  function onScrollFrame() {
+    var sy = window.scrollY;
+    if (sy === lastScrollY) { rafId = null; return; }
+    lastScrollY = sy;
+
+    if (bar) {
       var total = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + "%";
-    },
-    { passive: true },
-  );
-})();
+      bar.style.width = (total > 0 ? (sy / total) * 100 : 0) + "%";
+    }
+    if (hdr) {
+      hdr.classList.toggle("scrolled", sy > 20);
+    }
+    if (glow) {
+      glow.style.transform = "translate(-50%, calc(-50% + " + (sy * 0.1) + "px))";
+    }
+    rafId = null;
+  }
 
-/* ============================================================
-   1. HEADER — transparent → frosted glass on scroll
-   ============================================================ */
-(function () {
-  const hdr = document.querySelector("header");
-  if (!hdr) return;
+  window.addEventListener("scroll", function () {
+    if (!rafId) rafId = requestAnimationFrame(onScrollFrame);
+  }, { passive: true });
 
-  const update = () => hdr.classList.toggle("scrolled", window.scrollY > 20);
-  window.addEventListener("scroll", update, { passive: true });
-  update();
+  onScrollFrame();
 })();
 
 /* ============================================================
@@ -159,19 +168,17 @@
 })();
 
 /* ============================================================
-   5. PARALLAX HERO GLOW
+   5. ANIMAȚII VIEWPORT — shine-word și butoane active când sunt vizibile
    ============================================================ */
 (function () {
-  const glow = document.querySelector(".hero-glow");
-  if (!glow) return;
+  if (typeof IntersectionObserver === "undefined") return;
 
-  window.addEventListener(
-    "scroll",
-    () => {
-      glow.style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.1}px))`;
-    },
-    { passive: true },
+  const obs = new IntersectionObserver(
+    (entries) => entries.forEach((e) => e.target.classList.toggle("in-view", e.isIntersecting)),
+    { threshold: 0.1 },
   );
+
+  document.querySelectorAll(".shine-word, .btn-main, .btn-ghost, .nav-cta").forEach((el) => obs.observe(el));
 })();
 
 /* ============================================================
@@ -321,9 +328,25 @@
     setSize();
 
     var start = performance.now(),
-      raf = null;
+      raf = null,
+      lastT = 0,
+      isVisible = true;
+
+    if (typeof IntersectionObserver !== "undefined") {
+      var io = new IntersectionObserver(function (entries) {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible && !raf) {
+          start = performance.now() - lastT * 1000 / speed;
+          raf = requestAnimationFrame(loop);
+        }
+      }, { threshold: 0 });
+      io.observe(container);
+    }
+
     function loop(t) {
-      gl.uniform1f(uTime, ((t - start) / 1000) * speed);
+      if (!isVisible) { raf = null; return; }
+      lastT = ((t - start) / 1000) * speed;
+      gl.uniform1f(uTime, lastT);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       raf = requestAnimationFrame(loop);
     }
@@ -353,9 +376,6 @@
       },
       { threshold: 0.01 },
     ).observe(heroEl);
-    setTimeout(function () {
-      if (!heroApp) heroApp = initDarkVeil(heroEl);
-    }, 80);
   }
 
   /* Drawer lazy init */

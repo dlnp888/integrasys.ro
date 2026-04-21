@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"loading=\" c:\\\\\\\\Projects\\\\\\\\agentie\\\\\\\\integrasys.ro\\\\\\\\index.html)",
+      "Bash(grep -n \"decoding=\" c:\\\\\\\\Projects\\\\\\\\agentie\\\\\\\\integrasys.ro\\\\\\\\index.html)",
+      "Bash(grep -cn \"<img\" c:\\\\\\\\Projects\\\\\\\\agentie\\\\\\\\integrasys.ro\\\\\\\\index.html c:\\\\\\\\Projects\\\\\\\\agentie\\\\\\\\integrasys.ro\\\\\\\\servicii.html c:\\\\\\\\Projects\\\\\\\\agentie\\\\\\\\integrasys.ro\\\\\\\\proiecte.html c:\\\\\\\\Projects\\\\\\\\agentie\\\\\\\\integrasys.ro\\\\\\\\contact.html)"
+    ]
+  }
+}
